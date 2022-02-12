@@ -2,6 +2,7 @@
 #define DETAILS_H
 
 #include <QDialog>
+//#include "virtuallifemodel.h"
 
 namespace Ui {
 class Details;
@@ -14,9 +15,9 @@ class Details : public QDialog
 public:
     explicit Details(QWidget *parent = nullptr);
     ~Details();
-
 private:
     Ui::Details *ui;
+//    VirtualLifeModel* model;
 };
 
 #endif // DETAILS_H

@@ -16,6 +16,8 @@ private:
     int age;
     int wealth;
     QString gender;
+    QVector<QString> relationships;
+    QVector<QString> assets;
 
 public:
     explicit Character(QObject *parent = nullptr);
@@ -36,6 +38,8 @@ public:
     QString getGender();
     void setGender(QString &value);
     bool hasEnoughMoney(int value);
+    QVector<QString> getRelationships();
+    QVector<QString> getAssets();
 
 signals:
 

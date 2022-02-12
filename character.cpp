@@ -93,5 +93,15 @@ void Character::setGender(QString &value)
 }
 bool Character::hasEnoughMoney(int value)
 {
- return value<=wealth;
+    return value<=wealth;
+}
+
+QVector<QString> Character::getRelationships()
+{
+    return relationships;
+}
+
+QVector<QString> Character::getAssets()
+{
+    return assets;
 }

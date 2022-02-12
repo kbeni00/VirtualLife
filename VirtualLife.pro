@@ -9,24 +9,33 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    actions.cpp \
+    assets.cpp \
     character.cpp \
     details.cpp \
     initialdata.cpp \
     main.cpp \
+    relationships.cpp \
     virtuallifemodel.cpp \
-    virutallifeview.cpp
+    virtuallifeview.cpp
 
 HEADERS += \
+    actions.h \
+    assets.h \
     character.h \
     details.h \
     initialdata.h \
+    relationships.h \
     virtuallifemodel.h \
-    virutallifeview.h
+    virtuallifeview.h
 
 FORMS += \
+    actions.ui \
+    assets.ui \
     details.ui \
     initialdata.ui \
-    virutallifeview.ui
+    relationships.ui \
+    virtuallifeview.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
