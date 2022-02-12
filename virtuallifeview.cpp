@@ -63,6 +63,13 @@ void VirtualLifeView::on__start_clicked()
         ui->_loadgame->setEnabled(true);
         ui->_relationships->setEnabled(true);
         ui->_savegame->setEnabled(true);
+        if(model->getCharacter()->getGender() == "Male"){
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png"));
+        } else{
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png"));
+
+        }
+
     }
 
 }
@@ -93,5 +100,13 @@ void VirtualLifeView::on__details_clicked()
 //    details->show();
 //    details->exec();
 
+}
+
+
+void VirtualLifeView::on__actions_clicked()
+{
+    actions = new Actions();
+    actions->show();
+    actions->exec();
 }
 

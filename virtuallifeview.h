@@ -5,6 +5,7 @@
 #include "virtuallifemodel.h"
 #include "initialdata.h"
 #include "details.h"
+#include "actions.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class VirtualLifeView; }
@@ -27,10 +28,13 @@ private slots:
 
     void on__details_clicked();
 
+    void on__actions_clicked();
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;
     Details* details;
+    Actions* actions;
     VirtualLifeModel* model;
 };
 #endif // VIRTUALLIFEVIEW_H

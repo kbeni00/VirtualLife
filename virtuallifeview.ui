@@ -401,8 +401,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>280</y>
+      <x>490</x>
+      <y>270</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -414,14 +414,14 @@
    <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>120</y>
+      <x>140</x>
+      <y>130</y>
       <width>118</width>
       <height>23</height>
      </rect>
     </property>
     <property name="value">
-     <number>24</number>
+     <number>0</number>
     </property>
    </widget>
   </widget>
