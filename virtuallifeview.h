@@ -6,6 +6,8 @@
 #include "initialdata.h"
 #include "details.h"
 #include "actions.h"
+#include "relationships.h"
+#include "assets.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class VirtualLifeView; }
@@ -19,7 +21,6 @@ public:
     VirtualLifeView(QWidget *parent = nullptr);
     ~VirtualLifeView();
     void updateCharacter();
-    void changeImage();
 
 private slots:
     void on__start_clicked();
@@ -30,11 +31,17 @@ private slots:
 
     void on__actions_clicked();
 
+    void on__relationships_clicked();
+
+    void on__assets_clicked();
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;
     Details* details;
     Actions* actions;
+    Relationships* relationships;
+    Assets* assets;
     VirtualLifeModel* model;
 };
 #endif // VIRTUALLIFEVIEW_H

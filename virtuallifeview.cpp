@@ -8,7 +8,6 @@ VirtualLifeView::VirtualLifeView(QWidget *parent)
 {
     ui->setupUi(this);
     model = new VirtualLifeModel();
-    updateCharacter();
 }
 
 VirtualLifeView::~VirtualLifeView()
@@ -26,11 +25,6 @@ void VirtualLifeView::updateCharacter()
     ui->nameval->setText(model->getCharacter()->getName());
     ui->stageval->setText(model->getCharacter()->getStage());
     ui->genderval->setText(model->getCharacter()->getGender());
-}
-
-void VirtualLifeView::changeImage()
-{
-//switch case a karakter életkorára, QImage v vmi hasonló privát adattagként
 }
 
 void VirtualLifeView::on__start_clicked()
@@ -51,9 +45,10 @@ void VirtualLifeView::on__start_clicked()
         initialData->close();
     } else{
         QString name = initialData->getSelectedName();
-        model->getCharacter()->setName(name);
         QString gender = initialData->getSelectedGender();
+        model->getCharacter()->setName(name);
         model->getCharacter()->setGender(gender);
+        model->initializeData();
         updateCharacter();
         ui->_start->hide();
         ui->_actions->setEnabled(true);
@@ -64,9 +59,9 @@ void VirtualLifeView::on__start_clicked()
         ui->_relationships->setEnabled(true);
         ui->_savegame->setEnabled(true);
         if(model->getCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png"));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png"));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
 
         }
 
@@ -78,7 +73,37 @@ void VirtualLifeView::on__age_clicked()
 {
     model->getCharacter()->setAge(model->getCharacter()->getAge()+1);
     updateCharacter();
-    changeImage();
+    if(model->getCharacter()->getAge() == 6){
+        if(model->getCharacter()->getGender() == "Male"){
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/childboy.png").scaled(830,500,Qt::KeepAspectRatio));
+        } else{
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/childgirl.png").scaled(830,500,Qt::KeepAspectRatio));
+        }
+
+    }
+    else if(model->getCharacter()->getAge() == 13){
+        if(model->getCharacter()->getGender() == "Male"){
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/teenageboy.png").scaled(830,500,Qt::KeepAspectRatio));
+        } else{
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/teenagegirl.png").scaled(830,500,Qt::KeepAspectRatio));
+        }
+    }
+    else if(model->getCharacter()->getAge() == 20){
+        if(model->getCharacter()->getGender() == "Male"){
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/adultmale.png").scaled(830,500,Qt::KeepAspectRatio));
+        } else{
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/adultfemale.png").scaled(830,500,Qt::KeepAspectRatio));
+        }
+
+    }
+    else if(model->getCharacter()->getAge() == 50){
+        if(model->getCharacter()->getGender() == "Male"){
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/elderman.png").scaled(830,500,Qt::KeepAspectRatio));
+        } else{
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/elderwoman.png").scaled(830,500,Qt::KeepAspectRatio));
+        }
+
+    }
     ui->progressBar->setValue(model->getCharacter()->getAge());
 }
 
@@ -87,8 +112,9 @@ void VirtualLifeView::on__details_clicked()
 {
     QMessageBox msg;
     QString details =
-            "Name: " + model->getCharacter()->getName() +
+            " Name: " + model->getCharacter()->getName() +
             "\n Gender: " + model->getCharacter()->getGender() +
+            "\n Stage: " + model->getCharacter()->getStage() +
             "\n Age: " + QString::number(model->getCharacter()->getAge()) +
             "\n Mood: " + QString::number(model->getCharacter()->getMood()) +
             "\n Intelligence: " + QString::number(model->getCharacter()->getIntelligence()) +
@@ -96,10 +122,6 @@ void VirtualLifeView::on__details_clicked()
             "\n Wealth: " + QString::number(model->getCharacter()->getWealth());
     msg.setText(details);
     msg.exec();
-//    details = new Details();
-//    details->show();
-//    details->exec();
-
 }
 
 
@@ -108,5 +130,23 @@ void VirtualLifeView::on__actions_clicked()
     actions = new Actions();
     actions->show();
     actions->exec();
+    model->getCharacter()->setWealth(actions->getLotteryResult());
+    updateCharacter();
+}
+
+
+void VirtualLifeView::on__relationships_clicked()
+{
+    relationships = new Relationships();
+    relationships->show();
+    relationships->exec();
+}
+
+
+void VirtualLifeView::on__assets_clicked()
+{
+    assets = new Assets();
+    assets->show();
+    assets->exec();
 }
 

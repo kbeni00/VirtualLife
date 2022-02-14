@@ -14,6 +14,7 @@ SOURCES += \
     character.cpp \
     details.cpp \
     initialdata.cpp \
+    lottery.cpp \
     main.cpp \
     relationships.cpp \
     virtuallifemodel.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     character.h \
     details.h \
     initialdata.h \
+    lottery.h \
     relationships.h \
     virtuallifemodel.h \
     virtuallifeview.h
@@ -34,6 +36,7 @@ FORMS += \
     assets.ui \
     details.ui \
     initialdata.ui \
+    lottery.ui \
     relationships.ui \
     virtuallifeview.ui
 

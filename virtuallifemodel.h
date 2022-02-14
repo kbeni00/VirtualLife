@@ -15,6 +15,7 @@ public:
     bool isGameOver();
     void performAction();
     Character* getCharacter();
+    void initializeData();
 signals:
 
 };
