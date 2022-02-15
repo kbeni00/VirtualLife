@@ -64,7 +64,6 @@ void VirtualLifeView::on__start_clicked()
             ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
 
         }
-
     }
 
 }
@@ -76,6 +75,7 @@ void VirtualLifeView::on__age_clicked()
     if(model->getCharacter()->getAge() == 6){
         if(model->getCharacter()->getGender() == "Male"){
             ui->presetimage->setPixmap(QPixmap(":/characterImages/childboy.png").scaled(830,500,Qt::KeepAspectRatio));
+            //update stage
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/childgirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
@@ -102,9 +102,7 @@ void VirtualLifeView::on__age_clicked()
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/elderwoman.png").scaled(830,500,Qt::KeepAspectRatio));
         }
-
     }
-    ui->progressBar->setValue(model->getCharacter()->getAge());
 }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!! messagebox formok helyett???, v miért crashel a form !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!, mi az a QAction(s)

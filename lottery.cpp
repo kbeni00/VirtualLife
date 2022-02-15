@@ -35,7 +35,7 @@ int Lottery::getWonAmount()
 void Lottery::numberGuessed()
 {
     QPushButton* senderButton = dynamic_cast <QPushButton*> (QObject::sender());
-    senderButton->setEnabled(false);
+    senderButton->hide();
     guesses.push_back(senderButton->text().toInt());
     if(guesses.size() == 5){
         //show guessed nums, result, price
@@ -69,7 +69,7 @@ void Lottery::numberGuessed()
                                 QString::number(winningNums[1]) + ", " +
                                 QString::number(winningNums[2]) + ", " +
                                 QString::number(winningNums[3]) + ", " +
-                                QString::number(winningNums[4]) + ", " +
+                                QString::number(winningNums[4]) +
                                 "\n Your score: " +
                                 QString::number(correctlyGuessedNums) +
                                 "\\" +

@@ -10,5 +10,7 @@
         <file>adultfemale.png</file>
         <file>elderman.png</file>
         <file>elderwoman.png</file>
+        <file>SyNet.qss</file>
+        <file>SpyBot.qss</file>
     </qresource>
 </RCC>
