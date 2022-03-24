@@ -35,6 +35,10 @@ private slots:
 
     void on__assets_clicked();
 
+    void handleSpaceInvadersEnd();
+
+    void handleMemoryEnd();
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;

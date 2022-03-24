@@ -17,7 +17,7 @@ Lottery::Lottery(QWidget *parent) :
             //do it with i,j instead of num
             QPushButton *button = new QPushButton(QString::number(++num), this);
             ui->gridLayout->addWidget(button,i,j);
-            connect (button, SIGNAL(clicked()), this, SLOT(numberGuessed())) ;
+            connect(button, SIGNAL(clicked()), this, SLOT(numberGuessed()));
         }
     }
 }

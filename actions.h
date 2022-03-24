@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "lottery.h"
+#include "spaceinvaders.h"
+#include "memorycard.h"
 
 namespace Ui {
 class Actions;
@@ -13,9 +15,12 @@ class Actions : public QDialog
     Q_OBJECT
 
 private slots:
-
     void handleEnd();
-
+    void handleSpaceInvadersEnd();
+    void handleMemoryEnd();
+signals:
+    void sigSpaceInvadersEnd();
+    void sigMemoryEnd();
 public:
     explicit Actions(QWidget *parent = nullptr);
     ~Actions();
@@ -23,9 +28,11 @@ public:
     int getLotteryResult();
 
 private:
-    Ui::Actions *ui;
     QString selectedAction;
+    Ui::Actions *ui;
     Lottery* lottery;
+    SpaceInvaders* spaceInvaders;
+    MemoryCard* memoryCard;
     int lotteryResult;
 };
 

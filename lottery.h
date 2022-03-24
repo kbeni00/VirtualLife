@@ -2,7 +2,6 @@
 #define LOTTERY_H
 
 #include <QDialog>
-#include "character.h"
 
 namespace Ui {
 class Lottery;
@@ -23,7 +22,6 @@ private:
     QVector<int> guesses;
     QVector<int> winningNums;
     int wonAmount;
-    Character* character;
 private slots:
     void numberGuessed();
 };

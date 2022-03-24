@@ -13,4 +13,27 @@
         <file>SyNet.qss</file>
         <file>SpyBot.qss</file>
     </qresource>
+    <qresource prefix="/spaceinvaders">
+        <file>BlueAlien.png</file>
+        <file>BlueBullet.png</file>
+        <file>BlueCannon.png</file>
+        <file>gameOver.png</file>
+        <file>invader.png</file>
+        <file>mainLogo.png</file>
+        <file>over.png</file>
+        <file>PinkAlien.png</file>
+        <file>PinkBullet.png</file>
+        <file>PinkCannon.png</file>
+        <file>RedAlien.png</file>
+        <file>RedBullet.png</file>
+        <file>RedCannon.png</file>
+        <file>SpaceInvadersBg.jpg</file>
+    </qresource>
+    <qresource prefix="/memorycards">
+        <file>back.jpg</file>
+        <file>car.png</file>
+        <file>house.png</file>
+        <file>plane.png</file>
+        <file>ship.png</file>
+    </qresource>
 </RCC>

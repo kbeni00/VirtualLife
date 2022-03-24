@@ -16,7 +16,10 @@ SOURCES += \
     initialdata.cpp \
     lottery.cpp \
     main.cpp \
+    memorycard.cpp \
     relationships.cpp \
+    spaceinvaders.cpp \
+    spaceinvadersparts.cpp \
     virtuallifemodel.cpp \
     virtuallifeview.cpp
 
@@ -27,7 +30,11 @@ HEADERS += \
     details.h \
     initialdata.h \
     lottery.h \
+    memorycard.h \
     relationships.h \
+    spaceinvaders.h \
+    spaceinvadersparts.h \
+    spaceinvaderssettings.h \
     virtuallifemodel.h \
     virtuallifeview.h
 
@@ -37,6 +44,7 @@ FORMS += \
     details.ui \
     initialdata.ui \
     lottery.ui \
+    memorycard.ui \
     relationships.ui \
     virtuallifeview.ui
 

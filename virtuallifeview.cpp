@@ -128,7 +128,8 @@ void VirtualLifeView::on__actions_clicked()
     actions = new Actions();
     actions->show();
     actions->exec();
-    model->getCharacter()->setWealth(actions->getLotteryResult());
+    connect(actions, &Actions::sigSpaceInvadersEnd, this, &VirtualLifeView::handleSpaceInvadersEnd);
+    connect(actions, &Actions::sigMemoryEnd, this, &VirtualLifeView::handleMemoryEnd);
     updateCharacter();
 }
 
@@ -146,5 +147,17 @@ void VirtualLifeView::on__assets_clicked()
     assets = new Assets();
     assets->show();
     assets->exec();
+}
+
+void VirtualLifeView::handleSpaceInvadersEnd()
+{
+    model->getCharacter()->setWealth(10000);
+    ui->wealthval->setText(QString::number(model->getCharacter()->getWealth()));
+}
+
+void VirtualLifeView::handleMemoryEnd()
+{
+    model->getCharacter()->setWealth(model->getCharacter()->getWealth() + 10000);
+    ui->wealthval->setText(QString::number(model->getCharacter()->getWealth()));
 }
 

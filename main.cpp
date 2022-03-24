@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include "QFile"
+#include <QScreen>
 
 int main(int argc, char *argv[])
 {
@@ -15,5 +16,7 @@ int main(int argc, char *argv[])
 
     VirtualLifeView w;
     w.show();
+
+
     return a.exec();
 }
