@@ -16,10 +16,10 @@ class Actions : public QDialog
 
 private slots:
     void handleEnd();
-    void handleSpaceInvadersEnd();
+    void handleSpaceInvadersEnd(bool);
     void handleMemoryEnd();
 signals:
-    void sigSpaceInvadersEnd();
+    void sigSpaceInvadersEnd(bool);
     void sigMemoryEnd();
 public:
     explicit Actions(QWidget *parent = nullptr);

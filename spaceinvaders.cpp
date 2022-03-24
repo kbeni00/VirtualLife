@@ -1,10 +1,17 @@
 #include "spaceinvaders.h"
 #include "qapplication.h"
+#include "qlabel.h"
+#include "qtextdocument.h"
 #include <QTimer>
 #include <QDebug>
 #include <QMessageBox>
 #include <QTime>
 #include <QEventLoop>
+#include <QColor>
+#include <QPushButton>
+#include <QGraphicsProxyWidget>
+#include <QGroupBox>
+#include <QFormLayout>
 
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
 //TODO: Increased intelligence based on difficulty -> Very easy, easy, medium, hard, impossible
@@ -46,22 +53,16 @@ void SpaceInvaders::run()
     connect(alienTimer, &QTimer::timeout, this, &SpaceInvaders::onCreateEnemy);
 }
 
-void delay(int n)
-{
-    QTime dieTime= QTime::currentTime().addSecs(n);
-    while (QTime::currentTime() < dieTime)
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-}
-
 void SpaceInvaders::checkPoints()
 {
     if(_points->getScore() < 0 || _points->getHealth() <= 0){
         _points->reset();
-        onGameOver();
-    } else if(_points->getScore() >= 10 && _points->getHealth() > 0){
+        onGameOver(false);
+    } else if(_points->getScore() == gScoreToReach && _points->getHealth() > 0){
         _points->reset();
-        onGameOver();
+        onGameOver(true);
     }
+
 }
 
 void SpaceInvaders::keyPressEvent(QKeyEvent *event)
@@ -87,7 +88,6 @@ void SpaceInvaders::onCreateEnemy()
     alien->setPos(pos,0);
 
     scene()->addItem(alien);
-
     connect(alien, &AlienPart::sigGameOver, this, &SpaceInvaders::onGameOver);
     connect(alien, &AlienPart::sigDecreaseHealth, this, &SpaceInvaders::onDecreaseHealth);
 }
@@ -110,13 +110,37 @@ void SpaceInvaders::onDecreaseHealth()
     checkPoints();
 }
 
-void SpaceInvaders::onGameOver()
+void SpaceInvaders::onGameOver(bool wonGame)
 {
-    sigGameOver();
-    delete _cannon;
-    delete _points;
     alienTimer->stop();
     delete alienTimer;
+    delete _cannon;
+    delete _points;
     scene()->clear();
-    close();
+    setCursor(Qt::PointingHandCursor);
+//    QGraphicsTextItem* text = new QGraphicsTextItem();
+//    text->setDefaultTextColor(Qt::red);
+//    text->setFont(QFont("times", 48));
+//    if(wonGame){
+//        text->setPlainText("You won!");
+//    } else{
+//        text->setPlainText("You lost!");
+//    }
+//    text->setPos(width()/2-162,height()/2-100);
+//    scene()->addItem(text);
+    QPushButton* exitButton = new QPushButton("Exit game");
+    connect(exitButton, &QPushButton::clicked ,this, &SpaceInvaders::handleExitButton);
+    QGraphicsProxyWidget* widgetItem = scene()->addWidget(exitButton);
+    widgetItem->setPos(width()/2,height()/2+20);
+    QGroupBox* groupBox = new QGroupBox();
+    QFormLayout* layout = new QFormLayout();
+    layout->addRow(new QLabel("asdasd"));
+    layout->addRow(exitButton);
+    groupBox->setLayout(layout);
+    emit sigGameOver(wonGame);
+}
+
+void SpaceInvaders::handleExitButton()
+{
+    this->close();
 }

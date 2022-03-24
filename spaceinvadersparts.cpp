@@ -37,21 +37,28 @@ void AlienPart::onMove()
 {
     setPos(x(),y() + 5);
 
-    // collidingItems() contains a list of pointers to all items the bullet is colliding with
+    // collidingItems() contains a list of pointers to all items the alien, is colliding with
     QList<QGraphicsItem*> lstCollidingItem = collidingItems();
+
+    bool gameRunning = true;
 
     for(auto const item : lstCollidingItem){
         if(dynamic_cast<CannonPart*>(item)){
-            emit sigGameOver();
+            emit sigGameOver(false);
+            gameRunning = false;
+            break;
 
         }
     }
 
-    if(pos().y() >= (scene()->height() - gCannonSize.height())){
-        scene()->removeItem(this);
-        emit sigDecreaseHealth();
-        qDebug() << "Alien tulment";
-        delete this;
+
+    if(gameRunning){
+        qDebug() << "break utan";
+        if(pos().y() >= (scene()->height() - gCannonSize.height())){
+            scene()->removeItem(this);
+            emit sigDecreaseHealth();
+            delete this;
+        }
     }
 }
 
@@ -104,9 +111,11 @@ PointsPart::PointsPart(QGraphicsItem *parent) : QGraphicsTextItem(parent)
     setFont(QFont("times", 24));
 }
 
-void PointsPart::updateMetrics(int health, int score){
+void PointsPart::updateMetrics(int health, int score)
+{
     setPlainText(QString("Health : ") + QString::number(health) + "\n"
-                 + QString("Score: ") + QString::number(score));
+                 + QString("Score: ") + QString::number(score)
+                 + QString("/") + QString::number(gScoreToReach));
 }
 
 

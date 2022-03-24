@@ -49,9 +49,10 @@ void Actions::handleEnd()
     }
 }
 
-void Actions::handleSpaceInvadersEnd()
+void Actions::handleSpaceInvadersEnd(bool wonGame)
 {
-    emit sigSpaceInvadersEnd();
+    emit sigSpaceInvadersEnd(wonGame);
+    qDebug() << "asd5";
 }
 
 void Actions::handleMemoryEnd()

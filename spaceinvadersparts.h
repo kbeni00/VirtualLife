@@ -30,7 +30,7 @@ class AlienPart : public QObject, public QGraphicsPixmapItem
 public:
     AlienPart(QGraphicsItem *parent = nullptr);
 signals:
-    void sigGameOver();
+    void sigGameOver(bool);
     void sigDecreaseHealth();
 public slots:
     void onMove();

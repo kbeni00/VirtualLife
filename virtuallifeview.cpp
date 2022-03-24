@@ -149,10 +149,12 @@ void VirtualLifeView::on__assets_clicked()
     assets->exec();
 }
 
-void VirtualLifeView::handleSpaceInvadersEnd()
+void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame)
 {
-    model->getCharacter()->setWealth(10000);
-    ui->wealthval->setText(QString::number(model->getCharacter()->getWealth()));
+    if(wonGame){
+        model->getCharacter()->setWealth(model->getCharacter()->getWealth() + 10000);
+        ui->wealthval->setText(QString::number(model->getCharacter()->getWealth()));
+    }
 }
 
 void VirtualLifeView::handleMemoryEnd()

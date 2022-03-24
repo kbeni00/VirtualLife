@@ -35,7 +35,7 @@ private slots:
 
     void on__assets_clicked();
 
-    void handleSpaceInvadersEnd();
+    void handleSpaceInvadersEnd(bool);
 
     void handleMemoryEnd();
 

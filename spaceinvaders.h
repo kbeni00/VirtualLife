@@ -21,13 +21,14 @@ public slots:
     void onIncreaseScore();
     void onDecreaseScore();
     void onDecreaseHealth();
-    void onGameOver();
+    void onGameOver(bool);
+    void handleExitButton();
 signals:
-    void sigGameOver();
+    void sigGameOver(bool);
 private:
+    QSize _screenSize;
     CannonPart* _cannon = nullptr;
     PointsPart* _points = nullptr;
-    QSize _screenSize;
     QTimer* alienTimer = nullptr;
 };
 
