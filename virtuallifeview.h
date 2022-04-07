@@ -46,6 +46,9 @@ private slots:
 
     void on__loadgame_clicked();
 
+    void on_newcharacter_clicked();
+
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;

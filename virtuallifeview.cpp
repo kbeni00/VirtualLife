@@ -4,6 +4,9 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+//TODO: characters instead of details?
+//TODO: load gamenél bekérni h kit akar betölteni
+
 VirtualLifeView::VirtualLifeView(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::VirtualLifeView)
@@ -47,7 +50,14 @@ void VirtualLifeView::changeImage(){
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/childgirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
-
+    }
+    else{
+        if(model->getCurrentCharacter()->getGender() == "Male"){
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
+            //update stage
+        } else{
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
+        }
     }
 }
 
@@ -65,6 +75,7 @@ void VirtualLifeView::updateCharacter()
 
 void VirtualLifeView::on__start_clicked()
 {
+    qDebug() << "asd2";
     initialData = new InitialData();
     initialData->show();
     initialData->exec();
@@ -94,6 +105,7 @@ void VirtualLifeView::on__start_clicked()
         ui->_loadgame->setEnabled(true);
         ui->_relationships->setEnabled(true);
         ui->_savegame->setEnabled(true);
+        ui->newcharacter->setEnabled(true);
         if(model->getCurrentCharacter()->getGender() == "Male"){
             ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
@@ -194,4 +206,16 @@ void VirtualLifeView::on__loadgame_clicked()
     updateCharacter();
     qDebug() << model->getCurrentCharacter()->getAge();
     changeImage();
+}
+
+
+
+void VirtualLifeView::on_newcharacter_clicked()
+{
+    qDebug() << "hello";
+    //ki kelljen tölteni az adatokat egy formban az új emberkéről
+    model->newGame();
+    updateCharacter();
+    qDebug() << "asd";
+    on__start_clicked();
 }
