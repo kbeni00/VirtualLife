@@ -21,6 +21,7 @@ public:
     VirtualLifeView(QWidget *parent = nullptr);
     ~VirtualLifeView();
     void updateCharacter();
+    void changeImage();
 
 private slots:
     void on__start_clicked();
@@ -38,6 +39,12 @@ private slots:
     void handleSpaceInvadersEnd(bool);
 
     void handleMemoryEnd();
+
+    void handlePoliceJobEnd(bool);
+
+    void on__savegame_clicked();
+
+    void on__loadgame_clicked();
 
 private:
     Ui::VirtualLifeView* ui;

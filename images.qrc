@@ -28,6 +28,8 @@
         <file>RedBullet.png</file>
         <file>RedCannon.png</file>
         <file>SpaceInvadersBg.jpg</file>
+        <file>spaceship2.png</file>
+        <file>background.jpg</file>
     </qresource>
     <qresource prefix="/memorycards">
         <file>back.jpg</file>
@@ -35,5 +37,10 @@
         <file>house.png</file>
         <file>plane.png</file>
         <file>ship.png</file>
+    </qresource>
+    <qresource prefix="/policejob">
+        <file>policecar.png</file>
+        <file>robbercar1.png</file>
+        <file>robbercar2.png</file>
     </qresource>
 </RCC>

@@ -5,7 +5,7 @@
 
 CannonPart::CannonPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
-    QPixmap pixmap(":/spaceinvaders/RedCannon.png");
+    QPixmap pixmap(":/spaceinvaders/spaceship2.png");
     setPixmap(pixmap.scaled(QSize(100,100), Qt::KeepAspectRatio));
 }
 
@@ -53,7 +53,6 @@ void AlienPart::onMove()
 
 
     if(gameRunning){
-        qDebug() << "break utan";
         if(pos().y() >= (scene()->height() - gCannonSize.height())){
             scene()->removeItem(this);
             emit sigDecreaseHealth();

@@ -8,14 +8,24 @@ class VirtualLifeModel : public QObject
 {
     Q_OBJECT
 private:
-    Character* character;
+    Character* currentCharacter;
+    QString name;
+    QVector<Character*> characters;
 public:
     explicit VirtualLifeModel(QObject *parent = nullptr);
     void newGame();
     bool isGameOver();
     void performAction();
-    Character* getCharacter();
     void initializeData();
+    Character* getCurrentCharacter();
+    QVector<Character*> getCharacters();
+    void setCharacters(QVector<Character*> &characters);
+    QString getName();
+    void setName(QString);
+    bool loadGame();
+    bool saveGame() const;
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json) const;
 signals:
 
 };

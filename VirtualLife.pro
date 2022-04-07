@@ -17,6 +17,8 @@ SOURCES += \
     lottery.cpp \
     main.cpp \
     memorycard.cpp \
+    policejob.cpp \
+    policejobparts.cpp \
     relationships.cpp \
     spaceinvaders.cpp \
     spaceinvadersparts.cpp \
@@ -31,6 +33,9 @@ HEADERS += \
     initialdata.h \
     lottery.h \
     memorycard.h \
+    policejob.h \
+    policejobparts.h \
+    policejobsettings.h \
     relationships.h \
     spaceinvaders.h \
     spaceinvadersparts.h \

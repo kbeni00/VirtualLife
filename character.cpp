@@ -1,4 +1,7 @@
 #include "character.h"
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QVector>
 
 Character::Character(QObject *parent)
     : QObject{parent}
@@ -104,4 +107,51 @@ QVector<QString> Character::getRelationships()
 QVector<QString> Character::getAssets()
 {
     return assets;
+}
+
+void Character::read(const QJsonObject &json)
+{
+    name = json["name"].toString();
+    intelligence = json["intelligence"].toInt();
+    mood = json["mood"].toInt();
+    name = json["name"].toString();
+    stage = json["stage"].toString();
+    age = json["age"].toInt();
+    wealth = json["wealth"].toInt();
+    gender = json["gender"].toString();
+    QJsonArray relationshipsArray = json["relationships"].toArray();
+    for(int i = 0; i < relationshipsArray.size(); i++){
+        relationships.push_back(relationshipsArray.at(i).toString());
+    }
+    QJsonArray assetsArray = json["assets"].toArray();
+    for(int i = 0; i < assetsArray.size(); i++){
+        relationships.push_back(assetsArray.at(i).toString());
+    }
+
+}
+
+void Character::write(QJsonObject &json) const
+{
+    json["health"] = health;
+    json["intelligence"] = intelligence;
+    json["mood"] = mood;
+    json["name"] = name;
+    json["stage"] = stage;
+    json["age"] = age;
+    json["wealth"] = wealth;
+    json["gender"] = gender;
+    QJsonArray relationshipsArray;
+    for(int i = 0; i < relationships.size(); i++){
+        QJsonValue val(relationships.at(i));
+        relationshipsArray.append(val);
+    }
+    json["relationships"] = relationshipsArray;
+    QJsonArray assetsArray;
+    for(int i = 0; i < assets.size(); i++){
+        QJsonValue val(assets.at(i));
+        assetsArray.append(val);
+    }
+    json["assets"] = assetsArray;
+
+
 }

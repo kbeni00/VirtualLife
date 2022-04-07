@@ -40,6 +40,8 @@ public:
     bool hasEnoughMoney(int value);
     QVector<QString> getRelationships();
     QVector<QString> getAssets();
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json) const;
 
 signals:
 

@@ -1,0 +1,19 @@
+{
+    "characters": [
+        {
+            "age": 11,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 44,
+            "mood": 95,
+            "name": "df",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        }
+    ],
+    "currentName": ""
+}
