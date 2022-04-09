@@ -3,9 +3,10 @@
 #include "QMessageBox"
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QInputDialog>
+#include <QDir>
 
-//TODO: characters instead of details?
-//TODO: load gamenél bekérni h kit akar betölteni
+//TODO: egyszer beolvansi a neveket egy tömbbe és utána onnan kiszedni a neveket, nem a fájlból olvasni mindig
 
 VirtualLifeView::VirtualLifeView(QWidget *parent)
     : QMainWindow(parent)
@@ -20,13 +21,15 @@ VirtualLifeView::~VirtualLifeView()
     delete ui;
 }
 
-void VirtualLifeView::changeImage(){
+void VirtualLifeView::changeStage(){
+    QString stage;
     if(model->getCurrentCharacter()->getAge() >= 50){
         if(model->getCurrentCharacter()->getGender() == "Male"){
             ui->presetimage->setPixmap(QPixmap(":/characterImages/elderman.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/elderwoman.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        stage = "Elder";
     }
     else if(model->getCurrentCharacter()->getAge() >= 20){
         if(model->getCurrentCharacter()->getGender() == "Male"){
@@ -34,6 +37,7 @@ void VirtualLifeView::changeImage(){
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/adultfemale.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        stage = "Adult";
 
     }
     else if(model->getCurrentCharacter()->getAge() >= 13){
@@ -42,14 +46,17 @@ void VirtualLifeView::changeImage(){
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/teenagegirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        stage = "Teenage";
+
     }
     else if(model->getCurrentCharacter()->getAge() >= 6){
         if(model->getCurrentCharacter()->getGender() == "Male"){
             ui->presetimage->setPixmap(QPixmap(":/characterImages/childboy.png").scaled(830,500,Qt::KeepAspectRatio));
-            //update stage
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/childgirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        stage = "Child";
+
     }
     else{
         if(model->getCurrentCharacter()->getGender() == "Male"){
@@ -58,7 +65,9 @@ void VirtualLifeView::changeImage(){
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        stage = "Baby";
     }
+    model->getCurrentCharacter()->setStage(stage);
 }
 
 void VirtualLifeView::updateCharacter()
@@ -73,46 +82,59 @@ void VirtualLifeView::updateCharacter()
     ui->genderval->setText(model->getCurrentCharacter()->getGender());
 }
 
-void VirtualLifeView::on__start_clicked()
+bool VirtualLifeView::on__start_clicked()
 {
-    qDebug() << "asd2";
+    QVector<QString> names = model->getNamesInDatabase();
     initialData = new InitialData();
     initialData->show();
-    initialData->exec();
-    bool isValidName = initialData->getSelectedName() != "";
-    bool isValidGender = initialData->getSelectedGender() != "Choose";
-    QMessageBox msg;
-    if(!isValidName){
-        msg.setText("Please enter a valid name!");
-        msg.exec();
-        initialData->close();
-    } else if(!isValidGender){
-        msg.setText("Please choose a valid gender (either Male or Female)!");
-        msg.exec();
-        initialData->close();
-    } else{
-        QString name = initialData->getSelectedName();
-        QString gender = initialData->getSelectedGender();
-        model->getCurrentCharacter()->setName(name);
-        model->getCurrentCharacter()->setGender(gender);
-        model->initializeData();
-        updateCharacter();
-        ui->_start->hide();
-        ui->_actions->setEnabled(true);
-        ui->_age->setEnabled(true);
-        ui->_assets->setEnabled(true);
-        ui->_details->setEnabled(true);
-        ui->_loadgame->setEnabled(true);
-        ui->_relationships->setEnabled(true);
-        ui->_savegame->setEnabled(true);
-        ui->newcharacter->setEnabled(true);
-        if(model->getCurrentCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
+    int dialogCode = initialData->exec();
+    if(dialogCode == QDialog::Accepted){
+        bool isValidName = initialData->getSelectedName() != "";
+        bool isValidGender = initialData->getSelectedGender() != "Choose";
+        QMessageBox msg;
+        if(!isValidName){
+            msg.setText("Please enter a valid name!");
+            msg.exec();
+            initialData->close();
+        } else if(!isValidGender){
+            msg.setText("Please choose a valid gender (either Male or Female)!");
+            msg.exec();
+            initialData->close();
+        } else if(names.contains(initialData->getSelectedName())){
+            msg.setText("A character with that name already exists!");
+            msg.exec();
+            initialData->close();
         } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
+            QString name = initialData->getSelectedName();
+            QString gender = initialData->getSelectedGender();
+            model->getCurrentCharacter()->setName(name);
+            model->getCurrentCharacter()->setGender(gender);
+            model->initializeData();
+            updateCharacter();
+            ui->_start->hide();
+            for(int i = 0; i < ui->verticalLayout_2->count(); i++){
+                QPushButton * button = qobject_cast<QPushButton*>(ui->verticalLayout_2->itemAt(i)->widget());
+                if(button){
+                    button->setEnabled(true);
+                } else{
+                    qWarning() << "PushButton cannot be set to enabled.";
+                }
+            }
+            if(model->getCurrentCharacter()->getGender() == "Male"){
+                ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
+            } else{
+                ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
 
+            }
+            return true;
         }
+    } else{
+        QMessageBox msg;
+        msg.setText("You need to click on OK if you want to create a character!");
+        msg.exec();
     }
+    return false;
+
 
 }
 
@@ -120,7 +142,7 @@ void VirtualLifeView::on__age_clicked()
 {
     model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+1);
     updateCharacter();
-    changeImage();
+    changeStage();
 }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!! messagebox formok helyett???, v miért crashel a form !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!, mi az a QAction(s)
@@ -198,24 +220,101 @@ void VirtualLifeView::on__savegame_clicked()
 
 void VirtualLifeView::on__loadgame_clicked()
 {
-    model->loadGame();
-    for(int i = 0; i < model->getCharacters().size(); i++){
-        qDebug() << model->getCharacters().at(i)->getName();
+    connect(model, &VirtualLifeModel::sigReadError, this, &VirtualLifeView::handleReadError);
+    bool ok;
+    QString name = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                         tr("Character name:"), QLineEdit::Normal,
+                                         QDir::home().dirName(), &ok);
+    QVector<QString> names = model->getNamesInDatabase();
+    if(names.contains(name)){
+        if (ok && !name.isEmpty() && model->loadGame(name)){
+            updateCharacter();
+            changeStage();
+        }
+    } else{
+        for(Character* character : model->getCharacters()){
+            if(character->getName() == name){
+                model->setCurrentCharacter(character);
+                ui->healthval->setText(QString::number(character->getHealth()));
+                ui->intelligenceval->setText(QString::number(character->getIntelligence()));
+                ui->moodval->setText(QString::number(character->getMood()));
+                ui->ageval->setText(QString::number(character->getAge()));
+                ui->wealthval->setText(QString::number(character->getWealth()));
+                ui->nameval->setText(character->getName());
+                ui->stageval->setText(character->getStage());
+                ui->genderval->setText(character->getGender());
+                changeStage();
+            }
+        }
     }
-    qDebug() << model->getCurrentCharacter()->getName();
-    updateCharacter();
-    qDebug() << model->getCurrentCharacter()->getAge();
-    changeImage();
 }
 
-
-
-void VirtualLifeView::on_newcharacter_clicked()
+void VirtualLifeView::on__newcharacter_clicked()
 {
-    qDebug() << "hello";
-    //ki kelljen tölteni az adatokat egy formban az új emberkéről
-    model->newGame();
-    updateCharacter();
-    qDebug() << "asd";
-    on__start_clicked();
+    initialData = new InitialData();
+    initialData->show();
+    int dialogCode = initialData->exec();
+    if(dialogCode == QDialog::Accepted){
+        bool isValidName = initialData->getSelectedName() != "";
+        bool isValidGender = initialData->getSelectedGender() != "Choose";
+        bool nameAlreadyExists = false;
+        int i = 0;
+        while(i < model->getCharacters().size() && !nameAlreadyExists){
+            nameAlreadyExists = model->getCharacters().at(i)->getName() == initialData->getSelectedName();
+            i++;
+        }
+        QVector<QString> names = model->getNamesInDatabase();
+        nameAlreadyExists = names.contains(initialData->getSelectedName()) && !nameAlreadyExists;
+        QMessageBox msg;
+        if(!isValidName){
+            msg.setText("Please enter a valid name!");
+            msg.exec();
+            initialData->close();
+        } else if(!isValidGender){
+            msg.setText("Please choose a valid gender (either Male or Female)!");
+            msg.exec();
+            initialData->close();
+        } else if( nameAlreadyExists){
+            msg.setText("A character with that name already exists!");
+            msg.exec();
+            initialData->close();
+        } else{
+            QString name = initialData->getSelectedName();
+            QString gender = initialData->getSelectedGender();
+            model->newGame();
+            model->getCurrentCharacter()->setName(name);
+            model->getCurrentCharacter()->setGender(gender);
+            model->initializeData();
+            updateCharacter();
+            changeStage();
+        }
+    } else{
+        QMessageBox msg;
+        msg.setText("You need to click on OK if you want to create a character!");
+        msg.exec();
+    }
 }
+
+void VirtualLifeView::handleReadError()
+{
+    QMessageBox msg;
+    QString details = "The specified name cannot be found in the database.";
+    msg.setText(details);
+    msg.exec();
+}
+
+void VirtualLifeView::on__characters_clicked()
+{
+    QMessageBox msg;
+    QString details = "Unsaved characters: \n";
+    for(int i = 0; i < model->getCharacters().size(); i++){
+        details += model->getCharacters().at(i)->getName() + "\n";
+    }
+    details += "Saved characters:\n";
+    for(Character* character : model->getSavedCharacters()){
+        details += character->getName() + "\n";
+    }
+    msg.setText(details);
+    msg.exec();
+}
+

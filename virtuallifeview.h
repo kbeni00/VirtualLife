@@ -21,10 +21,10 @@ public:
     VirtualLifeView(QWidget *parent = nullptr);
     ~VirtualLifeView();
     void updateCharacter();
-    void changeImage();
+    void changeStage();
 
 private slots:
-    void on__start_clicked();
+    bool on__start_clicked();
 
     void on__age_clicked();
 
@@ -46,8 +46,11 @@ private slots:
 
     void on__loadgame_clicked();
 
-    void on_newcharacter_clicked();
+    void on__newcharacter_clicked();
 
+    void handleReadError();
+
+    void on__characters_clicked();
 
 private:
     Ui::VirtualLifeView* ui;

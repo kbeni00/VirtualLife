@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include "character.h"
+#include "virtuallifedataaccess.h"
+#include <QString>
 
 class VirtualLifeModel : public QObject
 {
@@ -11,6 +13,8 @@ private:
     Character* currentCharacter;
     QString name;
     QVector<Character*> characters;
+    QVector<Character*> savedCharacters;
+    VirtualLifeDataAccess dataAccess;
 public:
     explicit VirtualLifeModel(QObject *parent = nullptr);
     void newGame();
@@ -22,12 +26,16 @@ public:
     void setCharacters(QVector<Character*> &characters);
     QString getName();
     void setName(QString);
-    bool loadGame();
-    bool saveGame() const;
-    void read(const QJsonObject &json);
-    void write(QJsonObject &json) const;
+    bool loadGame(QString);
+    bool saveGame();
+    void read(const QJsonObject &json,QString);
+    void write(QJsonObject &json);
+    QVector<QString> getNamesInDatabase();
+    void setCurrentCharacter(Character*);
+    QVector<Character*> getSavedCharacters();
+    void setSavedCharacters(QVector<Character*> &characters);
 signals:
-
+    void sigReadError();
 };
 
 #endif // VIRTUALLIFEMODEL_H

@@ -11,19 +11,24 @@ VirtualLifeModel::VirtualLifeModel(QObject *parent)
     : QObject{parent}
 {
     newGame();
+    if(!dataAccess.loadGame(name,savedCharacters,currentCharacter)) emit sigReadError();
+
 }
 
 void VirtualLifeModel::newGame()
 {
+    qDebug() << "pushembby";
     currentCharacter = new Character();
     characters.push_back(currentCharacter);
-    setName(currentCharacter->getName());
-
 }
 
 Character* VirtualLifeModel::getCurrentCharacter()
 {
     return currentCharacter;
+}
+
+void VirtualLifeModel::setCurrentCharacter(Character* character){
+    currentCharacter = character;
 }
 
 
@@ -46,6 +51,16 @@ void VirtualLifeModel::setCharacters(QVector<Character *> &characters)
     this->characters = characters;
 }
 
+QVector<Character*> VirtualLifeModel::getSavedCharacters()
+{
+    return savedCharacters;
+}
+
+void VirtualLifeModel::setSavedCharacters(QVector<Character*> &characters)
+{
+    savedCharacters = characters;
+}
+
 QString VirtualLifeModel::getName()
 {
     return name;
@@ -56,70 +71,23 @@ void VirtualLifeModel::setName(QString characterName)
     name = characterName;
 }
 
-void VirtualLifeModel::read(const QJsonObject &json)
+bool VirtualLifeModel::loadGame(QString name)
 {
-    if (json.contains("currentName") && json["currentName"].isString())
-        name = json["name"].toString();
+    if(!dataAccess.loadGame(name,savedCharacters,currentCharacter)) emit sigReadError();
 
-    if (json.contains("characters") && json["characters"].isArray()) {
-        QJsonArray charactersArray = json["characters"].toArray();
-        characters.clear();
-        characters.reserve(charactersArray.size());
-        for (int i = 0; i < charactersArray.size(); ++i) {
-            QJsonObject characterObject = charactersArray[i].toObject();
-            Character* character = new Character();
-            character->read(characterObject);
-            characters.push_back(character);
-        }
-    }
-    currentCharacter = characters.last();
-}
-
-void VirtualLifeModel::write(QJsonObject &json) const
-{
-    json["currentName"] = name;
-    QJsonArray charactersArray;
-    for (const Character* character : characters) {
-        QJsonObject characterObject;
-        character->write(characterObject);
-        charactersArray.append(characterObject);
-    }
-    json["characters"] = charactersArray;
-
-}
-
-bool VirtualLifeModel::loadGame()
-{
-    QFile loadFile(QStringLiteral("save.json"));
-
-
-    if (!loadFile.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file.");
-        return false;
-    }
-
-    QByteArray saveData = loadFile.readAll();
-
-    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
-
-    read(loadDoc.object());
-
-    //Qmessagebox h betöltött
     return true;
 }
 
-bool VirtualLifeModel::saveGame() const
+bool VirtualLifeModel::saveGame()
 {
-    QFile saveFile(QStringLiteral("save.json"));
-
-    if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file.");
-        return false;
+    for(Character* character : characters){
+        savedCharacters.push_back(character);
     }
+    characters.clear();
+    return dataAccess.saveGame(savedCharacters);
+}
 
-    QJsonObject gameObject;
-    write(gameObject);
-    saveFile.write(QJsonDocument(gameObject).toJson());
+QVector<QString> VirtualLifeModel::getNamesInDatabase(){
 
-    return true;
+    return dataAccess.getNamesInDatabase();
 }

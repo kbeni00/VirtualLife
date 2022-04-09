@@ -70,7 +70,7 @@
       <number>10</number>
      </property>
      <item>
-      <widget class="QPushButton" name="newcharacter">
+      <widget class="QPushButton" name="_newcharacter">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -129,6 +129,22 @@
        </property>
        <property name="text">
         <string>Details</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="_characters">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>170</width>
+         <height>35</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Characters</string>
        </property>
       </widget>
      </item>

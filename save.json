@@ -1,19 +1,144 @@
 {
     "characters": [
         {
-            "age": 2,
+            "age": 7,
             "assets": [
             ],
             "gender": "Male",
-            "health": 92,
-            "intelligence": 97,
-            "mood": 19,
+            "health": 0,
+            "intelligence": 2,
+            "mood": 60,
+            "name": "asd2",
+            "relationships": [
+            ],
+            "stage": "Child",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 26,
+            "mood": 82,
+            "name": "asd3",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 18,
+            "mood": 72,
             "name": "asd1",
             "relationships": [
             ],
             "stage": "Baby",
             "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 50,
+            "mood": 69,
+            "name": "asd5",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Female",
+            "health": 0,
+            "intelligence": 35,
+            "mood": 40,
+            "name": "asd4",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 24,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 70,
+            "mood": 73,
+            "name": "asd7",
+            "relationships": [
+            ],
+            "stage": "Adult",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Female",
+            "health": 0,
+            "intelligence": 20,
+            "mood": 12,
+            "name": "asd8",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "-",
+            "health": 0,
+            "intelligence": 0,
+            "mood": 0,
+            "name": "-",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 53,
+            "mood": 76,
+            "name": "1",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 57,
+            "intelligence": 28,
+            "mood": 89,
+            "name": "asd254",
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
         }
-    ],
-    "currentName": "-"
+    ]
 }

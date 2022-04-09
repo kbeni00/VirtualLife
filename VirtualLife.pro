@@ -22,6 +22,7 @@ SOURCES += \
     relationships.cpp \
     spaceinvaders.cpp \
     spaceinvadersparts.cpp \
+    virtuallifedataaccess.cpp \
     virtuallifemodel.cpp \
     virtuallifeview.cpp
 
@@ -40,6 +41,7 @@ HEADERS += \
     spaceinvaders.h \
     spaceinvadersparts.h \
     spaceinvaderssettings.h \
+    virtuallifedataaccess.h \
     virtuallifemodel.h \
     virtuallifeview.h
 
