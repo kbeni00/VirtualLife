@@ -13,6 +13,8 @@ SOURCES += \
     assets.cpp \
     character.cpp \
     details.cpp \
+    huntinggame.cpp \
+    huntinggameparts.cpp \
     initialdata.cpp \
     lottery.cpp \
     main.cpp \
@@ -31,6 +33,9 @@ HEADERS += \
     assets.h \
     character.h \
     details.h \
+    huntinggame.h \
+    huntinggameparts.h \
+    huntinggamesettings.h \
     initialdata.h \
     lottery.h \
     memorycard.h \

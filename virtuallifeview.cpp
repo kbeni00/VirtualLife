@@ -170,6 +170,7 @@ void VirtualLifeView::on__actions_clicked()
     actions->exec();
     connect(actions, &Actions::sigSpaceInvadersEnd, this, &VirtualLifeView::handleSpaceInvadersEnd);
     connect(actions, &Actions::sigMemoryEnd, this, &VirtualLifeView::handleMemoryEnd);
+    connect(actions, &Actions::sigHuntingGameEnd, this, &VirtualLifeView::handleHuntingGameEnd);
     updateCharacter();
 }
 
@@ -316,5 +317,14 @@ void VirtualLifeView::on__characters_clicked()
     }
     msg.setText(details);
     msg.exec();
+}
+
+void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
+{
+
+    if(wonGame){
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+    }
 }
 

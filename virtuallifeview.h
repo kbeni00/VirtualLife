@@ -52,6 +52,8 @@ private slots:
 
     void on__characters_clicked();
 
+    void handleHuntingGameEnd(bool);
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;

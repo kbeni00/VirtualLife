@@ -6,6 +6,7 @@
 #include "spaceinvaders.h"
 #include "memorycard.h"
 #include "policejob.h"
+#include "huntinggame.h"
 
 enum Difficulty{
     VeryEasy, Easy, Medium, Hard, VeryHard, Impossible
@@ -23,10 +24,12 @@ private slots:
     void handleSpaceInvadersEnd(bool);
     void handleMemoryEnd();
     void handlePoliceJobEnd(bool);
+    void handleHuntingGameEnd(bool);
 signals:
     void sigSpaceInvadersEnd(bool);
     void sigMemoryEnd();
     void sigPoliceJobEnd(bool);
+    void sigHuntingGameEnd(bool);
 public:
     explicit Actions(QWidget *parent = nullptr);
     ~Actions();
@@ -42,6 +45,7 @@ private:
     PoliceJob* policeJob;
     int lotteryResult;
     Difficulty difficulty;
+    HuntingGame* huntingGame;
 
 };
 

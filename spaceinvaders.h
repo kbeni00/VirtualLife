@@ -11,7 +11,6 @@ class SpaceInvaders : public QGraphicsView
     Q_OBJECT
 public:
     SpaceInvaders(QSize screenSize, QWidget* parent = nullptr);
-
     void run();
     void checkPoints();
 protected:

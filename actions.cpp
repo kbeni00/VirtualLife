@@ -7,7 +7,7 @@ Actions::Actions(QWidget *parent) :
     ui(new Ui::Actions)
 {
     ui->setupUi(this);
-    QStringList list = (QStringList() << "Choose" << "Police Job" << "Memory Card" << "Space Invaders" << "Buy lottery");
+    QStringList list = (QStringList() << "Choose" << "Hunting Game" << "Police Job" << "Memory Card" << "Space Invaders" << "Buy lottery");
     ui->actions_cb->addItems(list);
     connect(this, SIGNAL(accepted()), this, SLOT(handleEnd()));
 }
@@ -55,8 +55,11 @@ void Actions::handleEnd()
         policeJob->showFullScreen();
         policeJob->run();
         connect(policeJob, &PoliceJob::sigGameOver, this, &Actions::handlePoliceJobEnd);
-
-
+    } else if(selectedAction == "Hunting Game"){
+        huntingGame = new HuntingGame(qApp->screens()[0]->size());
+        huntingGame->showFullScreen();
+        huntingGame->run();
+        connect(huntingGame, &HuntingGame::sigGameOver, this, &Actions::handleHuntingGameEnd);
     }
 }
 
@@ -73,4 +76,9 @@ void Actions::handleMemoryEnd()
 void Actions::handlePoliceJobEnd(bool wonGame)
 {
     emit sigSpaceInvadersEnd(wonGame);
+}
+
+void Actions::handleHuntingGameEnd(bool wonGame)
+{
+    emit sigHuntingGameEnd(wonGame);
 }
