@@ -1,4 +1,5 @@
 #include "huntinggameparts.h"
+#include "qapplication.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
@@ -11,66 +12,63 @@ TurkeyPart::TurkeyPart(QGraphicsItem *parent)
     setPixmap(pixmap.scaled(gTurkeySize, Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &TurkeyPart::onMove);
-    timer->start(1);
+    timer->start(500);
 }
 
 void TurkeyPart::onMove()
 {
     //TODO: ezen javítani h ne menjen ki a képből
-    if(x() >= 1400){
-        isMovingRight = false;
-    } else if(x() <= 50){
-        isMovingRight = true;
-    }
-    if(isMovingRight){
-        setPos(x() + 0.05, y());
-    } else{
-        setPos(x() - 0.05, y());
-    }
+//    QScreen *screen = QGuiApplication::primaryScreen();
+//    QRect  screenGeometry = screen->geometry();
+//    int width = screenGeometry.width();
+//    if(x() >= width-gTurkeySize.width()){
+//        isMovingRight = false;
+//    } else if(x() <= 50){
+//        isMovingRight = true;
+//    }
+//    if(isMovingRight){
+//        setPos(x() + 1, y());
+//    } else{
+//        setPos(x() - 1, y());
+//    }
+    emit sigUpdateScore(false);
+}
+
+void TurkeyPart::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit sigUpdateScore(true);
 }
 
 HuntingPointsPart::HuntingPointsPart(QGraphicsItem *parent) : QGraphicsTextItem(parent)
 {
-    updateMetrics(_nHealth,_nScore);
+    updateMetrics();
     setDefaultTextColor(Qt::red);
     setFont(QFont("times", 24));
+    timeLeftTimer = new QTimer();
+    timeLeftTimer->start(20000);
+    QTimer* refreshTimer = new QTimer();
+    refreshTimer->start(1000);
+    connect(refreshTimer, &QTimer::timeout, this, &HuntingPointsPart::updateMetrics);
 }
 
 
-void TurkeyPart::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void HuntingPointsPart::updateMetrics()
 {
-    emit sigIncreaseScore();
-}
+    if(timeLeftTimer != nullptr){
+        int timeLeft = timeLeftTimer->remainingTime()/1000;
+        setPlainText(QString("Time left : ") + QString::number(timeLeft) + "\n"
+                     + QString("Score: ") + QString::number(_nScore)
+                     + QString("/") + QString::number(gTurkeysHunted));
+    }
 
-void HuntingPointsPart::updateMetrics(int health, int score)
-{
-    setPlainText(QString("Health : ") + QString::number(health) + "\n"
-                 + QString("Score: ") + QString::number(score)
-                 + QString("/") + QString::number(gTurkeysHunted));
 }
 
 void HuntingPointsPart::increaseScore()
 {
-    _nScore += 1;
-    updateMetrics(_nHealth,_nScore);
+    _nScore++;
+    updateMetrics();
 }
 
-void HuntingPointsPart::decreaseScore()
-{
-    _nScore -= 1;
-    updateMetrics(_nHealth,_nScore);
-}
-
-void HuntingPointsPart::decreaseHealth()
-{
-    _nHealth--;
-    updateMetrics(_nHealth,_nScore);
-}
-
-int HuntingPointsPart::getHealth() const
-{
-    return _nHealth;
-}
 
 int HuntingPointsPart::getScore() const
 {

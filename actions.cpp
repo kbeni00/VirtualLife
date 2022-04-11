@@ -2,6 +2,8 @@
 #include "ui_actions.h"
 #include <QMessageBox>
 
+
+//TODO: lottery nem működik rendesen
 Actions::Actions(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Actions)
@@ -22,11 +24,6 @@ QString Actions::getSelectedAction()
     return selectedAction;
 }
 
-int Actions::getLotteryResult()
-{
-    return lotteryResult;
-}
-
 
 void Actions::handleEnd()
 {
@@ -36,7 +33,8 @@ void Actions::handleEnd()
         lottery = new Lottery();
         lottery->show();
         lottery->exec();
-        lotteryResult = lottery->getWonAmount();
+        connect(lottery, &Lottery::accepted, this, &Actions::handleLotteryEndTest);
+        qDebug() << "hii";
     } else if(selectedAction == "Space Invaders"){
         //QDialog
         //QWizardPage
@@ -63,6 +61,17 @@ void Actions::handleEnd()
     }
 }
 
+void Actions::handleLotteryEndTest()
+{
+    qDebug() << "cs";
+}
+
+void Actions::handleLotteryEnd(int wonAmount)
+{
+    emit sigLotteryEnd(wonAmount);
+    qDebug() << "cs";
+}
+
 void Actions::handleSpaceInvadersEnd(bool wonGame)
 {
     emit sigSpaceInvadersEnd(wonGame);
@@ -82,3 +91,5 @@ void Actions::handleHuntingGameEnd(bool wonGame)
 {
     emit sigHuntingGameEnd(wonGame);
 }
+
+

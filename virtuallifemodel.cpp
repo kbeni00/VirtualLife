@@ -34,9 +34,10 @@ void VirtualLifeModel::setCurrentCharacter(Character* character){
 
 void  VirtualLifeModel::initializeData()
 {
-    currentCharacter->setHealth(QRandomGenerator::global()->generate()%100+1);
-    currentCharacter->setIntelligence(QRandomGenerator::global()->generate()%100+1);
-    currentCharacter->setMood(QRandomGenerator::global()->generate()%100+1);
+//    currentCharacter->setHealth(QRandomGenerator::global()->generate()%100+1);
+//    currentCharacter->setNeeds(QRandomGenerator::global()->generate()%100+1);
+//    currentCharacter->setIntelligence(QRandomGenerator::global()->generate()%100+1);
+//    currentCharacter->setMood(QRandomGenerator::global()->generate()%100+1);
     QString stage = "Baby";
     currentCharacter->setStage(stage);
 }

@@ -14,6 +14,10 @@ VirtualLifeView::VirtualLifeView(QWidget *parent)
 {
     ui->setupUi(this);
     model = new VirtualLifeModel();
+    ui->health->setHidden(true);
+    ui->healthval->setHidden(true);
+    ui->needs->setHidden(true);
+    ui->needsval->setHidden(true);
 }
 
 VirtualLifeView::~VirtualLifeView()
@@ -23,20 +27,16 @@ VirtualLifeView::~VirtualLifeView()
 
 void VirtualLifeView::changeStage(){
     QString stage;
-    if(model->getCurrentCharacter()->getAge() >= 50){
-        if(model->getCurrentCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/elderman.png").scaled(830,500,Qt::KeepAspectRatio));
-        } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/elderwoman.png").scaled(830,500,Qt::KeepAspectRatio));
-        }
-        stage = "Elder";
-    }
-    else if(model->getCurrentCharacter()->getAge() >= 20){
+    if(model->getCurrentCharacter()->getAge() >= 25){
         if(model->getCurrentCharacter()->getGender() == "Male"){
             ui->presetimage->setPixmap(QPixmap(":/characterImages/adultmale.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/adultfemale.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        ui->health->setHidden(false);
+        ui->healthval->setHidden(false);
+        ui->needs->setHidden(false);
+        ui->needsval->setHidden(false);
         stage = "Adult";
 
     }
@@ -46,25 +46,23 @@ void VirtualLifeView::changeStage(){
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/teenagegirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
-        stage = "Teenage";
-
-    }
-    else if(model->getCurrentCharacter()->getAge() >= 6){
-        if(model->getCurrentCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/childboy.png").scaled(830,500,Qt::KeepAspectRatio));
-        } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/childgirl.png").scaled(830,500,Qt::KeepAspectRatio));
-        }
-        stage = "Child";
+        ui->health->setHidden(true);
+        ui->healthval->setHidden(true);
+        ui->needs->setHidden(true);
+        ui->needsval->setHidden(true);
+        stage = "Teenager";
 
     }
     else{
         if(model->getCurrentCharacter()->getGender() == "Male"){
             ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
-            //update stage
         } else{
             ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
+        ui->health->setHidden(true);
+        ui->healthval->setHidden(true);
+        ui->needs->setHidden(true);
+        ui->needsval->setHidden(true);
         stage = "Baby";
     }
     model->getCurrentCharacter()->setStage(stage);
@@ -73,6 +71,7 @@ void VirtualLifeView::changeStage(){
 void VirtualLifeView::updateCharacter()
 {
     ui->healthval->setText(QString::number(model->getCurrentCharacter()->getHealth()));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
     ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     ui->ageval->setText(QString::number(model->getCurrentCharacter()->getAge()));
@@ -140,7 +139,12 @@ bool VirtualLifeView::on__start_clicked()
 
 void VirtualLifeView::on__age_clicked()
 {
-    model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+1);
+    if(model->getCurrentCharacter()->getStage() == "Baby" && model->getCurrentCharacter()->getIntelligence() >= 10 && model->getCurrentCharacter()->getMood() >=10){
+        model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+13);
+    } else if(model->getCurrentCharacter()->getStage() == "Teenager" && model->getCurrentCharacter()->getIntelligence() >= 50 && model->getCurrentCharacter()->getMood() >=20){
+        model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+13);
+    }
+
     updateCharacter();
     changeStage();
 }
@@ -168,6 +172,7 @@ void VirtualLifeView::on__actions_clicked()
     actions = new Actions();
     actions->show();
     actions->exec();
+    connect(actions, &Actions::sigLotteryEnd, this, &VirtualLifeView::handleLotteryEnd);
     connect(actions, &Actions::sigSpaceInvadersEnd, this, &VirtualLifeView::handleSpaceInvadersEnd);
     connect(actions, &Actions::sigMemoryEnd, this, &VirtualLifeView::handleMemoryEnd);
     connect(actions, &Actions::sigHuntingGameEnd, this, &VirtualLifeView::handleHuntingGameEnd);
@@ -182,7 +187,6 @@ void VirtualLifeView::on__relationships_clicked()
     relationships->exec();
 }
 
-
 void VirtualLifeView::on__assets_clicked()
 {
     assets = new Assets();
@@ -194,7 +198,11 @@ void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame)
 {
     if(wonGame){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 30);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
 }
 
@@ -202,6 +210,11 @@ void VirtualLifeView::handleMemoryEnd()
 {
     model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+    model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 30);
+    model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+    ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+    ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+    ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
 }
 
 void VirtualLifeView::handlePoliceJobEnd(bool wonGame)
@@ -209,15 +222,18 @@ void VirtualLifeView::handlePoliceJobEnd(bool wonGame)
     if(wonGame){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 30);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
 }
-
 
 void VirtualLifeView::on__savegame_clicked()
 {
     model->saveGame();
 }
-
 
 void VirtualLifeView::on__loadgame_clicked()
 {
@@ -325,6 +341,18 @@ void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
     if(wonGame){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 30);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
+}
+
+void VirtualLifeView::handleLotteryEnd(int wonAmount)
+{
+    qDebug() << "hi";
+    model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + wonAmount);
+    ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
 }
 

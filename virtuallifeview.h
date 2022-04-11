@@ -54,6 +54,9 @@ private slots:
 
     void handleHuntingGameEnd(bool);
 
+    void handleLotteryEnd(int);
+
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;

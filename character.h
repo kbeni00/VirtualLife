@@ -9,6 +9,7 @@ class Character : public QObject
     Q_OBJECT
 private:
     int health;
+    int needs;
     int intelligence;
     int mood;
     QString name;
@@ -23,6 +24,8 @@ public:
     explicit Character(QObject *parent = nullptr);
     int getHealth() const;
     void setHealth(int value);
+    int getNeeds();
+    void setNeeds(int value);
     int getIntelligence() const;
     void setIntelligence(int value);
     int getMood() const;

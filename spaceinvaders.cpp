@@ -82,7 +82,10 @@ void SpaceInvaders::keyPressEvent(QKeyEvent *event)
 
 void SpaceInvaders::onCreateEnemy()
 {
-    int pos = rand() % _screenSize.width();
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    int width = screenGeometry.width();
+    int pos = rand() % width-gCannonSize.width();
     AlienPart* alien = new AlienPart();
     alien->setPos(pos,0);
 

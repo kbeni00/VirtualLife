@@ -9,6 +9,7 @@
             "intelligence": 2,
             "mood": 60,
             "name": "asd2",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Child",
@@ -23,6 +24,7 @@
             "intelligence": 26,
             "mood": 82,
             "name": "asd3",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -37,6 +39,7 @@
             "intelligence": 18,
             "mood": 72,
             "name": "asd1",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -51,6 +54,7 @@
             "intelligence": 50,
             "mood": 69,
             "name": "asd5",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -65,6 +69,7 @@
             "intelligence": 35,
             "mood": 40,
             "name": "asd4",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -79,6 +84,7 @@
             "intelligence": 70,
             "mood": 73,
             "name": "asd7",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Adult",
@@ -93,6 +99,7 @@
             "intelligence": 20,
             "mood": 12,
             "name": "asd8",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -107,6 +114,7 @@
             "intelligence": 0,
             "mood": 0,
             "name": "-",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -121,6 +129,7 @@
             "intelligence": 53,
             "mood": 76,
             "name": "1",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",
@@ -135,6 +144,52 @@
             "intelligence": 28,
             "mood": 89,
             "name": "asd254",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 0
+        },
+        {
+            "age": 27,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 41,
+            "intelligence": 90,
+            "mood": 83,
+            "name": "bnfh",
+            "needs": 68,
+            "relationships": [
+            ],
+            "stage": "Adult",
+            "wealth": 0
+        },
+        {
+            "age": 29,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 94,
+            "intelligence": 54,
+            "mood": 80,
+            "name": "k",
+            "needs": 87,
+            "relationships": [
+            ],
+            "stage": "Adult",
+            "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 0,
+            "mood": 0,
+            "name": ",jh",
+            "needs": 0,
             "relationships": [
             ],
             "stage": "Baby",

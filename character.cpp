@@ -7,6 +7,7 @@ Character::Character(QObject *parent)
     : QObject{parent}
 {
     health = 0;
+    needs = 0;
     intelligence = 0;
     mood = 0;
     name = "-";
@@ -25,6 +26,16 @@ int Character::getHealth() const
 void Character::setHealth(int value)
 {
     health = value;
+}
+
+int Character::getNeeds()
+{
+    return needs;
+}
+
+void Character::setNeeds(int value)
+{
+    needs = value;
 }
 
 int Character::getIntelligence() const
@@ -112,6 +123,8 @@ QVector<QString> Character::getAssets()
 void Character::read(const QJsonObject &json)
 {
     name = json["name"].toString();
+    health = json["health"].toInt();
+    needs = json["needs"].toInt();
     intelligence = json["intelligence"].toInt();
     mood = json["mood"].toInt();
     name = json["name"].toString();
@@ -133,6 +146,7 @@ void Character::read(const QJsonObject &json)
 void Character::write(QJsonObject &json) const
 {
     json["health"] = health;
+    json["needs"] = needs;
     json["intelligence"] = intelligence;
     json["mood"] = mood;
     json["name"] = name;

@@ -17,15 +17,17 @@ public:
     void checkPoints();
 public slots:
     void onCreateEnemy();
-    void onIncreaseScore();
+    void onUpdateScore(bool);
     void onGameOver(bool);
     void handleExitButton();
+    void onGameOverTimerUp();
 signals:
     void sigGameOver(bool);
 private:
     QSize _screenSize;
     HuntingPointsPart* _points = nullptr;
     QTimer* turkeySpawnTimer = nullptr;
+    QTimer* gameOverTimer = nullptr;
 };
 
 #endif // HUNTINGGAME_H

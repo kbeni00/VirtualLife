@@ -18,7 +18,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 signals:
     void sigGameOver(bool);
-    void sigIncreaseScore();
+    void sigUpdateScore(bool);
 public slots:
     void onMove();
 private:
@@ -35,18 +35,14 @@ class HuntingPointsPart : public QGraphicsTextItem
 public:
     HuntingPointsPart(QGraphicsItem *parent = nullptr);
     void increaseScore();
-    void decreaseScore();
-    void decreaseHealth();
-
-    int getHealth() const;
     int getScore() const;
-
     void reset();
-    void updateMetrics(int, int);
+    void updateMetrics();
 
 private:
     int _nHealth = gTurkeysHunted;
     int _nScore = 0;
+    QTimer* timeLeftTimer = nullptr;
 };
 
 #endif // HUNTINGGAMEPARTS_H

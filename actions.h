@@ -25,11 +25,14 @@ private slots:
     void handleMemoryEnd();
     void handlePoliceJobEnd(bool);
     void handleHuntingGameEnd(bool);
+    void handleLotteryEnd(int);
+    void handleLotteryEndTest();
 signals:
     void sigSpaceInvadersEnd(bool);
     void sigMemoryEnd();
     void sigPoliceJobEnd(bool);
     void sigHuntingGameEnd(bool);
+    void sigLotteryEnd(int);
 public:
     explicit Actions(QWidget *parent = nullptr);
     ~Actions();
@@ -43,7 +46,6 @@ private:
     SpaceInvaders* spaceInvaders;
     MemoryCard* memoryCard;
     PoliceJob* policeJob;
-    int lotteryResult;
     Difficulty difficulty;
     HuntingGame* huntingGame;
 

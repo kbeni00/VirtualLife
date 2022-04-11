@@ -15,6 +15,8 @@ public:
     explicit Lottery(QWidget *parent = nullptr);
     ~Lottery();
     int getWonAmount();
+signals:
+    void sigGameOver(int);
 
 private:
     Ui::Lottery *ui;
