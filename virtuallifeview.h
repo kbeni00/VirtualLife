@@ -6,7 +6,7 @@
 #include "initialdata.h"
 #include "details.h"
 #include "actions.h"
-#include "relationships.h"
+#include "purchase.h"
 #include "assets.h"
 
 QT_BEGIN_NAMESPACE
@@ -32,7 +32,7 @@ private slots:
 
     void on__actions_clicked();
 
-    void on__relationships_clicked();
+    void on__purchase_clicked();
 
     void on__assets_clicked();
 
@@ -56,13 +56,15 @@ private slots:
 
     void handleLotteryEnd(int);
 
+    void handleBoughtItem(QString,int);
+
 
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;
     Details* details;
     Actions* actions;
-    Relationships* relationships;
+    Purchase* purchase;
     Assets* assets;
     VirtualLifeModel* model;
 };

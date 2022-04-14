@@ -6,6 +6,7 @@ Assets::Assets(QWidget *parent) :
     ui(new Ui::Assets)
 {
     ui->setupUi(this);
+
 }
 
 Assets::~Assets()

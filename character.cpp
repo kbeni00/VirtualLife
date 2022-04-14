@@ -14,7 +14,7 @@ Character::Character(QObject *parent)
     stage = "-";
     gender = "-";
     age = 0;
-    wealth = 0;
+    wealth = 1000000000;
 
 }
 
@@ -118,6 +118,11 @@ QVector<QString> Character::getRelationships()
 QVector<QString> Character::getAssets()
 {
     return assets;
+}
+
+void Character::addAsset(QString name)
+{
+    assets.push_back(name);
 }
 
 void Character::read(const QJsonObject &json)

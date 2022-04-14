@@ -12,7 +12,7 @@ TurkeyPart::TurkeyPart(QGraphicsItem *parent)
     setPixmap(pixmap.scaled(gTurkeySize, Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &TurkeyPart::onMove);
-    timer->start(500);
+    timer->start(1500);
 }
 
 void TurkeyPart::onMove()

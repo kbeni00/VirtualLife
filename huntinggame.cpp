@@ -12,8 +12,7 @@
 
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
 //TODO: Increased intelligence based on difficulty -> Very easy, easy, medium, hard, impossible
-//TODO: improve game over method
-//TODO: időre menjen
+//TODO: improve game over method aka lépjen ki rendesen
 HuntingGame::HuntingGame(QSize screenSize, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
     QGraphicsScene* scene = new QGraphicsScene();
@@ -29,7 +28,7 @@ HuntingGame::HuntingGame(QSize screenSize, QWidget *parent) : QGraphicsView(pare
 //    QPixmap p = QPixmap(":/huntinggame/crossair.png");
 //    QCursor c = QCursor(p, 0, 0);
 //    setCursor(c);
-    setStyleSheet("border-style:none");
+//    setStyleSheet("border-style:none");
 
 }
 

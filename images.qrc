@@ -41,12 +41,27 @@
     <qresource prefix="/policejob">
         <file>policecar.png</file>
         <file>robbercar1.png</file>
-        <file>robbercar2.png</file>
     </qresource>
     <qresource prefix="/huntinggame">
         <file>crossair.png</file>
         <file>huntingbg.png</file>
         <file>turkey.png</file>
         <file>huntingbg2.png</file>
+    </qresource>
+    <qresource prefix="/purchase/collectibles">
+        <file>expensiveCar.png</file>
+        <file>cheapCar.png</file>
+        <file>cheapHouse.png</file>
+        <file>expensiveHouse.png</file>
+        <file>normalCar.png</file>
+        <file>normalHouse.png</file>
+    </qresource>
+    <qresource prefix="/purchase/needs">
+        <file>fastfood.png</file>
+        <file>fruits.png</file>
+        <file>pancakes.png</file>
+        <file>pizza.png</file>
+        <file>prime.png</file>
+        <file>sushi.png</file>
     </qresource>
 </RCC>

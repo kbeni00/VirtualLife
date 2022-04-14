@@ -149,7 +149,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="_relationships">
+      <widget class="QPushButton" name="_purchase">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -166,7 +166,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Relationships</string>
+        <string>Purchase</string>
        </property>
       </widget>
      </item>

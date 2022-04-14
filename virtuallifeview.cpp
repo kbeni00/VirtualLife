@@ -180,12 +180,12 @@ void VirtualLifeView::on__actions_clicked()
 }
 
 
-void VirtualLifeView::on__relationships_clicked()
+void VirtualLifeView::on__purchase_clicked()
 {
-    relationships = new Relationships();
-    relationships->show();
-    relationships->exec();
-}
+    purchase = new Purchase();
+    connect(purchase,&Purchase::sigBoughtItem,this,&VirtualLifeView::handleBoughtItem);
+    purchase->show();
+    purchase->exec();}
 
 void VirtualLifeView::on__assets_clicked()
 {
@@ -337,7 +337,6 @@ void VirtualLifeView::on__characters_clicked()
 
 void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
 {
-
     if(wonGame){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
@@ -351,8 +350,17 @@ void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
 
 void VirtualLifeView::handleLotteryEnd(int wonAmount)
 {
-    qDebug() << "hi";
     model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + wonAmount);
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+}
+
+void VirtualLifeView::handleBoughtItem(QString itemName, int itemPrice)
+{
+    if(model->getCurrentCharacter()->getWealth() >= itemPrice){
+        qDebug() << "asd";
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth()-itemPrice);
+        model->getCurrentCharacter()->addAsset(itemName);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+    }
 }
 

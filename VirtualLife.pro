@@ -21,7 +21,7 @@ SOURCES += \
     memorycard.cpp \
     policejob.cpp \
     policejobparts.cpp \
-    relationships.cpp \
+    purchase.cpp \
     spaceinvaders.cpp \
     spaceinvadersparts.cpp \
     virtuallifedataaccess.cpp \
@@ -42,7 +42,7 @@ HEADERS += \
     policejob.h \
     policejobparts.h \
     policejobsettings.h \
-    relationships.h \
+    purchase.h \
     spaceinvaders.h \
     spaceinvadersparts.h \
     spaceinvaderssettings.h \
@@ -57,7 +57,7 @@ FORMS += \
     initialdata.ui \
     lottery.ui \
     memorycard.ui \
-    relationships.ui \
+    purchase.ui \
     virtuallifeview.ui
 
 # Default rules for deployment.

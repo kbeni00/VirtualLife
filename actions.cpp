@@ -31,9 +31,9 @@ void Actions::handleEnd()
     selectedAction = ui->actions_cb->currentText();
     if(selectedAction == "Buy lottery"){
         lottery = new Lottery();
+        connect(lottery, &Lottery::accepted, this, &Actions::handleLotteryEndTest);
         lottery->show();
         lottery->exec();
-        connect(lottery, &Lottery::accepted, this, &Actions::handleLotteryEndTest);
         qDebug() << "hii";
     } else if(selectedAction == "Space Invaders"){
         //QDialog

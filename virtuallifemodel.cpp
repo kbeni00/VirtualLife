@@ -17,7 +17,6 @@ VirtualLifeModel::VirtualLifeModel(QObject *parent)
 
 void VirtualLifeModel::newGame()
 {
-    qDebug() << "pushembby";
     currentCharacter = new Character();
     characters.push_back(currentCharacter);
 }
