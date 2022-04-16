@@ -16,20 +16,19 @@ Purchase::Purchase(QWidget *parent) :
     QDirIterator itc(":/purchase/collectibles", QDirIterator::Subdirectories);
     while (itc.hasNext()) {
         QString fileName =  itc.next();
-        int pos = fileName.lastIndexOf(QChar('/')) + 1;
         Purchase::Thingy newthingy;
-        newthingy.name = fileName.remove(0,pos);
-        if(newthingy.name == "expensiveCar.png"){
+        newthingy.name = fileName;
+        if(newthingy.name == ":/purchase/collectibles/expensiveCar.png"){
             newthingy.price = 200000;
-        } else if(newthingy.name == "normalCar.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/normalCar.png"){
             newthingy.price = 50000;
-        } else if(newthingy.name == "cheapCar.png"){
-            newthingy.price = 10000;
-        } else if(newthingy.name == "expensiveHouse.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/cheapCar.png"){
+            newthingy.price = 30000;
+        } else if(newthingy.name == ":/purchase/collectibles/expensiveHouse.png"){
             newthingy.price = 500000;
-        } else if(newthingy.name == "normalHouse.png"){
-            newthingy.price = 100000;
-        } else if(newthingy.name == "cheapHouse.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/normalHouse.png"){
+            newthingy.price = 300000;
+        } else if(newthingy.name == ":/purchase/collectibles/cheapHouse.png"){
             newthingy.price = 75000;
         }
         collectibles.push_back(newthingy);
@@ -39,23 +38,21 @@ Purchase::Purchase(QWidget *parent) :
     QDirIterator itf(":/purchase/needs", QDirIterator::Subdirectories);
     while (itf.hasNext()) {
         QString fileName =  itf.next();
-        int pos = fileName.lastIndexOf(QChar('/')) + 1;
         Purchase::Thingy newthingy;
-        newthingy.name = fileName.remove(0,pos);
-        if(newthingy.name == "fastfood.png"){
+        newthingy.name = fileName;
+        if(newthingy.name == ":/purchase/needs/fastfood.png"){
             newthingy.price = 5000;
-        } else if(newthingy.name == "fruits.png"){
-            newthingy.price = 10000;
-        } else if(newthingy.name == "pancakes.png"){
+        } else if(newthingy.name == ":/purchase/needs/fruits.png"){
+            newthingy.price = 30000;
+        } else if(newthingy.name == ":/purchase/needs/pancakes.png"){
             newthingy.price = 3000;
-        } else if(newthingy.name == "pizza.png"){
+        } else if(newthingy.name == ":/purchase/needs/pizza.png"){
             newthingy.price = 6500;
-        } else if(newthingy.name == "prime.png"){
+        } else if(newthingy.name == ":/purchase/needs/prime.png"){
             //fills needs completely
-            newthingy.price = 50000;
+            newthingy.price = 30000;
         }
-        else if(newthingy.name == "sushi.png"){
-            //fills needs completely
+        else if(newthingy.name == ":/purchase/needs/sushi.png"){
             newthingy.price = 4000;
         }
         needs.push_back(newthingy);
@@ -69,8 +66,8 @@ Purchase::Purchase(QWidget *parent) :
             }
             if(i == 0){
                 QLabel* label = qobject_cast<QLabel*>(item->widget());
-                QPixmap pixmap(":/purchase/collectibles/" + collectibles.at(j).name);
-                label->setPixmap(pixmap.scaled(100,100));
+                QPixmap pixmap(collectibles.at(j).name);
+                label->setPixmap(pixmap.scaled(300,300));
             } else{
                 QPushButton* button = qobject_cast<QPushButton*>(item->widget());
                 button->setText(QString::number(collectibles.at(j).price));
@@ -88,8 +85,8 @@ Purchase::Purchase(QWidget *parent) :
             }
             if(i == 0){
                 QLabel* label = qobject_cast<QLabel*>(item->widget());
-                QPixmap pixmap(":/purchase/needs/" + needs.at(j).name);
-                label->setPixmap(pixmap.scaled(100,100));
+                QPixmap pixmap(needs.at(j).name);
+                label->setPixmap(pixmap.scaled(300,300));
             } else{
                 QPushButton* button = qobject_cast<QPushButton*>(item->widget());
                 button->setText(QString::number(needs.at(j).price));
@@ -131,13 +128,13 @@ void Purchase::on_collectiblesLeftButton_clicked()
             priceTwo->setText(priceThree->text());
             picTwo->setPixmap(picThree->pixmap());
             if(i == collectibles.size()-1){
-                QPixmap pixmapThree(":/purchase/collectibles/" + collectibles.at(0).name);
-                picThree->setPixmap(pixmapThree.scaled(100,100));
+                QPixmap pixmapThree(collectibles.at(0).name);
+                picThree->setPixmap(pixmapThree.scaled(300,300));
                 priceThree->setText(QString::number(collectibles.at(0).price));
             } else{
                 priceThree->setText(QString::number(collectibles.at(i+1).price));
-                QPixmap pixmapThree(":/purchase/collectibles/" + collectibles.at(i+1).name);
-                picThree->setPixmap(pixmapThree.scaled(100,100));
+                QPixmap pixmapThree(collectibles.at(i+1).name);
+                picThree->setPixmap(pixmapThree.scaled(300,300));
             }
 
 
@@ -149,16 +146,15 @@ void Purchase::handleClick()
 {
     QPushButton* sender = dynamic_cast<QPushButton*>(QObject::sender());
     for(int i = 0; i < collectibles.size(); i++){
+        qDebug() << "collectible item";
         if(collectibles.at(i).price == sender->text().toInt()){
             emit sigBoughtItem(collectibles.at(i).name,collectibles.at(i).price);
-            qDebug() << "asdasd0";
         }
     }
 
     for(int i = 0; i < needs.size(); i++){
         if(needs.at(i).price == sender->text().toInt()){
             emit sigBoughtItem(needs.at(i).name,needs.at(i).price);
-            qDebug() << "asdasdasdasd1";
         }
     }
 
@@ -189,13 +185,13 @@ void Purchase::on_collectiblesRightButton_clicked()
             priceTwo->setText(priceOne->text());
             picTwo->setPixmap(picOne->pixmap());
             if(i == 0){
-                QPixmap pixmapOne(":/purchase/collectibles/" + collectibles.at(collectibles.size()-1).name);
-                picOne->setPixmap(pixmapOne.scaled(100,100));
+                QPixmap pixmapOne(collectibles.at(collectibles.size()-1).name);
+                picOne->setPixmap(pixmapOne.scaled(300,300));
                 priceOne->setText(QString::number(collectibles.at(collectibles.size()-1).price));
             } else{
                 priceOne->setText(QString::number(collectibles.at(i-1).price));
-                QPixmap pixmapOne(":/purchase/collectibles/" + collectibles.at(i-1).name);
-                picOne->setPixmap(pixmapOne.scaled(100,100));
+                QPixmap pixmapOne(collectibles.at(i-1).name);
+                picOne->setPixmap(pixmapOne.scaled(300,300));
             }
         }
     }
@@ -229,13 +225,13 @@ void Purchase::on_needsLeftButton_clicked()
             priceTwo->setText(priceThree->text());
             picTwo->setPixmap(picThree->pixmap());
             if(i == needs.size()-1){
-                QPixmap pixmapThree(":/purchase/needs/" + needs.at(0).name);
-                picThree->setPixmap(pixmapThree.scaled(100,100));
+                QPixmap pixmapThree(needs.at(0).name);
+                picThree->setPixmap(pixmapThree.scaled(300,300));
                 priceThree->setText(QString::number(needs.at(0).price));
             } else{
                 priceThree->setText(QString::number(needs.at(i+1).price));
-                QPixmap pixmapThree(":/purchase/needs/" + needs.at(i+1).name);
-                picThree->setPixmap(pixmapThree.scaled(100,100));
+                QPixmap pixmapThree(needs.at(i+1).name);
+                picThree->setPixmap(pixmapThree.scaled(300,300));
             }
         }
     }
@@ -266,13 +262,13 @@ void Purchase::on_needsRightButton_clicked()
             priceTwo->setText(priceOne->text());
             picTwo->setPixmap(picOne->pixmap());
             if(i == 0){
-                QPixmap pixmapOne(":/purchase/needs/" + needs.at(needs.size()-1).name);
-                picOne->setPixmap(pixmapOne.scaled(100,100));
+                QPixmap pixmapOne(needs.at(needs.size()-1).name);
+                picOne->setPixmap(pixmapOne.scaled(300,300));
                 priceOne->setText(QString::number(needs.at(needs.size()-1).price));
             } else{
                 priceOne->setText(QString::number(needs.at(i-1).price));
-                QPixmap pixmapOne(":/purchase/needs/" + needs.at(i-1).name);
-                picOne->setPixmap(pixmapOne.scaled(100,100));
+                QPixmap pixmapOne(needs.at(i-1).name);
+                picOne->setPixmap(pixmapOne.scaled(300,300));
             }
         }
     }

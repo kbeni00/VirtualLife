@@ -189,7 +189,8 @@ void VirtualLifeView::on__purchase_clicked()
 
 void VirtualLifeView::on__assets_clicked()
 {
-    assets = new Assets();
+
+    assets = new Assets(model->getCurrentCharacter()->getAssets());
     assets->show();
     assets->exec();
 }
@@ -357,7 +358,6 @@ void VirtualLifeView::handleLotteryEnd(int wonAmount)
 void VirtualLifeView::handleBoughtItem(QString itemName, int itemPrice)
 {
     if(model->getCurrentCharacter()->getWealth() >= itemPrice){
-        qDebug() << "asd";
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth()-itemPrice);
         model->getCurrentCharacter()->addAsset(itemName);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));

@@ -12,7 +12,7 @@ class Assets : public QDialog
     Q_OBJECT
 
 public:
-    explicit Assets(QWidget *parent = nullptr);
+    explicit Assets(QVector<QString> items, QWidget *parent = nullptr);
     ~Assets();
 
 private:

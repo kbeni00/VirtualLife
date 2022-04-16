@@ -49,12 +49,12 @@
         <file>huntingbg2.png</file>
     </qresource>
     <qresource prefix="/purchase/collectibles">
-        <file>expensiveCar.png</file>
         <file>cheapCar.png</file>
         <file>cheapHouse.png</file>
         <file>expensiveHouse.png</file>
         <file>normalCar.png</file>
         <file>normalHouse.png</file>
+        <file>expensiveCar.png</file>
     </qresource>
     <qresource prefix="/purchase/needs">
         <file>fastfood.png</file>
