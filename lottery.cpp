@@ -58,7 +58,7 @@ void Lottery::numberGuessed()
             prices.push_back(i*10000);
         }
         wonAmount = prices[correctlyGuessedNums];
-        emit QDialog::accepted();
+        emit sigGameOver(wonAmount);
         QMessageBox msg;
         QString resultMessage = " You guessed these numbers: " +
                                 QString::number(guesses[0]) + ", " +

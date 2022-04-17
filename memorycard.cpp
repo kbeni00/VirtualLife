@@ -74,7 +74,6 @@ void MemoryCard::cardClicked()
                 QString resultMessage = "Congratulations, you've found all the pairs!";
                 msg.setText(resultMessage);
                 msg.exec();
-
                 this->close();
             }
             firstButton->setEnabled(false);

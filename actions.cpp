@@ -31,10 +31,9 @@ void Actions::handleEnd()
     selectedAction = ui->actions_cb->currentText();
     if(selectedAction == "Buy lottery"){
         lottery = new Lottery();
-        connect(lottery, &Lottery::accepted, this, &Actions::handleLotteryEndTest);
+        connect(lottery, &Lottery::sigGameOver, this, &Actions::handleLotteryEnd);
+        lottery->setWindowModality(Qt::ApplicationModal);
         lottery->show();
-        lottery->exec();
-        qDebug() << "hii";
     } else if(selectedAction == "Space Invaders"){
         //QDialog
         //QWizardPage
@@ -46,6 +45,7 @@ void Actions::handleEnd()
 //        QDialog dialog(this);
 //        dialog.exec();
         memoryCard = new MemoryCard();
+        memoryCard->setWindowModality(Qt::ApplicationModal);
         memoryCard->show();
         connect(memoryCard, &MemoryCard::sigGameOver, this, &Actions::handleMemoryEnd);
     } else if(selectedAction == "Police Job"){
@@ -61,15 +61,10 @@ void Actions::handleEnd()
     }
 }
 
-void Actions::handleLotteryEndTest()
-{
-    qDebug() << "cs";
-}
-
 void Actions::handleLotteryEnd(int wonAmount)
 {
+    qDebug() << "actions lottery";
     emit sigLotteryEnd(wonAmount);
-    qDebug() << "cs";
 }
 
 void Actions::handleSpaceInvadersEnd(bool wonGame)

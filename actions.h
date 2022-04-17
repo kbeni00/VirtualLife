@@ -26,7 +26,6 @@ private slots:
     void handlePoliceJobEnd(bool);
     void handleHuntingGameEnd(bool);
     void handleLotteryEnd(int);
-    void handleLotteryEndTest();
 signals:
     void sigSpaceInvadersEnd(bool);
     void sigMemoryEnd();

@@ -194,6 +194,21 @@
             ],
             "stage": "Baby",
             "wealth": 0
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 0,
+            "mood": 0,
+            "name": "gergo",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 1000000000
         }
     ]
 }

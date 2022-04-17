@@ -5,8 +5,6 @@
 #include <QPushButton>
 #include <QLayoutItem>
 
-//TODO: form layout, ahol eleve van 6 label (3 cucc és 3 ár), csinűlsz structot, amiben van egy string, egy int, mindegyik resource imageből csinálsz egy structot,
-//amiben a Qstring a file name, az int pedig az ár, QVectorban structot tárolsz, betöltöt az első 3-at.
 //TODO: linked list qvector helyett, hogy mikor rányomsz a gombra akk a prev v a next kelljen
 Purchase::Purchase(QWidget *parent) :
     QDialog(parent),
@@ -43,7 +41,7 @@ Purchase::Purchase(QWidget *parent) :
         if(newthingy.name == ":/purchase/needs/fastfood.png"){
             newthingy.price = 5000;
         } else if(newthingy.name == ":/purchase/needs/fruits.png"){
-            newthingy.price = 30000;
+            newthingy.price = 10000;
         } else if(newthingy.name == ":/purchase/needs/pancakes.png"){
             newthingy.price = 3000;
         } else if(newthingy.name == ":/purchase/needs/pizza.png"){
@@ -94,52 +92,12 @@ Purchase::Purchase(QWidget *parent) :
 
             }
         }
-
     }
 }
 
 Purchase::~Purchase()
 {
     delete ui;
-}
-
-void Purchase::on_collectiblesLeftButton_clicked()
-{
-    QLayoutItem *item = ui->collectiblesLayout->itemAtPosition(1,2);
-    QPushButton* button = qobject_cast<QPushButton*>(item->widget());
-    int lastPrice =  button->text().toInt();
-    for(int i = 0; i < collectibles.size(); i++){
-        if(collectibles.at(i).price == lastPrice){
-            QLayoutItem *itemOne = ui->collectiblesLayout->itemAtPosition(1,0);
-            QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
-            QLayoutItem *itemTwo = ui->collectiblesLayout->itemAtPosition(1,1);
-            QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
-            QLayoutItem *itemThree = ui->collectiblesLayout->itemAtPosition(1,2);
-            QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
-            QLayoutItem *itemFour = ui->collectiblesLayout->itemAtPosition(0,0);
-            QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
-            QLayoutItem *itemFive = ui->collectiblesLayout->itemAtPosition(0,1);
-            QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
-            QLayoutItem *itemSix = ui->collectiblesLayout->itemAtPosition(0,2);
-            QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
-
-            priceOne->setText(priceTwo->text());
-            picOne->setPixmap(picTwo->pixmap());
-            priceTwo->setText(priceThree->text());
-            picTwo->setPixmap(picThree->pixmap());
-            if(i == collectibles.size()-1){
-                QPixmap pixmapThree(collectibles.at(0).name);
-                picThree->setPixmap(pixmapThree.scaled(300,300));
-                priceThree->setText(QString::number(collectibles.at(0).price));
-            } else{
-                priceThree->setText(QString::number(collectibles.at(i+1).price));
-                QPixmap pixmapThree(collectibles.at(i+1).name);
-                picThree->setPixmap(pixmapThree.scaled(300,300));
-            }
-
-
-        }
-    }
 }
 
 void Purchase::handleClick()
@@ -160,42 +118,79 @@ void Purchase::handleClick()
 
 }
 
+void Purchase::on_collectiblesLeftButton_clicked()
+{
+    QLayoutItem *item = ui->collectiblesLayout->itemAtPosition(1,2);
+    QPushButton* button = qobject_cast<QPushButton*>(item->widget());
+    int lastPrice =  button->text().toInt();
+    int i = 0;
+    while(i < collectibles.size() && collectibles.at(i).price != lastPrice){
+        i++;
+    }
+    QLayoutItem *itemOne = ui->collectiblesLayout->itemAtPosition(1,0);
+    QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
+    QLayoutItem *itemTwo = ui->collectiblesLayout->itemAtPosition(1,1);
+    QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
+    QLayoutItem *itemThree = ui->collectiblesLayout->itemAtPosition(1,2);
+    QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
+    QLayoutItem *itemFour = ui->collectiblesLayout->itemAtPosition(0,0);
+    QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
+    QLayoutItem *itemFive = ui->collectiblesLayout->itemAtPosition(0,1);
+    QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
+    QLayoutItem *itemSix = ui->collectiblesLayout->itemAtPosition(0,2);
+    QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
+
+    priceOne->setText(priceTwo->text());
+    picOne->setPixmap(picTwo->pixmap());
+    priceTwo->setText(priceThree->text());
+    picTwo->setPixmap(picThree->pixmap());
+    if(i == collectibles.size()-1){
+        QPixmap pixmapThree(collectibles.at(0).name);
+        picThree->setPixmap(pixmapThree.scaled(300,300));
+        priceThree->setText(QString::number(collectibles.at(0).price));
+    } else{
+        priceThree->setText(QString::number(collectibles.at(i+1).price));
+        QPixmap pixmapThree(collectibles.at(i+1).name);
+        picThree->setPixmap(pixmapThree.scaled(300,300));
+    }
+}
+
 void Purchase::on_collectiblesRightButton_clicked()
 {
     QLayoutItem *item = ui->collectiblesLayout->itemAtPosition(1,0);
     QPushButton* button = qobject_cast<QPushButton*>(item->widget());
     int lastPrice =  button->text().toInt();
-    for(int i = 0; i < collectibles.size(); i++){
-        if(collectibles.at(i).price == lastPrice){
-            QLayoutItem *itemOne = ui->collectiblesLayout->itemAtPosition(1,0);
-            QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
-            QLayoutItem *itemTwo = ui->collectiblesLayout->itemAtPosition(1,1);
-            QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
-            QLayoutItem *itemThree = ui->collectiblesLayout->itemAtPosition(1,2);
-            QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
-            QLayoutItem *itemFour = ui->collectiblesLayout->itemAtPosition(0,0);
-            QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
-            QLayoutItem *itemFive = ui->collectiblesLayout->itemAtPosition(0,1);
-            QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
-            QLayoutItem *itemSix = ui->collectiblesLayout->itemAtPosition(0,2);
-            QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
-
-            priceThree->setText(priceTwo->text());
-            picThree->setPixmap(picTwo->pixmap());
-            priceTwo->setText(priceOne->text());
-            picTwo->setPixmap(picOne->pixmap());
-            if(i == 0){
-                QPixmap pixmapOne(collectibles.at(collectibles.size()-1).name);
-                picOne->setPixmap(pixmapOne.scaled(300,300));
-                priceOne->setText(QString::number(collectibles.at(collectibles.size()-1).price));
-            } else{
-                priceOne->setText(QString::number(collectibles.at(i-1).price));
-                QPixmap pixmapOne(collectibles.at(i-1).name);
-                picOne->setPixmap(pixmapOne.scaled(300,300));
-            }
-        }
+    int i = 0;
+    while(i < collectibles.size() && collectibles.at(i).price != lastPrice){
+        i++;
     }
 
+    QLayoutItem *itemOne = ui->collectiblesLayout->itemAtPosition(1,0);
+    QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
+    QLayoutItem *itemTwo = ui->collectiblesLayout->itemAtPosition(1,1);
+    QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
+    QLayoutItem *itemThree = ui->collectiblesLayout->itemAtPosition(1,2);
+    QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
+    QLayoutItem *itemFour = ui->collectiblesLayout->itemAtPosition(0,0);
+    QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
+    QLayoutItem *itemFive = ui->collectiblesLayout->itemAtPosition(0,1);
+    QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
+    QLayoutItem *itemSix = ui->collectiblesLayout->itemAtPosition(0,2);
+    QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
+
+    priceThree->setText(priceTwo->text());
+    picThree->setPixmap(picTwo->pixmap());
+    priceTwo->setText(priceOne->text());
+    picTwo->setPixmap(picOne->pixmap());
+    if(i == 0){
+        QPixmap pixmapOne(collectibles.at(collectibles.size()-1).name);
+        picOne->setPixmap(pixmapOne.scaled(300,300));
+        priceOne->setText(QString::number(collectibles.at(collectibles.size()-1).price));
+    } else{
+        priceOne->setText(QString::number(collectibles.at(i-1).price));
+        QPixmap pixmapOne(collectibles.at(i-1).name);
+        picOne->setPixmap(pixmapOne.scaled(300,300));
+    }
 }
 
 
@@ -205,35 +200,35 @@ void Purchase::on_needsLeftButton_clicked()
     QLayoutItem *item = ui->needsLayout->itemAtPosition(1,2);
     QPushButton* button = qobject_cast<QPushButton*>(item->widget());
     int lastPrice =  button->text().toInt();
-    for(int i = 0; i < needs.size(); i++){
-        if(needs.at(i).price == lastPrice){
-            QLayoutItem *itemOne = ui->needsLayout->itemAtPosition(1,0);
-            QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
-            QLayoutItem *itemTwo = ui->needsLayout->itemAtPosition(1,1);
-            QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
-            QLayoutItem *itemThree = ui->needsLayout->itemAtPosition(1,2);
-            QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
-            QLayoutItem *itemFour = ui->needsLayout->itemAtPosition(0,0);
-            QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
-            QLayoutItem *itemFive = ui->needsLayout->itemAtPosition(0,1);
-            QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
-            QLayoutItem *itemSix = ui->needsLayout->itemAtPosition(0,2);
-            QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
+    int i = 0;
+    while(i < needs.size() && needs.at(i).price != lastPrice){
+        i++;
+    }
+    QLayoutItem *itemOne = ui->needsLayout->itemAtPosition(1,0);
+    QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
+    QLayoutItem *itemTwo = ui->needsLayout->itemAtPosition(1,1);
+    QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
+    QLayoutItem *itemThree = ui->needsLayout->itemAtPosition(1,2);
+    QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
+    QLayoutItem *itemFour = ui->needsLayout->itemAtPosition(0,0);
+    QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
+    QLayoutItem *itemFive = ui->needsLayout->itemAtPosition(0,1);
+    QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
+    QLayoutItem *itemSix = ui->needsLayout->itemAtPosition(0,2);
+    QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
 
-            priceOne->setText(priceTwo->text());
-            picOne->setPixmap(picTwo->pixmap());
-            priceTwo->setText(priceThree->text());
-            picTwo->setPixmap(picThree->pixmap());
-            if(i == needs.size()-1){
-                QPixmap pixmapThree(needs.at(0).name);
-                picThree->setPixmap(pixmapThree.scaled(300,300));
-                priceThree->setText(QString::number(needs.at(0).price));
-            } else{
-                priceThree->setText(QString::number(needs.at(i+1).price));
-                QPixmap pixmapThree(needs.at(i+1).name);
-                picThree->setPixmap(pixmapThree.scaled(300,300));
-            }
-        }
+    priceOne->setText(priceTwo->text());
+    picOne->setPixmap(picTwo->pixmap());
+    priceTwo->setText(priceThree->text());
+    picTwo->setPixmap(picThree->pixmap());
+    if(i == needs.size()-1){
+        QPixmap pixmapThree(needs.at(0).name);
+        picThree->setPixmap(pixmapThree.scaled(300,300));
+        priceThree->setText(QString::number(needs.at(0).price));
+    } else{
+        priceThree->setText(QString::number(needs.at(i+1).price));
+        QPixmap pixmapThree(needs.at(i+1).name);
+        picThree->setPixmap(pixmapThree.scaled(300,300));
     }
 }
 
@@ -242,34 +237,34 @@ void Purchase::on_needsRightButton_clicked()
     QLayoutItem *item = ui->needsLayout->itemAtPosition(1,0);
     QPushButton* button = qobject_cast<QPushButton*>(item->widget());
     int lastPrice =  button->text().toInt();
-    for(int i = 0; i < needs.size(); i++){
-        if(needs.at(i).price == lastPrice){
-            QLayoutItem *itemOne = ui->needsLayout->itemAtPosition(1,0);
-            QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
-            QLayoutItem *itemTwo = ui->needsLayout->itemAtPosition(1,1);
-            QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
-            QLayoutItem *itemThree = ui->needsLayout->itemAtPosition(1,2);
-            QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
-            QLayoutItem *itemFour = ui->needsLayout->itemAtPosition(0,0);
-            QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
-            QLayoutItem *itemFive = ui->needsLayout->itemAtPosition(0,1);
-            QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
-            QLayoutItem *itemSix = ui->needsLayout->itemAtPosition(0,2);
-            QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
+    int i = 0;
+    while(i < needs.size() && needs.at(i).price != lastPrice){
+        i++;
+    }
+    QLayoutItem *itemOne = ui->needsLayout->itemAtPosition(1,0);
+    QPushButton* priceOne = qobject_cast<QPushButton*>(itemOne->widget());
+    QLayoutItem *itemTwo = ui->needsLayout->itemAtPosition(1,1);
+    QPushButton* priceTwo = qobject_cast<QPushButton*>(itemTwo->widget());
+    QLayoutItem *itemThree = ui->needsLayout->itemAtPosition(1,2);
+    QPushButton* priceThree = qobject_cast<QPushButton*>(itemThree->widget());
+    QLayoutItem *itemFour = ui->needsLayout->itemAtPosition(0,0);
+    QLabel* picOne = qobject_cast<QLabel*>(itemFour->widget());
+    QLayoutItem *itemFive = ui->needsLayout->itemAtPosition(0,1);
+    QLabel* picTwo = qobject_cast<QLabel*>(itemFive->widget());
+    QLayoutItem *itemSix = ui->needsLayout->itemAtPosition(0,2);
+    QLabel* picThree = qobject_cast<QLabel*>(itemSix->widget());
 
-            priceThree->setText(priceTwo->text());
-            picThree->setPixmap(picTwo->pixmap());
-            priceTwo->setText(priceOne->text());
-            picTwo->setPixmap(picOne->pixmap());
-            if(i == 0){
-                QPixmap pixmapOne(needs.at(needs.size()-1).name);
-                picOne->setPixmap(pixmapOne.scaled(300,300));
-                priceOne->setText(QString::number(needs.at(needs.size()-1).price));
-            } else{
-                priceOne->setText(QString::number(needs.at(i-1).price));
-                QPixmap pixmapOne(needs.at(i-1).name);
-                picOne->setPixmap(pixmapOne.scaled(300,300));
-            }
-        }
+    priceThree->setText(priceTwo->text());
+    picThree->setPixmap(picTwo->pixmap());
+    priceTwo->setText(priceOne->text());
+    picTwo->setPixmap(picOne->pixmap());
+    if(i == 0){
+        QPixmap pixmapOne(needs.at(needs.size()-1).name);
+        picOne->setPixmap(pixmapOne.scaled(300,300));
+        priceOne->setText(QString::number(needs.at(needs.size()-1).price));
+    } else{
+        priceOne->setText(QString::number(needs.at(i-1).price));
+        QPixmap pixmapOne(needs.at(i-1).name);
+        picOne->setPixmap(pixmapOne.scaled(300,300));
     }
 }

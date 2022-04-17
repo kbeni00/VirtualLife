@@ -8,6 +8,7 @@
 #include "actions.h"
 #include "purchase.h"
 #include "assets.h"
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class VirtualLifeView; }
@@ -18,10 +19,20 @@ class VirtualLifeView : public QMainWindow
     Q_OBJECT
 
 public:
+    struct EventDetails{
+        QString description;
+        int influence;
+        EventDetails(QString d,int i){
+            description = d;
+            influence = i;
+        }
+    };
     VirtualLifeView(QWidget *parent = nullptr);
     ~VirtualLifeView();
     void updateCharacter();
     void changeStage();
+    void generateRandomEvent();
+    void initEvents();
 
 private slots:
     bool on__start_clicked();
@@ -58,7 +69,6 @@ private slots:
 
     void handleBoughtItem(QString,int);
 
-
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;
@@ -67,5 +77,6 @@ private:
     Purchase* purchase;
     Assets* assets;
     VirtualLifeModel* model;
+    QVector<EventDetails> allEvents;
 };
 #endif // VIRTUALLIFEVIEW_H
