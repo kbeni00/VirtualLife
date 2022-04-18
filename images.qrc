@@ -2,16 +2,12 @@
     <qresource prefix="/characterImages">
         <file>babyboy.png</file>
         <file>babygirl.png</file>
-        <file>childboy.png</file>
-        <file>childgirl.png</file>
         <file>teenageboy.png</file>
         <file>teenagegirl.png</file>
         <file>adultmale.png</file>
-        <file>adultfemale.png</file>
-        <file>elderman.png</file>
-        <file>elderwoman.png</file>
         <file>SyNet.qss</file>
         <file>SpyBot.qss</file>
+        <file>adultfemale.png</file>
     </qresource>
     <qresource prefix="/spaceinvaders">
         <file>BlueAlien.png</file>

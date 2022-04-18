@@ -12,7 +12,7 @@ class HuntingGame : public QGraphicsView
 {
     Q_OBJECT
 public:
-    HuntingGame(QSize screenSize, QWidget* parent = nullptr);
+    HuntingGame(QSize screenSize, QString difficulty, QWidget* parent = nullptr);
     void run();
     void checkPoints();
 public slots:
@@ -28,6 +28,10 @@ private:
     HuntingPointsPart* _points = nullptr;
     QTimer* turkeySpawnTimer = nullptr;
     QTimer* gameOverTimer = nullptr;
+    bool isGameWon;
+    int turkeySpeed;
+    int turkeysToHunt;
+    int gameTime;
 };
 
 #endif // HUNTINGGAME_H

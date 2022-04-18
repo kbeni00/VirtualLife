@@ -9,7 +9,7 @@
 //ráírni vmit a buttonre, ami tartalmaz információt a rajta lévő képről, ezt elrejteni, mikor rákattanitunk egy képre, megjeleníteni a szöveghez tartozó képet (ENUM?)
 //button.animateClick
 //shuffle the vector
-MemoryCard::MemoryCard(QWidget *parent) :
+MemoryCard::MemoryCard(QString difficulty, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MemoryCard)
 {
@@ -69,12 +69,12 @@ void MemoryCard::cardClicked()
         setImage(senderButton, path);
         if(firstGuess == secondGuess){
             if(++matchesFound == allMatches){
-                emit sigGameOver();
                 QMessageBox msg;
                 QString resultMessage = "Congratulations, you've found all the pairs!";
                 msg.setText(resultMessage);
                 msg.exec();
                 this->close();
+                emit sigGameOver();
             }
             firstButton->setEnabled(false);
             secondButton->setEnabled(false);

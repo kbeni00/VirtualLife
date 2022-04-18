@@ -5,12 +5,13 @@
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <spaceinvadersparts.h>
+#include <QSize>
 
 class SpaceInvaders : public QGraphicsView
 {
     Q_OBJECT
 public:
-    SpaceInvaders(QSize screenSize, QWidget* parent = nullptr);
+    SpaceInvaders(QSize screenSize, QString difficulty, QWidget* parent = nullptr);
     void run();
     void checkPoints();
 protected:
@@ -29,6 +30,11 @@ private:
     CannonPart* _cannon = nullptr;
     PointsPart* _points = nullptr;
     QTimer* alienTimer = nullptr;
+    bool isWonGame;
+    int scoreToReach;
+    int maxHealth;
+    int alienSpeed;
+    int alienSpawnSpeed;
 };
 
 #endif // SPACEINVADERS_H

@@ -11,10 +11,22 @@
 #include <QGraphicsItem>
 
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
-//TODO: Increased intelligence based on difficulty -> Very easy, easy, medium, hard, impossible
-//TODO: improve game over method aka lépjen ki rendesen
-HuntingGame::HuntingGame(QSize screenSize, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
+HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
+    if(difficulty == "Easy"){
+        turkeySpeed = 1800;
+        turkeysToHunt = 10;
+        gameTime = 90000;
+
+    } else if(difficulty == "Medium"){
+        turkeySpeed = 1250;
+        turkeysToHunt = 15;
+        gameTime = 90000;
+    } else{
+        turkeySpeed = 900;
+        turkeysToHunt = 20;
+        gameTime = 90000;
+    }
     QGraphicsScene* scene = new QGraphicsScene();
     setScene(scene);
     scene->setSceneRect(0,0,_screenSize.width(),_screenSize.height());
@@ -22,7 +34,7 @@ HuntingGame::HuntingGame(QSize screenSize, QWidget *parent) : QGraphicsView(pare
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gameOverTimer = new QTimer();
-    gameOverTimer->start(20000);
+    gameOverTimer->start(gameTime);
     connect(gameOverTimer,&QTimer::timeout, this, &HuntingGame::onGameOverTimerUp);
 
 //    QPixmap p = QPixmap(":/huntinggame/crossair.png");
@@ -35,10 +47,10 @@ HuntingGame::HuntingGame(QSize screenSize, QWidget *parent) : QGraphicsView(pare
 void HuntingGame::run()
 {
     scene()->clear();
-    _points = new HuntingPointsPart();
+    _points = new HuntingPointsPart(gameTime, turkeysToHunt);
     scene()->addItem(_points);
     turkeySpawnTimer = new QTimer(this);
-    turkeySpawnTimer->start(1500);
+    turkeySpawnTimer->start(turkeySpeed);
     connect(turkeySpawnTimer, &QTimer::timeout, this, &HuntingGame::onCreateEnemy);
 }
 
@@ -47,7 +59,7 @@ void HuntingGame::checkPoints()
     if(_points->getScore() < 0){
         _points->reset();
         onGameOver(false);
-    } else if(_points->getScore() == gTurkeysHunted){
+    } else if(_points->getScore() == turkeysToHunt){
         _points->reset();
         onGameOver(true);
     }
@@ -56,11 +68,11 @@ void HuntingGame::checkPoints()
 
 void HuntingGame::onCreateEnemy()
 {
-    TurkeyPart* turkey = new TurkeyPart();
+    TurkeyPart* turkey = new TurkeyPart(turkeySpeed);
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = screen->geometry();
-    int posX = QRandomGenerator::global()->bounded(screenGeometry.width()-gTurkeySize.width());
-    int posY = QRandomGenerator::global()->bounded(screenGeometry.height()-gTurkeySize.height());
+    int posX = QRandomGenerator::global()->bounded(screenGeometry.width()-turkey->turkeySize.width());
+    int posY = QRandomGenerator::global()->bounded(screenGeometry.height()-turkey->turkeySize.height());
 
     turkey->setPos(posX,posY);
     turkey->setFlag((QGraphicsItem::ItemIsFocusable));
@@ -69,6 +81,7 @@ void HuntingGame::onCreateEnemy()
     scene()->addItem(turkey);
     connect(turkey, &TurkeyPart::sigGameOver, this, &HuntingGame::onGameOver);
     connect(turkey, &TurkeyPart::sigUpdateScore, this, &HuntingGame::onUpdateScore);
+    qDebug() << "creating turkey";
 }
 
 void HuntingGame::onUpdateScore(bool res)
@@ -85,9 +98,11 @@ void HuntingGame::onUpdateScore(bool res)
 void HuntingGame::onGameOver(bool wonGame)
 {
     turkeySpawnTimer->stop();
-    delete turkeySpawnTimer;
-    delete _points;
-    scene()->clear();
+    gameOverTimer->stop();
+    _points->hide();
+//    delete turkeySpawnTimer;
+//    delete _points;
+//    scene()->clear();
     setCursor(Qt::PointingHandCursor);
     QGraphicsTextItem* text = new QGraphicsTextItem();
     text->setDefaultTextColor(Qt::red);
@@ -108,12 +123,13 @@ void HuntingGame::onGameOver(bool wonGame)
     //    layout->addRow(new QLabel("asdasd"));
     //    layout->addRow(exitButton);
     //    groupBox->setLayout(layout);
-    emit sigGameOver(wonGame);
+    isGameWon = wonGame;
 }
 
 void HuntingGame::handleExitButton()
 {
     this->close();
+    emit sigGameOver(isGameWon);
 }
 
 void HuntingGame::onGameOverTimerUp()

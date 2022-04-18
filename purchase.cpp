@@ -4,6 +4,7 @@
 #include <QDirIterator>
 #include <QPushButton>
 #include <QLayoutItem>
+#include <QMessageBox>
 
 //TODO: linked list qvector helyett, hogy mikor rányomsz a gombra akk a prev v a next kelljen
 Purchase::Purchase(QWidget *parent) :
@@ -39,19 +40,19 @@ Purchase::Purchase(QWidget *parent) :
         Purchase::Thingy newthingy;
         newthingy.name = fileName;
         if(newthingy.name == ":/purchase/needs/fastfood.png"){
-            newthingy.price = 5000;
+            newthingy.price = 4000;
         } else if(newthingy.name == ":/purchase/needs/fruits.png"){
             newthingy.price = 10000;
         } else if(newthingy.name == ":/purchase/needs/pancakes.png"){
             newthingy.price = 3000;
         } else if(newthingy.name == ":/purchase/needs/pizza.png"){
-            newthingy.price = 6500;
+            newthingy.price = 5000;
         } else if(newthingy.name == ":/purchase/needs/prime.png"){
             //fills needs completely
             newthingy.price = 30000;
         }
         else if(newthingy.name == ":/purchase/needs/sushi.png"){
-            newthingy.price = 4000;
+            newthingy.price = 6000;
         }
         needs.push_back(newthingy);
     }
@@ -104,7 +105,6 @@ void Purchase::handleClick()
 {
     QPushButton* sender = dynamic_cast<QPushButton*>(QObject::sender());
     for(int i = 0; i < collectibles.size(); i++){
-        qDebug() << "collectible item";
         if(collectibles.at(i).price == sender->text().toInt()){
             emit sigBoughtItem(collectibles.at(i).name,collectibles.at(i).price);
         }
@@ -115,7 +115,6 @@ void Purchase::handleClick()
             emit sigBoughtItem(needs.at(i).name,needs.at(i).price);
         }
     }
-
 }
 
 void Purchase::on_collectiblesLeftButton_clicked()
@@ -193,8 +192,6 @@ void Purchase::on_collectiblesRightButton_clicked()
     }
 }
 
-
-
 void Purchase::on_needsLeftButton_clicked()
 {
     QLayoutItem *item = ui->needsLayout->itemAtPosition(1,2);
@@ -268,3 +265,14 @@ void Purchase::on_needsRightButton_clicked()
         picOne->setPixmap(pixmapOne.scaled(300,300));
     }
 }
+
+void Purchase::on_helpButton_clicked()
+{
+    QMessageBox msg;
+    QString details =
+        "Pancakes: 1 health, 2 needs\nFast Food: 1 health, 4 needs\nPizza: 2 health 6 needs\nFruits: 5 health 3 needs\n"
+        "Sushi: 5 health 5 needs\nPrime: 15 health 7 needs";
+    msg.setText(details);
+    msg.exec();
+}
+

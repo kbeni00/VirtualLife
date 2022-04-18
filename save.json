@@ -198,12 +198,90 @@
         {
             "age": 0,
             "assets": [
+                ":/purchase/collectibles/cheapHouse.png",
+                ":/purchase/collectibles/normalCar.png",
+                ":/purchase/collectibles/expensiveCar.png"
             ],
             "gender": "Male",
             "health": 0,
             "intelligence": 0,
             "mood": 0,
             "name": "gergo",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 999675000
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 0,
+            "mood": 0,
+            "name": ",m ",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 1000000000
+        },
+        {
+            "age": 0,
+            "assets": [
+                ":/purchase/needs/fruits.png",
+                ":/purchase/needs/pizza.png",
+                ":/purchase/needs/pizza.png",
+                ":/purchase/needs/pizza.png",
+                ":/purchase/needs/pizza.png",
+                ":/purchase/needs/pizza.png",
+                ":/purchase/collectibles/expensiveHouse.png",
+                ":/purchase/collectibles/cheapCar.png",
+                ":/purchase/needs/prime.png",
+                ":/purchase/collectibles/cheapHouse.png",
+                ":/purchase/collectibles/expensiveCar.png",
+                ":/purchase/collectibles/normalCar.png"
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 0,
+            "mood": -50,
+            "name": "kh",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 999072500
+        },
+        {
+            "age": 0,
+            "assets": [
+                ":/purchase/collectibles/cheapHouse.png",
+                ":/purchase/collectibles/expensiveCar.png",
+                ":/purchase/collectibles/normalCar.png"
+            ],
+            "gender": "Female",
+            "health": 0,
+            "intelligence": 0,
+            "mood": 0,
+            "name": "andi",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Baby",
+            "wealth": 999675000
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 0,
+            "mood": 0,
+            "name": ",m     ",
             "needs": 0,
             "relationships": [
             ],

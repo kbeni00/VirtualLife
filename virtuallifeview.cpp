@@ -9,6 +9,7 @@
 #include <QThread>
 
 //TODO: egyszer beolvansi a neveket egy tömbbe és utána onnan kiszedni a neveket, nem a fájlból olvasni mindig
+//TODO: Details helyett achivements
 
 VirtualLifeView::VirtualLifeView(QWidget *parent)
     : QMainWindow(parent)
@@ -29,7 +30,7 @@ VirtualLifeView::~VirtualLifeView()
 }
 
 void VirtualLifeView::initEvents(){
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You broke your arm. You lose 10 health points.", -20));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You broke your arm. You lose 10 health points.", -10));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got electrocuted while messing with the outlet. You lose 15 health points.", -15));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your friends. You lose 10 mood points.", -10));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got kidnapped but managed to escape. You lose 30 mood points.", -30));
@@ -112,7 +113,6 @@ bool VirtualLifeView::on__start_clicked()
         bool isValidName = initialData->getSelectedName() != "";
         bool isValidGender = initialData->getSelectedGender() != "Choose";
         QMessageBox msg;
-        msg.setWindowModality(Qt::ApplicationModal);
         if(!isValidName){
             msg.setText("Please enter a valid name!");
             msg.exec();
@@ -165,6 +165,7 @@ void VirtualLifeView::on__age_clicked()
         model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+13);
     } else if(model->getCurrentCharacter()->getStage() == "Teenager" && model->getCurrentCharacter()->getIntelligence() >= 50 && model->getCurrentCharacter()->getMood() >=20){
         model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+13);
+        ui->_age->setEnabled(false);
     } else{
         QMessageBox msg;
         msg.setText("You are not ready to advance to the next stage!");
@@ -189,7 +190,6 @@ void VirtualLifeView::on__details_clicked()
             "\n Health: " + QString::number(model->getCurrentCharacter()->getHealth()) +
             "\n Wealth: " + QString::number(model->getCurrentCharacter()->getWealth());
     msg.setText(details);
-    msg.setWindowModality(Qt::ApplicationModal);
     msg.exec();
 
 }
@@ -205,7 +205,6 @@ void VirtualLifeView::on__actions_clicked()
     connect(actions, &Actions::sigSpaceInvadersEnd, this, &VirtualLifeView::handleSpaceInvadersEnd);
     connect(actions, &Actions::sigMemoryEnd, this, &VirtualLifeView::handleMemoryEnd);
     connect(actions, &Actions::sigHuntingGameEnd, this, &VirtualLifeView::handleHuntingGameEnd);
-    connect(actions, &Actions::sigOnDestroyed, this, &VirtualLifeView::onDestroyed);
 }
 
 
@@ -237,13 +236,13 @@ void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame)
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
+    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
     generateRandomEvent();
 
 }
 
 void VirtualLifeView::handleMemoryEnd()
 {
-    qDebug() << "View memory";
     model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
     model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 30);
@@ -251,7 +250,8 @@ void VirtualLifeView::handleMemoryEnd()
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
     ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
     ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
-//    generateRandomEvent();
+    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
+    generateRandomEvent();
 }
 
 void VirtualLifeView::handlePoliceJobEnd(bool wonGame)
@@ -265,6 +265,7 @@ void VirtualLifeView::handlePoliceJobEnd(bool wonGame)
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
+    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
     generateRandomEvent();
 
 }
@@ -274,19 +275,19 @@ void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
     if(wonGame){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
-        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 30);
-        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 100);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 100);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
+    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
     generateRandomEvent();
 
 }
 
 void VirtualLifeView::handleLotteryEnd(int wonAmount)
 {
-    qDebug() << "View lottery";
     model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + wonAmount);
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
     generateRandomEvent();
@@ -294,11 +295,45 @@ void VirtualLifeView::handleLotteryEnd(int wonAmount)
 
 void VirtualLifeView::handleBoughtItem(QString itemName, int itemPrice)
 {
+    if(itemName.contains("sushi")){
+        model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 5);
+        model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 5);
+    } else if(itemName.contains("pizza")){
+        model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 2);
+        model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 6);
+    } else if(itemName.contains("fruits")){
+        model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 5);
+        model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 3);
+    } else if(itemName.contains("fastfood")){
+        model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 1);
+        model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 4);
+    } else if(itemName.contains("pancakes")){
+        model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 1);
+        model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 2);
+    } else if(itemName.contains("prime")){
+        model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 15);
+        model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 7);
+    }
+
+    int posSlash = itemName.lastIndexOf(QChar('/')) + 1;
+    int posExt = itemName.lastIndexOf(QChar('.')) - 1;
+    qDebug() << itemName << posSlash << posExt << itemName.mid(posSlash,posExt) << itemName.at(posExt);
+    itemName.remove(0,posSlash);
+    itemName.chop(4);
+    QMessageBox msg;
+    QString details;
+
     if(model->getCurrentCharacter()->getWealth() >= itemPrice){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth()-itemPrice);
         model->getCurrentCharacter()->addAsset(itemName);
-        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        details = "You bought a(n) " + itemName;
+    } else{
+        details = "You don't have enough money to buy a(n) " + itemName;
     }
+    msg.setText(details);
+    msg.exec();
+
+    updateCharacter();
 }
 
 void VirtualLifeView::on__savegame_clicked()
@@ -306,7 +341,6 @@ void VirtualLifeView::on__savegame_clicked()
     QMessageBox msg;
     QString details = (model->saveGame()) ? "Successfully saved the game!" : "Failed to save the game!";
     msg.setText(details);
-    msg.setWindowModality(Qt::ApplicationModal);
     msg.exec();
 }
 
@@ -346,7 +380,6 @@ void VirtualLifeView::handleReadError()
     QMessageBox msg;
     QString details = "The specified name cannot be found in the database.";
     msg.setText(details);
-    msg.setWindowModality(Qt::ApplicationModal);
     msg.exec();
 }
 
@@ -367,7 +400,6 @@ void VirtualLifeView::on__newcharacter_clicked()
         QVector<QString> names = model->getNamesInDatabase();
         nameAlreadyExists = names.contains(initialData->getSelectedName()) && !nameAlreadyExists;
         QMessageBox msg;
-        msg.setWindowModality(Qt::ApplicationModal);
         if(!isValidName){
             msg.setText("Please enter a valid name!");
             msg.exec();
@@ -410,33 +442,40 @@ void VirtualLifeView::on__characters_clicked()
         details += character->getName() + "\n";
     }
     msg.setText(details);
-    msg.setWindowModality(Qt::ApplicationModal);
     msg.exec();
 
 }
 
 void VirtualLifeView::generateRandomEvent()
 {
-//    int prob = QRandomGenerator::global()->bounded(101);
-//    if(prob > 60){
+    int prob = QRandomGenerator::global()->bounded(101);
+    if(prob < 40){
         int index = QRandomGenerator::global()->bounded(allEvents.size());
         QMessageBox msg;
         msg.setText(allEvents.at(index).description);
-        msg.setWindowModality(Qt::ApplicationModal);
+        allEvents.removeAt(index);
         msg.exec();
         if(allEvents.at(index).description.contains("health")){
-            model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence);
+            int newHealth = (model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence > 0) ?
+                             qMax(model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence,0) : 0;
+            model->getCurrentCharacter()->setHealth(newHealth);
             ui->healthval->setText(QString::number(model->getCurrentCharacter()->getHealth()));
         } else if(allEvents.at(index).description.contains("needs")){
-            model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence);
+            int newNeeds = (model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence > 0) ?
+                                qMax(model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence,0) : 0;
+            model->getCurrentCharacter()->setNeeds(newNeeds);
             ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
         } else if(allEvents.at(index).description.contains("mood")){
-            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + allEvents.at(index).influence);
+            int newMood = (model->getCurrentCharacter()->getMood() + allEvents.at(index).influence > 0) ?
+                                qMax(model->getCurrentCharacter()->getMood() + allEvents.at(index).influence,0) : 0;
+            model->getCurrentCharacter()->setMood(newMood);
             ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
         } else if(allEvents.at(index).description.contains("intelligence")){
-            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence);
+            int newIntelligence = (model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence > 0) ?
+                                qMax(model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence,0) : 0;
+            model->getCurrentCharacter()->setIntelligence(newIntelligence);
             ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         }
-//    }
+    }
 }
 

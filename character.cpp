@@ -143,7 +143,7 @@ void Character::read(const QJsonObject &json)
     }
     QJsonArray assetsArray = json["assets"].toArray();
     for(int i = 0; i < assetsArray.size(); i++){
-        relationships.push_back(assetsArray.at(i).toString());
+        assets.push_back(assetsArray.at(i).toString());
     }
 
 }

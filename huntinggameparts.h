@@ -1,7 +1,6 @@
 #ifndef HUNTINGGAMEPARTS_H
 #define HUNTINGGAMEPARTS_H
 
-#include "huntinggamesettings.h"
 #include <QObject>
 #include <QKeyEvent>
 #include <QGraphicsSimpleTextItem>
@@ -13,7 +12,8 @@ class TurkeyPart : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    TurkeyPart(QGraphicsItem *parent = nullptr);
+    TurkeyPart(int,QGraphicsItem *parent = nullptr);
+    QSize const turkeySize = QSize(200,200);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 signals:
@@ -21,8 +21,6 @@ signals:
     void sigUpdateScore(bool);
 public slots:
     void onMove();
-private:
-    bool isMovingRight = true;
 
 
 };
@@ -33,15 +31,17 @@ class HuntingPointsPart : public QGraphicsTextItem
 {
     Q_OBJECT
 public:
-    HuntingPointsPart(QGraphicsItem *parent = nullptr);
+    HuntingPointsPart(int,int,QGraphicsItem *parent = nullptr);
     void increaseScore();
     int getScore() const;
     void reset();
     void updateMetrics();
 
 private:
-    int _nHealth = gTurkeysHunted;
-    int _nScore = 0;
+    int _health = 0;
+    int _score = 0;
+    int _gameTime;
+    int _turkeysToHunt;
     QTimer* timeLeftTimer = nullptr;
 };
 

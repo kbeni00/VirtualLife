@@ -6,7 +6,7 @@
 CannonPart::CannonPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
     QPixmap pixmap(":/spaceinvaders/spaceship2.png");
-    setPixmap(pixmap.scaled(gCannonSize, Qt::KeepAspectRatio));
+    setPixmap(pixmap.scaled(cannonSize, Qt::KeepAspectRatio));
 }
 
 void CannonPart::shoot()
@@ -23,13 +23,13 @@ void CannonPart::shoot()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-AlienPart::AlienPart(QGraphicsItem *parent)
+AlienPart::AlienPart(int alienSpeed, QGraphicsItem *parent)
 {
     QPixmap pixmap(":/spaceinvaders/RedAlien.png");
-    setPixmap(pixmap.scaled(gCannonSize, Qt::KeepAspectRatio));
+    setPixmap(pixmap.scaled(alienSize, Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &AlienPart::onMove);
-    timer->start(gAlienSpeed);
+    timer->start(alienSpeed);
 
 }
 
@@ -53,7 +53,7 @@ void AlienPart::onMove()
 
 
     if(gameRunning){
-        if(pos().y() >= (scene()->height() - gCannonSize.height())){
+        if(pos().y() >= (scene()->height() - alienSize.height())){
             scene()->removeItem(this);
             emit sigDecreaseHealth();
             delete this;
@@ -69,7 +69,7 @@ BulletPart::BulletPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
     setPixmap(pixmap.scaled(QSize(40,40), Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &BulletPart::onMove);
-    timer->start(gBulletSpeed);
+    timer->start(_bulletSpeed);
 }
 
 void BulletPart::onMove()
@@ -103,9 +103,12 @@ void BulletPart::onMove()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-PointsPart::PointsPart(QGraphicsItem *parent) : QGraphicsTextItem(parent)
+PointsPart::PointsPart(int maxHealth, int scoreToReach, QGraphicsItem *parent) : QGraphicsTextItem(parent)
 {
-    updateMetrics(_nHealth,_nScore);
+    _health = maxHealth;
+    _scoreToReach = scoreToReach;
+
+    updateMetrics(_health,_score);
     setDefaultTextColor(Qt::red);
     setFont(QFont("times", 24));
 }
@@ -114,40 +117,40 @@ void PointsPart::updateMetrics(int health, int score)
 {
     setPlainText(QString("Health : ") + QString::number(health) + "\n"
                  + QString("Score: ") + QString::number(score)
-                 + QString("/") + QString::number(gScoreToReach));
+                 + QString("/") + QString::number(_scoreToReach));
 }
 
 
 void PointsPart::increaseScore()
 {
-    _nScore += 1;
-    updateMetrics(_nHealth,_nScore);
+    _score += 1;
+    updateMetrics(_health,_score);
 }
 
 void PointsPart::decreaseScore()
 {
-    _nScore -= 1;
-    updateMetrics(_nHealth,_nScore);
+    _score -= 1;
+    updateMetrics(_health,_score);
 }
 
 void PointsPart::decreaseHealth()
 {
-    _nHealth--;
-    updateMetrics(_nHealth,_nScore);
+    _health--;
+    updateMetrics(_health,_score);
 }
 
 int PointsPart::getHealth() const
 {
-    return _nHealth;
+    return _health;
 }
 
 int PointsPart::getScore() const
 {
-    return _nScore;
+    return _score;
 }
 
 void PointsPart::reset()
 {
-    _nScore = 0;
-    _nHealth = gMaxHealth;
+    _score = 0;
+    _health = 0;
 }

@@ -14,7 +14,7 @@ class MemoryCard : public QWidget
     Q_OBJECT
 
 public:
-    explicit MemoryCard(QWidget *parent = nullptr);
+    explicit MemoryCard(QString difficulty, QWidget *parent = nullptr);
     ~MemoryCard();
     void setImage(QPushButton*,QString);
 

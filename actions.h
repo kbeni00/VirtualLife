@@ -7,10 +7,8 @@
 #include "memorycard.h"
 #include "policejob.h"
 #include "huntinggame.h"
+#include "difficulty.h"
 
-enum Difficulty{
-    VeryEasy, Easy, Medium, Hard, VeryHard, Impossible
-};
 namespace Ui {
 class Actions;
 }
@@ -45,8 +43,9 @@ private:
     SpaceInvaders* spaceInvaders;
     MemoryCard* memoryCard;
     PoliceJob* policeJob;
-    Difficulty difficulty;
     HuntingGame* huntingGame;
+    Difficulty* difficulty;
+
 
 };
 

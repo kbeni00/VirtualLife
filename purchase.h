@@ -33,6 +33,8 @@ private slots:
 
     void handleClick();
 
+    void on_helpButton_clicked();
+
 private:
     Ui::Purchase *ui;
     QVector<Thingy> collectibles;

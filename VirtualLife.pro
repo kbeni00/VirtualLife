@@ -13,6 +13,7 @@ SOURCES += \
     assets.cpp \
     character.cpp \
     details.cpp \
+    difficulty.cpp \
     huntinggame.cpp \
     huntinggameparts.cpp \
     initialdata.cpp \
@@ -33,9 +34,9 @@ HEADERS += \
     assets.h \
     character.h \
     details.h \
+    difficulty.h \
     huntinggame.h \
     huntinggameparts.h \
-    huntinggamesettings.h \
     initialdata.h \
     lottery.h \
     memorycard.h \
@@ -45,7 +46,6 @@ HEADERS += \
     purchase.h \
     spaceinvaders.h \
     spaceinvadersparts.h \
-    spaceinvaderssettings.h \
     virtuallifedataaccess.h \
     virtuallifemodel.h \
     virtuallifeview.h
@@ -54,6 +54,7 @@ FORMS += \
     actions.ui \
     assets.ui \
     details.ui \
+    difficulty.ui \
     initialdata.ui \
     lottery.ui \
     memorycard.ui \
