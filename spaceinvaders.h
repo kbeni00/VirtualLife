@@ -35,6 +35,7 @@ private:
     int maxHealth;
     int alienSpeed;
     int alienSpawnSpeed;
+    bool isGameOver = false;
 };
 
 #endif // SPACEINVADERS_H

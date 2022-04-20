@@ -36,7 +36,7 @@ void VirtualLifeView::initEvents(){
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got kidnapped but managed to escape. You lose 30 mood points.", -30));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You fell down the stairs today. You lose 10 health points.", -10));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You lost your phone. You lose 10 mood points.", -10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You parents died. You lose 50 mood points.", -50));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your family members at dinner. You lose 5 mood points.",-5));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got a compliment from a random person on the street. You gain 5 mood points.", 5));
     allEvents.push_back(*new VirtualLifeView::EventDetails("Your crush gave you an ice cream. You gain 10 mood points.", 10));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got a flower from one of your friends. You gain 10 mood points.", 10));
@@ -44,6 +44,8 @@ void VirtualLifeView::initEvents(){
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got a negative covid test. You gain 20 mood points.", 20));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a double rainbow while walking home. You gain 5 mood points.", 5));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a shooting star. You gain 10 mood points.", 10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You woke up on the right side of the bed today. You gain 2 mood points.", 5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("Your six pack is starting to show. You gain 5 mood points.", 5));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You got selected for an all expenses paid tour around the world. You gain 50 mood points.", 50));
 }
 
@@ -226,6 +228,7 @@ void VirtualLifeView::on__assets_clicked()
 
 }
 
+//crashes on loss
 void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame)
 {
     if(wonGame){
@@ -270,6 +273,7 @@ void VirtualLifeView::handlePoliceJobEnd(bool wonGame)
 
 }
 
+//subtract 5 iff its still above 0;
 void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
 {
     if(wonGame){
@@ -316,8 +320,6 @@ void VirtualLifeView::handleBoughtItem(QString itemName, int itemPrice)
     }
 
     int posSlash = itemName.lastIndexOf(QChar('/')) + 1;
-    int posExt = itemName.lastIndexOf(QChar('.')) - 1;
-    qDebug() << itemName << posSlash << posExt << itemName.mid(posSlash,posExt) << itemName.at(posExt);
     itemName.remove(0,posSlash);
     itemName.chop(4);
     QMessageBox msg;

@@ -10,20 +10,8 @@
         <file>adultfemale.png</file>
     </qresource>
     <qresource prefix="/spaceinvaders">
-        <file>BlueAlien.png</file>
-        <file>BlueBullet.png</file>
-        <file>BlueCannon.png</file>
-        <file>gameOver.png</file>
-        <file>invader.png</file>
-        <file>mainLogo.png</file>
-        <file>over.png</file>
-        <file>PinkAlien.png</file>
-        <file>PinkBullet.png</file>
-        <file>PinkCannon.png</file>
         <file>RedAlien.png</file>
         <file>RedBullet.png</file>
-        <file>RedCannon.png</file>
-        <file>SpaceInvadersBg.jpg</file>
         <file>spaceship2.png</file>
         <file>background.jpg</file>
     </qresource>

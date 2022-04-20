@@ -91,7 +91,9 @@ void SpaceInvaders::keyPressEvent(QKeyEvent *event)
             if((_cannon->pos().x() + _cannon->cannonSize.width()) < _screenSize.width()) _cannon->setPos(_cannon->x() + 20, _cannon->y());
             break;
         case Qt::Key_Space:
-            _cannon->shoot();
+            if(!isGameOver){
+                _cannon->shoot();
+            }
             break;
    }
 }
@@ -129,10 +131,11 @@ void SpaceInvaders::onDecreaseHealth()
 
 void SpaceInvaders::onGameOver(bool wonGame)
 {
+    isGameOver = true;
     alienTimer->stop();
 //    delete alienTimer;
-//    delete _cannon;
-//    delete _points;
+    delete _cannon;
+    delete _points;
     //potential mistake
     scene()->clear();
     setCursor(Qt::PointingHandCursor);
