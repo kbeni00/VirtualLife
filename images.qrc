@@ -14,6 +14,7 @@
         <file>RedBullet.png</file>
         <file>spaceship2.png</file>
         <file>background.jpg</file>
+        <file>spaceinvadersmusic.mp3</file>
     </qresource>
     <qresource prefix="/memorycards">
         <file>back.jpg</file>
@@ -22,15 +23,12 @@
         <file>plane.png</file>
         <file>ship.png</file>
     </qresource>
-    <qresource prefix="/policejob">
-        <file>policecar.png</file>
-        <file>robbercar1.png</file>
-    </qresource>
     <qresource prefix="/huntinggame">
         <file>crossair.png</file>
         <file>huntingbg.png</file>
         <file>turkey.png</file>
         <file>huntingbg2.png</file>
+        <file>huntinggamemusic.mp3</file>
     </qresource>
     <qresource prefix="/purchase/collectibles">
         <file>cheapCar.png</file>
@@ -47,5 +45,21 @@
         <file>pizza.png</file>
         <file>prime.png</file>
         <file>sushi.png</file>
+    </qresource>
+    <qresource prefix="/whackamole">
+        <file>mole.png</file>
+        <file>whackamolebg.png</file>
+        <file>whackamolemusic.mp3</file>
+        <file>whackamolebg2.png</file>
+        <file>hammer.png</file>
+    </qresource>
+    <qresource prefix="/crawlinggame">
+        <file>crawlingbaby.png</file>
+        <file>shakeyToy.png</file>
+        <file>shapesToy.png</file>
+        <file>stackingToy.png</file>
+        <file>teddyToy.png</file>
+        <file>citybg.jpg</file>
+        <file>milkBottle.png</file>
     </qresource>
 </RCC>

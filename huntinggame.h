@@ -5,9 +5,10 @@
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <huntinggameparts.h>
+#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QAudioOutput>
 
 
-//TODO: timerrel működjön
 class HuntingGame : public QGraphicsView
 {
     Q_OBJECT
@@ -32,6 +33,8 @@ private:
     int turkeySpeed;
     int turkeysToHunt;
     int gameTime;
+    QMediaPlayer* mediaPlayer;
+    QAudioOutput* audioOutput;
 };
 
 #endif // HUNTINGGAME_H

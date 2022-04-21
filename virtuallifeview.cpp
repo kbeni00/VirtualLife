@@ -163,19 +163,32 @@ bool VirtualLifeView::on__start_clicked()
 
 void VirtualLifeView::on__age_clicked()
 {
-    if(model->getCurrentCharacter()->getStage() == "Baby" && model->getCurrentCharacter()->getIntelligence() >= 10 && model->getCurrentCharacter()->getMood() >=10){
+    int intelligenceReq;
+    int moodReq;
+    if(model->getCurrentCharacter()->getStage() == "Baby"){
+        intelligenceReq = 50;
+        moodReq = 30;
+    } else{
+        intelligenceReq = 100;
+        moodReq = 60;
+    }
+    if(model->getCurrentCharacter()->getIntelligence() >= intelligenceReq && model->getCurrentCharacter()->getMood() >= moodReq){
         model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+13);
-    } else if(model->getCurrentCharacter()->getStage() == "Teenager" && model->getCurrentCharacter()->getIntelligence() >= 50 && model->getCurrentCharacter()->getMood() >=20){
-        model->getCurrentCharacter()->setAge(model->getCurrentCharacter()->getAge()+13);
-        ui->_age->setEnabled(false);
     } else{
         QMessageBox msg;
-        msg.setText("You are not ready to advance to the next stage!");
+
+        QString message = "You are not ready to advance to the next stage! You need "
+                          + QString::number(intelligenceReq) + " intelligence points and "
+                          + QString::number(moodReq) + " mood points to advance.";
+        msg.setText(message);
         msg.exec();
     }
 
     changeStage();
     updateCharacter();
+    if(model->getCurrentCharacter()->getStage() == "Adult"){
+        ui->_age->setEnabled(false);
+    }
 }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!! messagebox formok helyett???, v miért crashel a form !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!, mi az a QAction(s)
@@ -207,6 +220,8 @@ void VirtualLifeView::on__actions_clicked()
     connect(actions, &Actions::sigSpaceInvadersEnd, this, &VirtualLifeView::handleSpaceInvadersEnd);
     connect(actions, &Actions::sigMemoryEnd, this, &VirtualLifeView::handleMemoryEnd);
     connect(actions, &Actions::sigHuntingGameEnd, this, &VirtualLifeView::handleHuntingGameEnd);
+    connect(actions, &Actions::sigWhackAMoleEnd, this, &VirtualLifeView::handleWhackAMoleEnd);
+    connect(actions, &Actions::sigCrawlingGameEnd, this, &VirtualLifeView::handleCrawlingGameEnd);
 }
 
 
@@ -228,7 +243,6 @@ void VirtualLifeView::on__assets_clicked()
 
 }
 
-//crashes on loss
 void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame)
 {
     if(wonGame){
@@ -239,7 +253,8 @@ void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame)
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
-    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
+    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     generateRandomEvent();
 
 }
@@ -253,7 +268,8 @@ void VirtualLifeView::handleMemoryEnd()
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
     ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
     ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
-    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
+    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     generateRandomEvent();
 }
 
@@ -268,28 +284,63 @@ void VirtualLifeView::handlePoliceJobEnd(bool wonGame)
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
-    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
+    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+
     generateRandomEvent();
 
 }
 
-//subtract 5 iff its still above 0;
 void VirtualLifeView::handleHuntingGameEnd(bool wonGame)
 {
     if(wonGame){
         model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
-        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 100);
-        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 100);
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 50);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 50);
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
     }
-    model->getCurrentCharacter()->setNeeds(qMin(model->getCurrentCharacter()->getNeeds() - 5,0));
+    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     generateRandomEvent();
 
 }
 
+
+void VirtualLifeView::handleWhackAMoleEnd(bool wonGame)
+{
+    if(wonGame){
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 50);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 50);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+    }
+    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+    generateRandomEvent();
+
+}
+
+void VirtualLifeView::handleCrawlingGameEnd(bool wonGame)
+{
+    if(wonGame){
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 50);
+        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 50);
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+    }
+    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+    generateRandomEvent();
+}
 void VirtualLifeView::handleLotteryEnd(int wonAmount)
 {
     model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + wonAmount);

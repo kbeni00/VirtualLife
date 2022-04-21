@@ -69,6 +69,10 @@ private slots:
 
     void handleBoughtItem(QString,int);
 
+    void handleWhackAMoleEnd(bool);
+
+    void handleCrawlingGameEnd(bool);
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;

@@ -14,24 +14,29 @@
 #include <QFormLayout>
 #include <QRandomGenerator>
 
-//TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
-//TODO: Increased intelligence based on difficulty -> Very easy, easy, medium, hard, impossible
+
 //TODO: improve game over method
 SpaceInvaders::SpaceInvaders(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
+    mediaPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/spaceinvaders/spaceinvadersmusic.mp3"));
+    audioOutput->setVolume(50);
+    mediaPlayer->play();
     if(difficulty == "Easy"){
-        scoreToReach = 10;
+        scoreToReach = 20;
         maxHealth = 5;
         alienSpeed = 75;
         alienSpawnSpeed = 2000;
 
     } else if(difficulty == "Medium"){
-        scoreToReach = 15;
+        scoreToReach = 30;
         maxHealth = 4;
         alienSpeed = 55;
         alienSpawnSpeed = 1650;
     } else{
-        scoreToReach = 20;
+        scoreToReach = 40;
         maxHealth = 3;
         alienSpeed = 35;
         alienSpawnSpeed = 1300;
@@ -163,6 +168,7 @@ void SpaceInvaders::onGameOver(bool wonGame)
 
 void SpaceInvaders::handleExitButton()
 {
+    mediaPlayer->stop();
     this->close();
     emit sigGameOver(isWonGame);
 

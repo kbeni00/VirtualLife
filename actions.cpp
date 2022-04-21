@@ -7,7 +7,7 @@ Actions::Actions(QWidget *parent) :
     ui(new Ui::Actions)
 {
     ui->setupUi(this);
-    QStringList list = (QStringList() << "Choose" << "Hunting Game" << "Police Job" << "Memory Card" << "Space Invaders" << "Buy lottery");
+    QStringList list = (QStringList() << "Choose" << "Crawling Game" << "Hunting Game" << "Whack-A-Mole" << "Memory Card" << "Space Invaders" << "Buy lottery");
     ui->actions_cb->addItems(list);
     connect(this, &QDialog::accepted, this, &Actions::handleEnd);
 }
@@ -25,7 +25,6 @@ QString Actions::getSelectedAction()
 
 void Actions::handleEnd()
 {
-    //switch case for QString
     selectedAction = ui->actions_cb->currentText();
     if(selectedAction == "Buy lottery"){
         lottery = new Lottery();
@@ -51,11 +50,6 @@ void Actions::handleEnd()
             memoryCard->show();
             connect(memoryCard, &MemoryCard::sigGameOver, this, &Actions::handleMemoryEnd);
         }
-    } else if(selectedAction == "Police Job"){
-        policeJob = new PoliceJob(qApp->screens()[0]->size());
-        policeJob->showFullScreen();
-        policeJob->run();
-        connect(policeJob, &PoliceJob::sigGameOver, this, &Actions::handlePoliceJobEnd);
     } else if(selectedAction == "Hunting Game"){
         difficulty = new Difficulty();
         int res = difficulty->exec();
@@ -66,13 +60,43 @@ void Actions::handleEnd()
             huntingGame->run();
             connect(huntingGame, &HuntingGame::sigGameOver, this, &Actions::handleHuntingGameEnd);
         }
+    } else if(selectedAction == "Whack-A-Mole"){
+        difficulty = new Difficulty();
+        int res = difficulty->exec();
+        if(res == QDialog::Accepted){
+            whackamole = new WhackAMole(qApp->screens()[0]->size(),difficulty->selectedDifficulty);
+            whackamole->setWindowModality(Qt::ApplicationModal);
+            whackamole->showFullScreen();
+            whackamole->run();
+            connect(whackamole, &WhackAMole::sigGameOver, this, &Actions::handleWhackAMoleEnd);
+        }
+    } else if(selectedAction == "Crawling Game"){
+        difficulty = new Difficulty();
+        int res = difficulty->exec();
+        if(res == QDialog::Accepted){
+            crawlingGame = new CrawlingGame(qApp->screens()[0]->size(),difficulty->selectedDifficulty);
+            crawlingGame->setWindowModality(Qt::ApplicationModal);
+            crawlingGame->showFullScreen();
+            crawlingGame->run();
+            connect(crawlingGame, &CrawlingGame::sigGameOver, this, &Actions::handleCrawlingGameEnd);
+        }
     }
 }
 
 void Actions::handleLotteryEnd(int wonAmount)
 {
-    qDebug() << "actions lottery";
     emit sigLotteryEnd(wonAmount);
+}
+
+void Actions::handleWhackAMoleEnd(bool wonGame)
+{
+    emit sigWhackAMoleEnd(wonGame);
+
+}
+
+void Actions::handleCrawlingGameEnd(bool wonGame)
+{
+    emit sigCrawlingGameEnd(wonGame);
 }
 
 void Actions::handleSpaceInvadersEnd(bool wonGame)

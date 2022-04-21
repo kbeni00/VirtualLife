@@ -6,6 +6,8 @@
 #include <QKeyEvent>
 #include <spaceinvadersparts.h>
 #include <QSize>
+#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QAudioOutput>
 
 class SpaceInvaders : public QGraphicsView
 {
@@ -36,6 +38,8 @@ private:
     int alienSpeed;
     int alienSpawnSpeed;
     bool isGameOver = false;
+    QMediaPlayer* mediaPlayer;
+    QAudioOutput* audioOutput;
 };
 
 #endif // SPACEINVADERS_H

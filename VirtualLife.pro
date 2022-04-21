@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui \
+            multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,6 +13,8 @@ SOURCES += \
     actions.cpp \
     assets.cpp \
     character.cpp \
+    crawlinggame.cpp \
+    crawlinggameparts.cpp \
     details.cpp \
     difficulty.cpp \
     huntinggame.cpp \
@@ -20,19 +23,21 @@ SOURCES += \
     lottery.cpp \
     main.cpp \
     memorycard.cpp \
-    policejob.cpp \
-    policejobparts.cpp \
     purchase.cpp \
     spaceinvaders.cpp \
     spaceinvadersparts.cpp \
     virtuallifedataaccess.cpp \
     virtuallifemodel.cpp \
-    virtuallifeview.cpp
+    virtuallifeview.cpp \
+    whackamole.cpp \
+    whackamoleparts.cpp
 
 HEADERS += \
     actions.h \
     assets.h \
     character.h \
+    crawlinggame.h \
+    crawlinggameparts.h \
     details.h \
     difficulty.h \
     huntinggame.h \
@@ -40,15 +45,14 @@ HEADERS += \
     initialdata.h \
     lottery.h \
     memorycard.h \
-    policejob.h \
-    policejobparts.h \
-    policejobsettings.h \
     purchase.h \
     spaceinvaders.h \
     spaceinvadersparts.h \
     virtuallifedataaccess.h \
     virtuallifemodel.h \
-    virtuallifeview.h
+    virtuallifeview.h \
+    whackamole.h \
+    whackamoleparts.h
 
 FORMS += \
     actions.ui \

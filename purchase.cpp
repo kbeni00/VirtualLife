@@ -48,7 +48,6 @@ Purchase::Purchase(QWidget *parent) :
         } else if(newthingy.name == ":/purchase/needs/pizza.png"){
             newthingy.price = 5000;
         } else if(newthingy.name == ":/purchase/needs/prime.png"){
-            //fills needs completely
             newthingy.price = 20000;
         }
         else if(newthingy.name == ":/purchase/needs/sushi.png"){

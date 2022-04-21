@@ -5,9 +5,10 @@
 #include "lottery.h"
 #include "spaceinvaders.h"
 #include "memorycard.h"
-#include "policejob.h"
 #include "huntinggame.h"
 #include "difficulty.h"
+#include "whackamole.h"
+#include "crawlinggame.h"
 
 namespace Ui {
 class Actions;
@@ -24,12 +25,16 @@ private slots:
     void handlePoliceJobEnd(bool);
     void handleHuntingGameEnd(bool);
     void handleLotteryEnd(int);
+    void handleWhackAMoleEnd(bool);
+    void handleCrawlingGameEnd(bool);
 signals:
     void sigSpaceInvadersEnd(bool);
     void sigMemoryEnd();
     void sigPoliceJobEnd(bool);
     void sigHuntingGameEnd(bool);
     void sigLotteryEnd(int);
+    void sigWhackAMoleEnd(bool);
+    void sigCrawlingGameEnd(bool);
 public:
     explicit Actions(QWidget *parent = nullptr);
     ~Actions();
@@ -42,8 +47,9 @@ private:
     Lottery* lottery;
     SpaceInvaders* spaceInvaders;
     MemoryCard* memoryCard;
-    PoliceJob* policeJob;
     HuntingGame* huntingGame;
+    WhackAMole* whackamole;
+    CrawlingGame* crawlingGame;
     Difficulty* difficulty;
 
 

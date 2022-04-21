@@ -10,9 +10,16 @@
 #include <QApplication>
 #include <QGraphicsItem>
 
+
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
 HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
+    mediaPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    audioOutput->setVolume(50);
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/huntinggame/huntinggamemusic.mp3"));
+    mediaPlayer->play();
     if(difficulty == "Easy"){
         turkeySpeed = 1800;
         turkeysToHunt = 10;
@@ -37,10 +44,11 @@ HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) 
     gameOverTimer->start(gameTime);
     connect(gameOverTimer,&QTimer::timeout, this, &HuntingGame::onGameOverTimerUp);
 
-//    QPixmap p = QPixmap(":/huntinggame/crossair.png");
-//    QCursor c = QCursor(p, 0, 0);
-//    setCursor(c);
-//    setStyleSheet("border-style:none");
+//    QCursor c = QCursor(Qt::CrossCursor);
+    QPixmap p = QPixmap(":/huntinggame/crossair.png");
+    QCursor c = QCursor(p,-50,-50);
+    setCursor(c);
+    setStyleSheet("border-style:none");
 
 }
 
@@ -128,6 +136,7 @@ void HuntingGame::onGameOver(bool wonGame)
 
 void HuntingGame::handleExitButton()
 {
+    mediaPlayer->stop();
     this->close();
     emit sigGameOver(isGameWon);
 }
