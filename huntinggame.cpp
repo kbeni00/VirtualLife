@@ -20,6 +20,7 @@ HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) 
     mediaPlayer->setAudioOutput(audioOutput);
     mediaPlayer->setSource(QUrl("qrc:/huntinggame/huntinggamemusic.mp3"));
     mediaPlayer->play();
+    _difficulty = difficulty;
     if(difficulty == "Easy"){
         turkeySpeed = 1800;
         turkeysToHunt = 10;
@@ -138,7 +139,7 @@ void HuntingGame::handleExitButton()
 {
     mediaPlayer->stop();
     this->close();
-    emit sigGameOver(isGameWon);
+    emit sigGameOver(isGameWon,_difficulty);
 }
 
 void HuntingGame::onGameOverTimerUp()

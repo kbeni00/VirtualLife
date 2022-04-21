@@ -9,6 +9,7 @@
 #include "difficulty.h"
 #include "whackamole.h"
 #include "crawlinggame.h"
+#include <QComboBox>
 
 namespace Ui {
 class Actions;
@@ -20,26 +21,26 @@ class Actions : public QDialog
 
 private slots:
     void handleEnd();
-    void handleSpaceInvadersEnd(bool);
+    void handleSpaceInvadersEnd(bool,QString);
     void handleMemoryEnd();
-    void handlePoliceJobEnd(bool);
-    void handleHuntingGameEnd(bool);
+    void handleHuntingGameEnd(bool,QString);
     void handleLotteryEnd(int);
-    void handleWhackAMoleEnd(bool);
-    void handleCrawlingGameEnd(bool);
+    void handleWhackAMoleEnd(bool,QString);
+    void handleCrawlingGameEnd(bool,QString);
 signals:
-    void sigSpaceInvadersEnd(bool);
+    void sigSpaceInvadersEnd(bool,QString);
     void sigMemoryEnd();
-    void sigPoliceJobEnd(bool);
-    void sigHuntingGameEnd(bool);
+    void sigHuntingGameEnd(bool,QString);
     void sigLotteryEnd(int);
-    void sigWhackAMoleEnd(bool);
-    void sigCrawlingGameEnd(bool);
+    void sigWhackAMoleEnd(bool,QString);
+    void sigCrawlingGameEnd(bool,QString);
 public:
     explicit Actions(QWidget *parent = nullptr);
     ~Actions();
     QString getSelectedAction();
     int getLotteryResult();
+    void addAction(QString);
+    QComboBox* getComboBox();
 
 private:
     QString selectedAction;
@@ -51,6 +52,7 @@ private:
     WhackAMole* whackamole;
     CrawlingGame* crawlingGame;
     Difficulty* difficulty;
+    QString selectedDifficulty;
 
 
 };

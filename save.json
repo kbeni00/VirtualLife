@@ -287,6 +287,21 @@
             ],
             "stage": "Baby",
             "wealth": 1000000000
+        },
+        {
+            "age": 26,
+            "assets": [
+            ],
+            "gender": "Male",
+            "health": 0,
+            "intelligence": 100,
+            "mood": 120,
+            "name": "jkh ",
+            "needs": 0,
+            "relationships": [
+            ],
+            "stage": "Adult",
+            "wealth": 1000000000
         }
     ]
 }

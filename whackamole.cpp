@@ -20,6 +20,8 @@ WhackAMole::WhackAMole(QSize screenSize, QString difficulty, QWidget *parent) : 
 //    mediaPlayer->setAudioOutput(audioOutput);
 //    mediaPlayer->setSource(QUrl("qrc:/whackamole/whackamolemusic.mp3"));
 //    mediaPlayer->play();
+
+    _difficulty = difficulty;
     if(difficulty == "Easy"){
         moleSpeed = 1800;
         molesToHit = 10;
@@ -150,7 +152,7 @@ void WhackAMole::handleExitButton()
 {
 //    mediaPlayer->stop();
     this->close();
-    emit sigGameOver(isGameWon);
+    emit sigGameOver(isGameWon, _difficulty);
 }
 
 void WhackAMole::onGameOverTimerUp()

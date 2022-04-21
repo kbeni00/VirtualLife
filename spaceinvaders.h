@@ -26,7 +26,7 @@ public slots:
     void onGameOver(bool);
     void handleExitButton();
 signals:
-    void sigGameOver(bool);
+    void sigGameOver(bool,QString);
 private:
     QSize _screenSize;
     CannonPart* _cannon = nullptr;
@@ -40,6 +40,7 @@ private:
     bool isGameOver = false;
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
+    QString _difficulty;
 };
 
 #endif // SPACEINVADERS_H

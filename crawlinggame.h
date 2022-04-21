@@ -29,7 +29,7 @@ public slots:
     void handleCollision();
     void onMilkTick();
 signals:
-    void sigGameOver(bool);
+    void sigGameOver(bool,QString);
 private:
     QSize _screenSize;
     BabyPart* _baby = nullptr;
@@ -45,6 +45,7 @@ private:
     bool isGameOver = false;
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
+    QString _difficulty;
 };
 
 

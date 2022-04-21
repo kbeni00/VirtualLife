@@ -47,11 +47,9 @@ private slots:
 
     void on__assets_clicked();
 
-    void handleSpaceInvadersEnd(bool);
+    void handleSpaceInvadersEnd(bool,QString);
 
     void handleMemoryEnd();
-
-    void handlePoliceJobEnd(bool);
 
     void on__savegame_clicked();
 
@@ -63,15 +61,15 @@ private slots:
 
     void on__characters_clicked();
 
-    void handleHuntingGameEnd(bool);
+    void handleHuntingGameEnd(bool,QString);
 
     void handleLotteryEnd(int);
 
     void handleBoughtItem(QString,int);
 
-    void handleWhackAMoleEnd(bool);
+    void handleWhackAMoleEnd(bool,QString);
 
-    void handleCrawlingGameEnd(bool);
+    void handleCrawlingGameEnd(bool,QString);
 
 private:
     Ui::VirtualLifeView* ui;

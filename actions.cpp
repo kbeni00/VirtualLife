@@ -7,7 +7,7 @@ Actions::Actions(QWidget *parent) :
     ui(new Ui::Actions)
 {
     ui->setupUi(this);
-    QStringList list = (QStringList() << "Choose" << "Crawling Game" << "Hunting Game" << "Whack-A-Mole" << "Memory Card" << "Space Invaders" << "Buy lottery");
+    QStringList list = (QStringList() << "Choose");
     ui->actions_cb->addItems(list);
     connect(this, &QDialog::accepted, this, &Actions::handleEnd);
 }
@@ -22,6 +22,15 @@ QString Actions::getSelectedAction()
     return selectedAction;
 }
 
+QComboBox* Actions::getComboBox(){
+    return ui->actions_cb;
+}
+
+void Actions::addAction(QString actionName)
+{
+    ui->actions_cb->addItem(actionName);
+}
+
 
 void Actions::handleEnd()
 {
@@ -32,6 +41,13 @@ void Actions::handleEnd()
         lottery->setWindowModality(Qt::ApplicationModal);
         lottery->show();
     } else if(selectedAction == "Space Invaders"){
+        QMessageBox msg;
+        QString details = "In this game your goal is to shoot the alien invaders before they reach the bottom of the screen.\n"
+                          "You can move sideways with the left and right arrow buttons and shoot with the space bar.\n"
+                          "If an alien reaches the bottom of the screen, you lose 1 health, if it touches the ship, the game is over.\n"
+                          "Harder difficulties give you more points, money.";
+        msg.setText(details);
+        msg.exec();
         difficulty = new Difficulty();
         int res = difficulty->exec();
         if(res == QDialog::Accepted){
@@ -41,7 +57,15 @@ void Actions::handleEnd()
             spaceInvaders->run();
             connect(spaceInvaders, &SpaceInvaders::sigGameOver, this, &Actions::handleSpaceInvadersEnd);
         }
-    } else if(selectedAction == "Memory Card"){
+    } else if(selectedAction == "Memory Card Game"){
+        QMessageBox msg;
+        QString details = "In this game your goal is to find the pairs of all the cards.\n"
+                          "You can flip a card face-up by clicking on it.\n"
+                          "Once two cards that make a pair have been flipped, they remain flipped face-up.\n"
+                          "In case the two flipped cards are not a pair, they both flip back face-down.\n"
+                          "Harder difficulties give you more points, money.";
+        msg.setText(details);
+        msg.exec();
         difficulty = new Difficulty();
         int res = difficulty->exec();
         if(res == QDialog::Accepted){
@@ -51,6 +75,12 @@ void Actions::handleEnd()
             connect(memoryCard, &MemoryCard::sigGameOver, this, &Actions::handleMemoryEnd);
         }
     } else if(selectedAction == "Hunting Game"){
+        QMessageBox msg;
+        QString details = "In this game your goal is to hunt turkeys before the time runs out.\n"
+                          "You can shoot turkeys by aiming at them with the crossair and clicking on them.\n"
+                          "Harder difficulties give you more points, money.";
+        msg.setText(details);
+        msg.exec();
         difficulty = new Difficulty();
         int res = difficulty->exec();
         if(res == QDialog::Accepted){
@@ -61,6 +91,12 @@ void Actions::handleEnd()
             connect(huntingGame, &HuntingGame::sigGameOver, this, &Actions::handleHuntingGameEnd);
         }
     } else if(selectedAction == "Whack-A-Mole"){
+        QMessageBox msg;
+        QString details = "In this game your goal is to hit the moles before they disappear.\n"
+                          "You can hit a mole by clicking on it.\n"
+                          "Harder difficulties give you more points, money.";
+        msg.setText(details);
+        msg.exec();
         difficulty = new Difficulty();
         int res = difficulty->exec();
         if(res == QDialog::Accepted){
@@ -71,6 +107,13 @@ void Actions::handleEnd()
             connect(whackamole, &WhackAMole::sigGameOver, this, &Actions::handleWhackAMoleEnd);
         }
     } else if(selectedAction == "Crawling Game"){
+        QMessageBox msg;
+        QString details = "In this game your goal is to collect toys.\n"
+                          "You can move around the map with the arrow buttons.\n"
+                          "Picking up the milk bottle boost your temporarily.\n"
+                          "Harder difficulties give you more points, money.";
+        msg.setText(details);
+        msg.exec();
         difficulty = new Difficulty();
         int res = difficulty->exec();
         if(res == QDialog::Accepted){
@@ -88,20 +131,20 @@ void Actions::handleLotteryEnd(int wonAmount)
     emit sigLotteryEnd(wonAmount);
 }
 
-void Actions::handleWhackAMoleEnd(bool wonGame)
+void Actions::handleWhackAMoleEnd(bool wonGame, QString difficulty)
 {
-    emit sigWhackAMoleEnd(wonGame);
+    emit sigWhackAMoleEnd(wonGame, difficulty);
 
 }
 
-void Actions::handleCrawlingGameEnd(bool wonGame)
+void Actions::handleCrawlingGameEnd(bool wonGame, QString difficulty)
 {
-    emit sigCrawlingGameEnd(wonGame);
+    emit sigCrawlingGameEnd(wonGame, difficulty);
 }
 
-void Actions::handleSpaceInvadersEnd(bool wonGame)
+void Actions::handleSpaceInvadersEnd(bool wonGame, QString difficulty)
 {
-    emit sigSpaceInvadersEnd(wonGame);
+    emit sigSpaceInvadersEnd(wonGame, difficulty);
 }
 
 void Actions::handleMemoryEnd()
@@ -109,14 +152,8 @@ void Actions::handleMemoryEnd()
     emit sigMemoryEnd();
 }
 
-void Actions::handlePoliceJobEnd(bool wonGame)
+
+void Actions::handleHuntingGameEnd(bool wonGame, QString difficulty)
 {
-    emit sigSpaceInvadersEnd(wonGame);
+    emit sigHuntingGameEnd(wonGame, difficulty);
 }
-
-void Actions::handleHuntingGameEnd(bool wonGame)
-{
-    emit sigHuntingGameEnd(wonGame);
-}
-
-

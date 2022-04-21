@@ -24,6 +24,8 @@ SpaceInvaders::SpaceInvaders(QSize screenSize, QString difficulty, QWidget *pare
     mediaPlayer->setSource(QUrl("qrc:/spaceinvaders/spaceinvadersmusic.mp3"));
     audioOutput->setVolume(50);
     mediaPlayer->play();
+
+    _difficulty = difficulty;
     if(difficulty == "Easy"){
         scoreToReach = 20;
         maxHealth = 5;
@@ -170,6 +172,6 @@ void SpaceInvaders::handleExitButton()
 {
     mediaPlayer->stop();
     this->close();
-    emit sigGameOver(isWonGame);
+    emit sigGameOver(isWonGame,_difficulty);
 
 }

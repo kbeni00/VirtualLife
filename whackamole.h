@@ -23,7 +23,7 @@ public slots:
     void handleExitButton();
     void onGameOverTimerUp();
 signals:
-    void sigGameOver(bool);
+    void sigGameOver(bool,QString);
 private:
     QSize _screenSize;
     MolePointsPart* _points = nullptr;
@@ -36,6 +36,7 @@ private:
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
     QVector<QPointF> holeCoordinates;
+    QString _difficulty;
 };
 
 

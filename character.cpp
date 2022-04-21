@@ -14,7 +14,7 @@ Character::Character(QObject *parent)
     stage = "-";
     gender = "-";
     age = 0;
-    wealth = 1000000000;
+    wealth = 0;
 
 }
 

@@ -23,7 +23,7 @@ public slots:
     void handleExitButton();
     void onGameOverTimerUp();
 signals:
-    void sigGameOver(bool);
+    void sigGameOver(bool,QString);
 private:
     QSize _screenSize;
     HuntingPointsPart* _points = nullptr;
@@ -35,6 +35,7 @@ private:
     int gameTime;
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
+    QString _difficulty;
 };
 
 #endif // HUNTINGGAME_H

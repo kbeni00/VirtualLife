@@ -16,14 +16,15 @@
 
 CrawlingGame::CrawlingGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
-//    mediaPlayer = new QMediaPlayer;
-//    audioOutput = new QAudioOutput;
-//    mediaPlayer->setAudioOutput(audioOutput);
-//    mediaPlayer->setSource(QUrl("qrc:/crawlinggame/crawlinggamemusic.mp3"));
-//    audioOutput->setVolume(50);
-//    mediaPlayer->play();
+    //    mediaPlayer = new QMediaPlayer;
+    //    audioOutput = new QAudioOutput;
+    //    mediaPlayer->setAudioOutput(audioOutput);
+    //    mediaPlayer->setSource(QUrl("qrc:/crawlinggame/crawlinggamemusic.mp3"));
+    //    audioOutput->setVolume(50);
+    //    mediaPlayer->play();
+    _difficulty = difficulty;
     if(difficulty == "Easy"){
-        scoreToReach = 20;
+        scoreToReach = 2;
         maxHealth = 5;
         toySpawnSpeed = 2000;
 
@@ -87,20 +88,32 @@ void CrawlingGame::keyPressEvent(QKeyEvent *event)
     if(_baby == nullptr) return;
     switch(event->key()){
     case Qt::Key_Left:
-        if(_baby->pos().x() > 0) _baby->setPos(_baby->x() - babySpeed, _baby->y());
-        _baby->setRotation(-90);
+        if(!isGameOver && _baby->pos().x() > 0){
+
+            _baby->setPos(_baby->x() - babySpeed, _baby->y());
+            _baby->setRotation(-90);
+        }
         break;
     case Qt::Key_Right:
-        if((_baby->pos().x() + _baby->babySize.width()) < _screenSize.width()) _baby->setPos(_baby->x() + babySpeed, _baby->y());
-        _baby->setRotation(90);
+        if(!isGameOver && (_baby->pos().x() + _baby->babySize.width()) < _screenSize.width()){
+
+            _baby->setPos(_baby->x() + babySpeed, _baby->y());
+            _baby->setRotation(90);
+        }
         break;
     case Qt::Key_Up:
-        if(_baby->pos().y() > 0) _baby->setPos(_baby->x(), _baby->y() - babySpeed);
-        _baby->setRotation(0);
+        if(!isGameOver && _baby->pos().y() > 0){
+
+            _baby->setPos(_baby->x(), _baby->y() - babySpeed);
+            _baby->setRotation(0);
+        }
         break;
     case Qt::Key_Down:
-        if((_baby->pos().y() + _baby->babySize.height()) < _screenSize.height()) _baby->setPos(_baby->x(), _baby->y() + babySpeed);
-        _baby->setRotation(-180);
+        if(!isGameOver && (_baby->pos().y() + _baby->babySize.height()) < _screenSize.height()){
+
+            _baby->setPos(_baby->x(), _baby->y() + babySpeed);
+            _baby->setRotation(-180);
+        }
         break;
     }
 }
@@ -143,7 +156,7 @@ void CrawlingGame::onGameOver(bool wonGame)
 {
     isGameOver = true;
     toySpawnTimer->stop();
-    milkSpeedTimer->stop();
+//    milkSpeedTimer->stop();
     //    delete toysSpawnTimer;
     delete _baby;
     delete _points;
@@ -174,9 +187,9 @@ void CrawlingGame::onGameOver(bool wonGame)
 
 void CrawlingGame::handleExitButton()
 {
-//    mediaPlayer->stop();
+    //    mediaPlayer->stop();
     this->close();
-    emit sigGameOver(isWonGame);
+    emit sigGameOver(isWonGame,_difficulty);
 
 }
 
