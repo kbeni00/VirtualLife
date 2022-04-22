@@ -6,14 +6,18 @@
 #include <QTimer>
 #include <QMessageBox>
 
-//ráírni vmit a buttonre, ami tartalmaz információt a rajta lévő képről, ezt elrejteni, mikor rákattanitunk egy képre, megjeleníteni a szöveghez tartozó képet (ENUM?)
-//button.animateClick
 //shuffle the vector
 MemoryCard::MemoryCard(QString difficulty, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MemoryCard)
 {
     ui->setupUi(this);
+    mediaPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    audioOutput->setVolume(50);
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/memorycards/resources/sounds/memorygamemusic.mp3"));
+    mediaPlayer->play();
     QVector<QString> allIcons {"car","car","house", "house", "ship","ship","plane","plane"};
 
     for(int i = 0; i < 2; i++){
@@ -25,7 +29,7 @@ MemoryCard::MemoryCard(QString difficulty, QWidget *parent) :
             icons.push_back(allIcons.at(random));
             allIcons.removeAt(random);
 
-            setImage(button,":/memorycards/back.jpg");
+            setImage(button,":/memorycards/resources/memorygame/back.jpg");
             ui->cardsLayout->addWidget(button,i,j);
 
             connect(button, SIGNAL(clicked()), this, SLOT(cardClicked())) ;
@@ -73,6 +77,7 @@ void MemoryCard::cardClicked()
                 QString resultMessage = "Congratulations, you've found all the pairs!";
                 msg.setText(resultMessage);
                 msg.exec();
+                mediaPlayer->stop();
                 this->close();
                 emit sigGameOver();
             }
@@ -88,8 +93,8 @@ void MemoryCard::cardClicked()
 void MemoryCard::flipBack()
 {
     if(firstGuess != secondGuess){
-        setImage(firstButton,":/memorycards/back.jpg");
-        setImage(secondButton,":/memorycards/back.jpg");
+        setImage(firstButton,":/memorycards/resources/memorygame/back.jpg");
+        setImage(secondButton,":/memorycards/resources/memorygame/back.jpg");
     }
     firstButton = nullptr;
     secondButton = nullptr;

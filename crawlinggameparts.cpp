@@ -7,7 +7,7 @@
 
 BabyPart::BabyPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
-    QPixmap pixmap(":/crawlinggame/crawlingbaby.png");
+    QPixmap pixmap(":/crawlinggame/resources/crawlinggame/crawlingbaby.png");
     setPixmap(pixmap.scaled(babySize, Qt::KeepAspectRatio));
 }
 
@@ -18,19 +18,19 @@ ToyPart::ToyPart(int toySpeed, QGraphicsItem *parent)
 {
     int prob = QRandomGenerator::global()->bounded(101);
     if(prob < 20){
-        QPixmap pixmap(":/crawlinggame/shakeyToy.png");
+        QPixmap pixmap(":/crawlinggame/resources/crawlinggame/shakeyToy.png");
         setPixmap(pixmap.scaled(toySize, Qt::KeepAspectRatio));
     } else if(prob < 40){
-        QPixmap pixmap(":/crawlinggame/shapesToy.png");
+        QPixmap pixmap(":/crawlinggame/resources/crawlinggame/shapesToy.png");
         setPixmap(pixmap.scaled(toySize, Qt::KeepAspectRatio));
     } else if(prob < 60){
-        QPixmap pixmap(":/crawlinggame/stackingToy.png");
+        QPixmap pixmap(":/crawlinggame/resources/crawlinggame/stackingToy.png");
         setPixmap(pixmap.scaled(toySize, Qt::KeepAspectRatio));
     } else if(prob < 80){
-        QPixmap pixmap(":/crawlinggame/teddyToy.png");
+        QPixmap pixmap(":/crawlinggame/resources/crawlinggame/teddyToy.png");
         setPixmap(pixmap.scaled(toySize, Qt::KeepAspectRatio));
     } else{
-        QPixmap pixmap(":/crawlinggame/milkBottle.png");
+        QPixmap pixmap(":/crawlinggame/resources/crawlinggame/milkBottle.png");
         setPixmap(pixmap.scaled(toySize, Qt::KeepAspectRatio));
         isMilkBottle = true;
     }

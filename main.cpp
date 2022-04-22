@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //set the app style sheet
-    QFile styleSheetFile(":/characterImages/SpyBot.qss");
+    QFile styleSheetFile(":/styles/SpyBot.qss");
     styleSheetFile.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(styleSheetFile.readAll());
     a.setStyleSheet(styleSheet);

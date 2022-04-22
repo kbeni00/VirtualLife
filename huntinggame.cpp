@@ -18,27 +18,27 @@ HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) 
     audioOutput = new QAudioOutput;
     audioOutput->setVolume(50);
     mediaPlayer->setAudioOutput(audioOutput);
-    mediaPlayer->setSource(QUrl("qrc:/huntinggame/huntinggamemusic.mp3"));
+    mediaPlayer->setSource(QUrl("qrc:/huntinggame/resources/sounds/huntinggamemusic.mp3"));
     mediaPlayer->play();
     _difficulty = difficulty;
     if(difficulty == "Easy"){
         turkeySpeed = 1800;
-        turkeysToHunt = 10;
+        turkeysToHunt = 20;
         gameTime = 90000;
 
     } else if(difficulty == "Medium"){
         turkeySpeed = 1250;
-        turkeysToHunt = 15;
+        turkeysToHunt = 25;
         gameTime = 90000;
     } else{
         turkeySpeed = 900;
-        turkeysToHunt = 20;
+        turkeysToHunt = 30;
         gameTime = 90000;
     }
     QGraphicsScene* scene = new QGraphicsScene();
     setScene(scene);
     scene->setSceneRect(0,0,_screenSize.width(),_screenSize.height());
-    setBackgroundBrush(QBrush(QImage(":/huntinggame/huntingbg2.png")));
+    setBackgroundBrush(QBrush(QImage(":/huntinggame/resources/huntinggame/huntingbg.png")));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gameOverTimer = new QTimer();
@@ -46,7 +46,7 @@ HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) 
     connect(gameOverTimer,&QTimer::timeout, this, &HuntingGame::onGameOverTimerUp);
 
 //    QCursor c = QCursor(Qt::CrossCursor);
-    QPixmap p = QPixmap(":/huntinggame/crossair.png");
+    QPixmap p = QPixmap(":/huntinggame/resources/huntinggame/crossair.png");
     QCursor c = QCursor(p,-50,-50);
     setCursor(c);
     setStyleSheet("border-style:none");

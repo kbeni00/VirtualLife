@@ -16,12 +16,12 @@
 
 CrawlingGame::CrawlingGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
-    //    mediaPlayer = new QMediaPlayer;
-    //    audioOutput = new QAudioOutput;
-    //    mediaPlayer->setAudioOutput(audioOutput);
-    //    mediaPlayer->setSource(QUrl("qrc:/crawlinggame/crawlinggamemusic.mp3"));
-    //    audioOutput->setVolume(50);
-    //    mediaPlayer->play();
+    mediaPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    audioOutput->setVolume(50);
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/crawlinggame/resources/sounds/crawlinggamemusic.mp3"));
+    mediaPlayer->play();
     _difficulty = difficulty;
     if(difficulty == "Easy"){
         scoreToReach = 2;
@@ -41,7 +41,7 @@ CrawlingGame::CrawlingGame(QSize screenSize, QString difficulty, QWidget *parent
     QGraphicsScene* scene = new QGraphicsScene();
     setScene(scene);
     scene->setSceneRect(0,0,_screenSize.width(),_screenSize.height());
-    setBackgroundBrush(QBrush(QImage(":/crawlinggame/citybg.jpg")));
+    setBackgroundBrush(QBrush(QImage(":/crawlinggame/resources/crawlinggame/citybg.jpg")));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setCursor(Qt::PointingHandCursor);
@@ -187,7 +187,7 @@ void CrawlingGame::onGameOver(bool wonGame)
 
 void CrawlingGame::handleExitButton()
 {
-    //    mediaPlayer->stop();
+    mediaPlayer->stop();
     this->close();
     emit sigGameOver(isWonGame,_difficulty);
 
@@ -195,7 +195,6 @@ void CrawlingGame::handleExitButton()
 
 void CrawlingGame::handleCollision()
 {
-    qDebug() << "collided w milkbottle";
     babySpeed = 30;
     milkSpeedTimer = new QTimer(this);
     milkSpeedTimer->start(1000);

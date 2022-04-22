@@ -14,12 +14,12 @@
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
 WhackAMole::WhackAMole(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
-//    mediaPlayer = new QMediaPlayer;
-//    audioOutput = new QAudioOutput;
-//    audioOutput->setVolume(50);
-//    mediaPlayer->setAudioOutput(audioOutput);
-//    mediaPlayer->setSource(QUrl("qrc:/whackamole/whackamolemusic.mp3"));
-//    mediaPlayer->play();
+    mediaPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    audioOutput->setVolume(50);
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/whackamole/resources/sounds/whackamolemusic.mp3"));
+    mediaPlayer->play();
 
     _difficulty = difficulty;
     if(difficulty == "Easy"){
@@ -42,7 +42,7 @@ WhackAMole::WhackAMole(QSize screenSize, QString difficulty, QWidget *parent) : 
     QScreen *pscreen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = pscreen->geometry();
     scene->setSceneRect(0,0,screenGeometry.width(),screenGeometry.height());
-    setBackgroundBrush(QBrush(QImage(":/whackamole/whackamolebg2.png").scaled(QSize(_screenSize.width(),_screenSize.height()))));
+    setBackgroundBrush(QBrush(QImage(":/whackamole/resources/whackamole/whackamolebg.png").scaled(QSize(_screenSize.width(),_screenSize.height()))));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gameOverTimer = new QTimer();
@@ -150,7 +150,7 @@ void WhackAMole::onGameOver(bool wonGame)
 
 void WhackAMole::handleExitButton()
 {
-//    mediaPlayer->stop();
+    mediaPlayer->stop();
     this->close();
     emit sigGameOver(isGameWon, _difficulty);
 }

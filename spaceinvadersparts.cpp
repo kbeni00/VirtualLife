@@ -5,7 +5,7 @@
 
 CannonPart::CannonPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
-    QPixmap pixmap(":/spaceinvaders/spaceship2.png");
+    QPixmap pixmap(":/spaceinvaders/resources/spaceinvaders/spaceship.png");
     setPixmap(pixmap.scaled(cannonSize, Qt::KeepAspectRatio));
 }
 
@@ -25,7 +25,7 @@ void CannonPart::shoot()
 
 AlienPart::AlienPart(int alienSpeed, QGraphicsItem *parent)
 {
-    QPixmap pixmap(":/spaceinvaders/RedAlien.png");
+    QPixmap pixmap(":/spaceinvaders/resources/spaceinvaders/RedAlien.png");
     setPixmap(pixmap.scaled(alienSize, Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &AlienPart::onMove);
@@ -65,7 +65,7 @@ void AlienPart::onMove()
 
 BulletPart::BulletPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
-    QPixmap pixmap(":/spaceinvaders/RedBullet.png");
+    QPixmap pixmap(":/spaceinvaders/resources/spaceinvaders/RedBullet.png");
     setPixmap(pixmap.scaled(QSize(40,40), Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &BulletPart::onMove);

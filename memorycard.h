@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QPushButton>
 #include "character.h"
+#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QAudioOutput>
+
 
 namespace Ui {
 class MemoryCard;
@@ -32,6 +35,8 @@ private:
     QTimer* cardFlipTimer;
     int matchesFound = 0;
     int allMatches = 4;
+    QMediaPlayer* mediaPlayer;
+    QAudioOutput* audioOutput;
 private slots:
     void cardClicked();
     void flipBack();

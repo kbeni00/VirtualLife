@@ -1,65 +1,74 @@
 <RCC>
     <qresource prefix="/characterImages">
-        <file>babyboy.png</file>
-        <file>babygirl.png</file>
-        <file>teenageboy.png</file>
-        <file>teenagegirl.png</file>
-        <file>adultmale.png</file>
-        <file>SyNet.qss</file>
-        <file>SpyBot.qss</file>
-        <file>adultfemale.png</file>
+        <file>resources/characters/adultfemale.png</file>
+        <file>resources/characters/adultmale.png</file>
+        <file>resources/characters/babyboy.png</file>
+        <file>resources/characters/babygirl.png</file>
+        <file>resources/characters/teenageboy.png</file>
+        <file>resources/characters/teenagegirl.png</file>
     </qresource>
     <qresource prefix="/spaceinvaders">
-        <file>RedAlien.png</file>
-        <file>RedBullet.png</file>
-        <file>spaceship2.png</file>
-        <file>background.jpg</file>
-        <file>spaceinvadersmusic.mp3</file>
+        <file>resources/spaceinvaders/background.jpg</file>
+        <file>resources/spaceinvaders/RedAlien.png</file>
+        <file>resources/spaceinvaders/RedBullet.png</file>
+        <file>resources/spaceinvaders/spaceship.png</file>
+        <file>resources/sounds/spaceinvadersmusic.mp3</file>
     </qresource>
     <qresource prefix="/memorycards">
-        <file>back.jpg</file>
-        <file>car.png</file>
-        <file>house.png</file>
-        <file>plane.png</file>
-        <file>ship.png</file>
+        <file>resources/sounds/memorygamemusic.mp3</file>
+        <file>resources/memorygame/back.jpg</file>
+        <file>resources/memorygame/bitcoin.png</file>
+        <file>resources/memorygame/car.png</file>
+        <file>resources/memorygame/cruise.png</file>
+        <file>resources/memorygame/helicopter.png</file>
+        <file>resources/memorygame/house.png</file>
+        <file>resources/memorygame/jet.png</file>
+        <file>resources/memorygame/moneybag.png</file>
+        <file>resources/memorygame/plane.png</file>
+        <file>resources/memorygame/ship.png</file>
+        <file>resources/memorygame/snitch.png</file>
+        <file>resources/memorygame/spaceshipblack.png</file>
+        <file>resources/memorygame/yacht.png</file>
     </qresource>
     <qresource prefix="/huntinggame">
-        <file>crossair.png</file>
-        <file>huntingbg.png</file>
-        <file>turkey.png</file>
-        <file>huntingbg2.png</file>
-        <file>huntinggamemusic.mp3</file>
+        <file>resources/huntinggame/crossair.png</file>
+        <file>resources/huntinggame/huntingbg.png</file>
+        <file>resources/huntinggame/turkey.png</file>
+        <file>resources/sounds/huntinggamemusic.mp3</file>
     </qresource>
     <qresource prefix="/purchase/collectibles">
-        <file>cheapCar.png</file>
-        <file>cheapHouse.png</file>
-        <file>expensiveHouse.png</file>
-        <file>normalCar.png</file>
-        <file>normalHouse.png</file>
-        <file>expensiveCar.png</file>
+        <file>resources/purchase/cheapCar.png</file>
+        <file>resources/purchase/cheapHouse.png</file>
+        <file>resources/purchase/expensiveCar.png</file>
+        <file>resources/purchase/expensiveHouse.png</file>
+        <file>resources/purchase/normalCar.png</file>
+        <file>resources/purchase/normalHouse.png</file>
     </qresource>
     <qresource prefix="/purchase/needs">
-        <file>fastfood.png</file>
-        <file>fruits.png</file>
-        <file>pancakes.png</file>
-        <file>pizza.png</file>
-        <file>prime.png</file>
-        <file>sushi.png</file>
+        <file>resources/purchase/fastfood.png</file>
+        <file>resources/purchase/fruits.png</file>
+        <file>resources/purchase/pancakes.png</file>
+        <file>resources/purchase/pizza.png</file>
+        <file>resources/purchase/prime.png</file>
+        <file>resources/purchase/sushi.png</file>
     </qresource>
     <qresource prefix="/whackamole">
-        <file>mole.png</file>
-        <file>whackamolebg.png</file>
-        <file>whackamolemusic.mp3</file>
-        <file>whackamolebg2.png</file>
-        <file>hammer.png</file>
+        <file>resources/whackamole/mole.png</file>
+        <file>resources/whackamole/whackamolebg.png</file>
+        <file>resources/sounds/whackamolemusic.mp3</file>
     </qresource>
     <qresource prefix="/crawlinggame">
-        <file>crawlingbaby.png</file>
-        <file>shakeyToy.png</file>
-        <file>shapesToy.png</file>
-        <file>stackingToy.png</file>
-        <file>teddyToy.png</file>
-        <file>citybg.jpg</file>
-        <file>milkBottle.png</file>
+        <file>resources/crawlinggame/citybg.jpg</file>
+        <file>resources/crawlinggame/crawlingbaby.png</file>
+        <file>resources/crawlinggame/milkBottle.png</file>
+        <file>resources/crawlinggame/shakeyToy.png</file>
+        <file>resources/crawlinggame/shapesToy.png</file>
+        <file>resources/crawlinggame/stackingToy.png</file>
+        <file>resources/crawlinggame/teddyToy.png</file>
+        <file>resources/sounds/crawlinggamemusic.mp3</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>SpyBot.qss</file>
+        <file>SyNet.qss</file>
     </qresource>
 </RCC>

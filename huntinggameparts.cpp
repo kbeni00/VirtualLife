@@ -8,7 +8,7 @@
 
 TurkeyPart::TurkeyPart(int turkeySpeed, QGraphicsItem *parent)
 {
-    QPixmap pixmap(":/huntinggame/turkey.png");
+    QPixmap pixmap(":/huntinggame/resources/huntinggame/turkey.png");
     setPixmap(pixmap.scaled(turkeySize, Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &TurkeyPart::onMove);

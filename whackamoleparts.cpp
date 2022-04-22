@@ -8,7 +8,7 @@
 
 MolePart::MolePart(int moleSpeed, QGraphicsItem *parent)
 {
-    QPixmap pixmap(":/whackamole/mole.png");
+    QPixmap pixmap(":/whackamole/resources/whackamole/mole.png");
     setPixmap(pixmap.scaled(moleSize, Qt::KeepAspectRatio));
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MolePart::onMove);

@@ -53,9 +53,9 @@ void VirtualLifeView::changeStage(){
     QString stage;
     if(model->getCurrentCharacter()->getAge() >= 25){
         if(model->getCurrentCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/adultmale.png").scaled(830,500,Qt::KeepAspectRatio));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/adultmale.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/adultfemale.png").scaled(830,500,Qt::KeepAspectRatio));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/adultfemale.png").scaled(830,500,Qt::KeepAspectRatio));
         }
         ui->health->setHidden(false);
         ui->healthval->setHidden(false);
@@ -66,9 +66,9 @@ void VirtualLifeView::changeStage(){
     }
     else if(model->getCurrentCharacter()->getAge() >= 13){
         if(model->getCurrentCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/teenageboy.png").scaled(830,500,Qt::KeepAspectRatio));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/teenageboy.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/teenagegirl.png").scaled(830,500,Qt::KeepAspectRatio));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/teenagegirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
         ui->health->setHidden(true);
         ui->healthval->setHidden(true);
@@ -79,9 +79,9 @@ void VirtualLifeView::changeStage(){
     }
     else{
         if(model->getCurrentCharacter()->getGender() == "Male"){
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
         } else{
-            ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
+            ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
         }
         ui->health->setHidden(true);
         ui->healthval->setHidden(true);
@@ -144,9 +144,9 @@ bool VirtualLifeView::on__start_clicked()
                 }
             }
             if(model->getCurrentCharacter()->getGender() == "Male"){
-                ui->presetimage->setPixmap(QPixmap(":/characterImages/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
+                ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/babyboy.png").scaled(830,500,Qt::KeepAspectRatio));
             } else{
-                ui->presetimage->setPixmap(QPixmap(":/characterImages/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
+                ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
 
             }
             return true;

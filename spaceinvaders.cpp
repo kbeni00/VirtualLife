@@ -20,9 +20,9 @@ SpaceInvaders::SpaceInvaders(QSize screenSize, QString difficulty, QWidget *pare
 {
     mediaPlayer = new QMediaPlayer;
     audioOutput = new QAudioOutput;
-    mediaPlayer->setAudioOutput(audioOutput);
-    mediaPlayer->setSource(QUrl("qrc:/spaceinvaders/spaceinvadersmusic.mp3"));
     audioOutput->setVolume(50);
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/spaceinvaders/resources/sounds/spaceinvadersmusic.mp3"));
     mediaPlayer->play();
 
     _difficulty = difficulty;
@@ -46,7 +46,7 @@ SpaceInvaders::SpaceInvaders(QSize screenSize, QString difficulty, QWidget *pare
     QGraphicsScene* scene = new QGraphicsScene();
     setScene(scene);
     scene->setSceneRect(0,0,_screenSize.width(),_screenSize.height());
-    setBackgroundBrush(QBrush(QImage(":/spaceinvaders/background.jpg")));
+    setBackgroundBrush(QBrush(QImage(":/spaceinvaders/resources/spaceinvaders/background.jpg")));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setCursor(Qt::PointingHandCursor);
@@ -92,10 +92,10 @@ void SpaceInvaders::keyPressEvent(QKeyEvent *event)
     if(_cannon == nullptr) return;
     switch(event->key()){
         case Qt::Key_Left:
-            if(_cannon->pos().x() > 0) _cannon->setPos(_cannon->x() - 20, _cannon->y());
+            if(!isGameOver && _cannon->pos().x() > 0) _cannon->setPos(_cannon->x() - 20, _cannon->y());
             break;
         case Qt::Key_Right:
-            if((_cannon->pos().x() + _cannon->cannonSize.width()) < _screenSize.width()) _cannon->setPos(_cannon->x() + 20, _cannon->y());
+            if(!isGameOver && (_cannon->pos().x() + _cannon->cannonSize.width()) < _screenSize.width()) _cannon->setPos(_cannon->x() + 20, _cannon->y());
             break;
         case Qt::Key_Space:
             if(!isGameOver){
