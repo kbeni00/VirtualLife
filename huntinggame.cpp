@@ -58,6 +58,12 @@ void HuntingGame::run()
     scene()->clear();
     _points = new HuntingPointsPart(gameTime, turkeysToHunt);
     scene()->addItem(_points);
+
+    QPushButton* surrenderButton = new QPushButton("Give up");
+    connect(surrenderButton, &QPushButton::clicked, this, &HuntingGame::handleSurrender);
+    QGraphicsProxyWidget* widgetItem = scene()->addWidget(surrenderButton);
+    widgetItem->setPos(QPointF(_screenSize.width()/2,0));
+
     turkeySpawnTimer = new QTimer(this);
     turkeySpawnTimer->start(turkeySpeed);
     connect(turkeySpawnTimer, &QTimer::timeout, this, &HuntingGame::onCreateEnemy);
@@ -145,4 +151,12 @@ void HuntingGame::handleExitButton()
 void HuntingGame::onGameOverTimerUp()
 {
     onGameOver(false);
+}
+
+void HuntingGame::handleSurrender()
+{
+    turkeySpawnTimer->stop();
+    gameOverTimer->stop();
+    mediaPlayer->stop();
+    this->close();
 }

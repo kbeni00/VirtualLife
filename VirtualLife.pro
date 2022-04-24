@@ -10,12 +10,12 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    achievements.cpp \
     actions.cpp \
     assets.cpp \
     character.cpp \
     crawlinggame.cpp \
     crawlinggameparts.cpp \
-    details.cpp \
     difficulty.cpp \
     huntinggame.cpp \
     huntinggameparts.cpp \
@@ -33,12 +33,12 @@ SOURCES += \
     whackamoleparts.cpp
 
 HEADERS += \
+    achievements.h \
     actions.h \
     assets.h \
     character.h \
     crawlinggame.h \
     crawlinggameparts.h \
-    details.h \
     difficulty.h \
     huntinggame.h \
     huntinggameparts.h \
@@ -55,9 +55,9 @@ HEADERS += \
     whackamoleparts.h
 
 FORMS += \
+    achievements.ui \
     actions.ui \
     assets.ui \
-    details.ui \
     difficulty.ui \
     initialdata.ui \
     lottery.ui \

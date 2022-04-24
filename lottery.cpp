@@ -4,6 +4,7 @@
 #include "QSignalMapper"
 #include "QMessageBox"
 #include "QRandomGenerator"
+#include <QtAlgorithms>
 
 Lottery::Lottery(QWidget *parent) :
     QDialog(parent),
@@ -17,7 +18,7 @@ Lottery::Lottery(QWidget *parent) :
             //do it with i,j instead of num
             QPushButton *button = new QPushButton(QString::number(++num), this);
             ui->gridLayout->addWidget(button,i,j);
-            connect(button, SIGNAL(clicked()), this, SLOT(numberGuessed()));
+            connect(button, &QPushButton::clicked, this, &Lottery::numberGuessed);
         }
     }
 }
@@ -38,7 +39,6 @@ void Lottery::numberGuessed()
     senderButton->hide();
     guesses.push_back(senderButton->text().toInt());
     if(guesses.size() == 5){
-        //show guessed nums, result, price
         while(winningNums.size() != 5){
             int winningNum = QRandomGenerator::global()->generate()%90+1;
             if(!winningNums.contains(winningNum)){
@@ -58,6 +58,10 @@ void Lottery::numberGuessed()
             prices.push_back(i*10000);
         }
         wonAmount = prices[correctlyGuessedNums];
+
+        std::sort(guesses.begin(),guesses.end());
+        std::sort(winningNums.begin(), winningNums.end());
+
 
         QMessageBox msg;
         QString resultMessage = " You guessed these numbers: " +

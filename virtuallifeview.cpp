@@ -16,6 +16,7 @@ VirtualLifeView::VirtualLifeView(QWidget *parent)
     , ui(new Ui::VirtualLifeView)
 {
     ui->setupUi(this);
+    ui->textBrowser->append("To begin, click on the Start Game button.");
     model = new VirtualLifeModel();
     ui->health->setHidden(true);
     ui->healthval->setHidden(true);
@@ -30,23 +31,23 @@ VirtualLifeView::~VirtualLifeView()
 }
 
 void VirtualLifeView::initEvents(){
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You broke your arm. You lose 10 health points.", -10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You got electrocuted while messing with the outlet. You lose 15 health points.", -15));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your friends. You lose 10 mood points.", -10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You got kidnapped but managed to escape. You lose 30 mood points.", -30));
+//    allEvents.push_back(*new VirtualLifeView::EventDetails("You broke your arm. You lose 10 health points.", -10));
+//    allEvents.push_back(*new VirtualLifeView::EventDetails("You got electrocuted while messing with the outlet. You lose 15 health points.", -15));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your friends. You lose 10 mood points.", -10));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got kidnapped but managed to escape. You lose 30 mood points.", -30));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You fell down the stairs today. You lose 10 health points.", -10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You lost your phone. You lose 10 mood points.", -10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your family members at dinner. You lose 5 mood points.",-5));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a compliment from a random person on the street. You gain 5 mood points.", 5));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("Your crush gave you an ice cream. You gain 10 mood points.", 10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a flower from one of your friends. You gain 10 mood points.", 10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You found a four-leaf clover. You gain 5 mood points.", 5));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a negative covid test. You gain 20 mood points.", 20));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a double rainbow while walking home. You gain 5 mood points.", 5));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a shooting star. You gain 10 mood points.", 10));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You woke up on the right side of the bed today. You gain 2 mood points.", 5));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("Your six pack is starting to show. You gain 5 mood points.", 5));
-    allEvents.push_back(*new VirtualLifeView::EventDetails("You got selected for an all expenses paid tour around the world. You gain 50 mood points.", 50));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You lost your phone. You lose 10 mood points.", -10));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your family members at dinner. You lose 5 mood points.",-5));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a compliment from a random person on the street. You gain 5 mood points.", 5));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("Your crush gave you an ice cream. You gain 10 mood points.", 10));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a flower from one of your friends. You gain 10 mood points.", 10));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You found a four-leaf clover. You gain 5 mood points.", 5));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a negative covid test. You gain 20 mood points.", 20));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a double rainbow while walking home. You gain 5 mood points.", 5));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a shooting star. You gain 10 mood points.", 10));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You woke up on the right side of the bed today. You gain 2 mood points.", 5));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("Your six pack is starting to show. You gain 5 mood points.", 5));
+    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got selected for an all expenses paid tour around the world. You gain 50 mood points.", 50));
 }
 
 void VirtualLifeView::changeStage(){
@@ -61,6 +62,11 @@ void VirtualLifeView::changeStage(){
         ui->healthval->setHidden(false);
         ui->needs->setHidden(false);
         ui->needsval->setHidden(false);
+        ui->textBrowser->append("You are now an adult.");
+
+        QMessageBox msg;
+        msg.setText("You are an adult! Make sure neither your health nor your needs reach 0, otherwise the it's game over!");
+        msg.exec();
         stage = "Adult";
 
     }
@@ -74,6 +80,7 @@ void VirtualLifeView::changeStage(){
         ui->healthval->setHidden(true);
         ui->needs->setHidden(true);
         ui->needsval->setHidden(true);
+        ui->textBrowser->append("You are now a teenager.");
         stage = "Teenager";
 
     }
@@ -87,6 +94,7 @@ void VirtualLifeView::changeStage(){
         ui->healthval->setHidden(true);
         ui->needs->setHidden(true);
         ui->needsval->setHidden(true);
+        ui->textBrowser->append("You are a baby. Collect intelligence, mood points with actions to advance to the next stage.");
         stage = "Baby";
     }
     model->getCurrentCharacter()->setStage(stage);
@@ -149,6 +157,8 @@ bool VirtualLifeView::on__start_clicked()
                 ui->presetimage->setPixmap(QPixmap(":/characterImages/resources/characters/babygirl.png").scaled(830,500,Qt::KeepAspectRatio));
 
             }
+            ui->textBrowser->append("The game has started.");
+
             return true;
         }
     } else{
@@ -191,24 +201,6 @@ void VirtualLifeView::on__age_clicked()
     }
 }
 
-//!!!!!!!!!!!!!!!!!!!!!!!!! messagebox formok helyett???, v miért crashel a form !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!, mi az a QAction(s)
-void VirtualLifeView::on__details_clicked()
-{
-    QMessageBox msg;
-    QString details =
-        " Name: " + model->getCurrentCharacter()->getName() +
-        "\n Gender: " + model->getCurrentCharacter()->getGender() +
-        "\n Stage: " + model->getCurrentCharacter()->getStage() +
-        "\n Age: " + QString::number(model->getCurrentCharacter()->getAge()) +
-        "\n Mood: " + QString::number(model->getCurrentCharacter()->getMood()) +
-        "\n Intelligence: " + QString::number(model->getCurrentCharacter()->getIntelligence()) +
-        "\n Health: " + QString::number(model->getCurrentCharacter()->getHealth()) +
-        "\n Wealth: " + QString::number(model->getCurrentCharacter()->getWealth());
-    msg.setText(details);
-    msg.exec();
-
-}
-
 
 void VirtualLifeView::on__actions_clicked()
 {
@@ -223,6 +215,7 @@ void VirtualLifeView::on__actions_clicked()
         actions->addAction("Whack-A-Mole");
 
     } else{
+        actions->addAction("Crawling Game");
         actions->addAction("Memory Card Game");
         actions->addAction("Space Invaders");
         actions->addAction("Whack-A-Mole");
@@ -266,54 +259,109 @@ void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame, QString difficulty)
             if(difficulty == "Easy"){
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+                model->getCurrentCharacter()->increaseEasyGamesPlayed(2);
             } else if(difficulty == "Medium"){
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+                model->getCurrentCharacter()->increaseMediumGamesPlayed(2);
             } else{
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+                model->getCurrentCharacter()->increaseHardGamesPlayed(2);
             }
         } else{
             if(difficulty == "Easy"){
                 model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 5000);
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 3);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 3);
+                model->getCurrentCharacter()->increaseEasyGamesPlayed(2);
             } else if(difficulty == "Medium"){
                 model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+                model->getCurrentCharacter()->increaseMediumGamesPlayed(2);
             } else{
                 model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 20000);
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+                model->getCurrentCharacter()->increaseHardGamesPlayed(2);
             }
+            model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+            ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
         }
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+        ui->textBrowser->append("You won a Space Invaders game on " + difficulty + " difficulty. Your rewards have been added to your character.");
+
+    } else{
+        ui->textBrowser->append("You lost a Space Invaders game on " + difficulty + " difficulty.");
+
     }
-    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
-    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+
+
     generateRandomEvent();
 
 }
 
-void VirtualLifeView::handleMemoryEnd()
+void VirtualLifeView::handleMemoryEnd(QString difficulty)
 {
-    if(model->getCurrentCharacter()->getStage() == "Baby" || model->getCurrentCharacter()->getStage() == "Teenager"){
-        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
-        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+    if(model->getCurrentCharacter()->getStage() == "Baby"){
+        if(difficulty == "Easy"){
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+            model->getCurrentCharacter()->increaseEasyGamesPlayed(1);
+        } else if(difficulty == "Medium"){
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+            model->getCurrentCharacter()->increaseMediumGamesPlayed(1);
+        } else{
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 20);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 20);
+            model->getCurrentCharacter()->increaseHardGamesPlayed(1);
+        }
+    } else if(model->getCurrentCharacter()->getStage() == "Teenager"){
+        if(difficulty == "Easy"){
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+            model->getCurrentCharacter()->increaseEasyGamesPlayed(1);
+        } else if(difficulty == "Medium"){
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+            model->getCurrentCharacter()->increaseMediumGamesPlayed(1);
+        } else{
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+            model->getCurrentCharacter()->increaseHardGamesPlayed(1);
+        }
     } else{
-        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
-        model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
-        model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+        if(difficulty == "Easy"){
+            model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 5000);
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 3);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 3);
+            model->getCurrentCharacter()->increaseEasyGamesPlayed(1);
+        } else if(difficulty == "Medium"){
+            model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+            model->getCurrentCharacter()->increaseMediumGamesPlayed(1);
+        } else{
+            model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 20000);
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+            model->getCurrentCharacter()->increaseHardGamesPlayed(1);
+        }
+        model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+        ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     }
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
     ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
     ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
 
-    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
-    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+    ui->textBrowser->append("You won a Memory Card game on " + difficulty + " difficulty. Your rewards have been added to your character.");
+
+
+
     generateRandomEvent();
 }
 
@@ -324,18 +372,32 @@ void VirtualLifeView::handleHuntingGameEnd(bool wonGame, QString difficulty)
             model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 5000);
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+            model->getCurrentCharacter()->increaseEasyGamesPlayed(4);
         } else if(difficulty == "Medium"){
             model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+            model->getCurrentCharacter()->increaseMediumGamesPlayed(4);
         } else{
             model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 20000);
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+            model->getCurrentCharacter()->increaseHardGamesPlayed(4);
         }
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+        ui->textBrowser->append("You won a Hunting Game on " + difficulty + " difficulty. Your rewards have been added to your character.");
+
+    } else{
+        ui->textBrowser->append("You lost a Hunting Game on " + difficulty + " difficulty.");
+
     }
-    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
-    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+    if(model->getCurrentCharacter()->getStage() == "Adult"){
+
+        model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+        ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+    }
     generateRandomEvent();
 
 }
@@ -348,34 +410,45 @@ void VirtualLifeView::handleWhackAMoleEnd(bool wonGame, QString difficulty)
             if(difficulty == "Easy"){
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+                model->getCurrentCharacter()->increaseEasyGamesPlayed(3);
             } else if(difficulty == "Medium"){
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+                model->getCurrentCharacter()->increaseMediumGamesPlayed(3);
             } else{
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+                model->getCurrentCharacter()->increaseHardGamesPlayed(3);
             }
         } else{
             if(difficulty == "Easy"){
                 model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 5000);
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 3);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 3);
+                model->getCurrentCharacter()->increaseEasyGamesPlayed(3);
             } else if(difficulty == "Medium"){
                 model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+                model->getCurrentCharacter()->increaseMediumGamesPlayed(3);
             } else{
                 model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 20000);
                 model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
                 model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+                model->getCurrentCharacter()->increaseHardGamesPlayed(3);
             }
+            model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+            ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
         }
         ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+        ui->textBrowser->append("You won a Whack-A-Mole game on " + difficulty + " difficulty. Your rewards have been added to your character.");
+
+    } else{
+        ui->textBrowser->append("You lost a Whack-A-Mole game on " + difficulty + " difficulty.");
+
     }
-    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
-    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     generateRandomEvent();
 
 }
@@ -386,24 +459,31 @@ void VirtualLifeView::handleCrawlingGameEnd(bool wonGame, QString difficulty)
         if(difficulty == "Easy"){
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+            model->getCurrentCharacter()->increaseEasyGamesPlayed(0);
         } else if(difficulty == "Medium"){
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+            model->getCurrentCharacter()->increaseMediumGamesPlayed(0);
         } else{
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+            model->getCurrentCharacter()->increaseHardGamesPlayed(0);
         }
         ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+        ui->textBrowser->append("You won a Crawling Game on " + difficulty + " difficulty. Your rewards have been added to your character.");
+    } else{
+        ui->textBrowser->append("You lost a Crawling Game on " + difficulty + " difficulty.");
+
     }
-    model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
-    ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     generateRandomEvent();
 }
 void VirtualLifeView::handleLotteryEnd(int wonAmount)
 {
     model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + wonAmount);
     ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+    ui->textBrowser->append("You won " + QString::number(wonAmount) + " on the lottery.");
+
     generateRandomEvent();
 }
 
@@ -412,36 +492,51 @@ void VirtualLifeView::handleBoughtItem(QString itemName, int itemPrice)
     if(itemName.contains("sushi")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 5);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 5);
+        model->getCurrentCharacter()->increaseFoodsTried(1);
     } else if(itemName.contains("pizza")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 2);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 6);
+        model->getCurrentCharacter()->increaseFoodsTried(1);
     } else if(itemName.contains("fruits")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 5);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 3);
+        model->getCurrentCharacter()->increaseFoodsTried(1);
     } else if(itemName.contains("fastfood")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 1);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 4);
+        model->getCurrentCharacter()->increaseFoodsTried(1);
     } else if(itemName.contains("pancakes")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 1);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 2);
+        model->getCurrentCharacter()->increaseFoodsTried(1);
     } else if(itemName.contains("prime")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 15);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 7);
+        model->getCurrentCharacter()->increaseFoodsTried(1);
     }
 
     int posSlash = itemName.lastIndexOf(QChar('/')) + 1;
-    itemName.remove(0,posSlash);
-    itemName.chop(4);
     QMessageBox msg;
     QString details;
 
     if(model->getCurrentCharacter()->getWealth() >= itemPrice){
-        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth()-itemPrice);
         model->getCurrentCharacter()->addAsset(itemName);
+        itemName.remove(0,posSlash);
+        itemName.chop(4);
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth()-itemPrice);
         details = "You bought a(n) " + itemName;
+        if(itemName.contains("House")){
+            model->getCurrentCharacter()->setHasHouse(true);
+        } else if(itemName.contains("Car")){
+            model->getCurrentCharacter()->setHasCar(true);
+        }
     } else{
+        itemName.remove(0,posSlash);
+        itemName.chop(4);
         details = "You don't have enough money to buy a(n) " + itemName;
     }
+    ui->textBrowser->append("You bought a(n) " + itemName + " for " + QString::number(itemPrice));
+
     msg.setText(details);
     msg.exec();
 
@@ -454,6 +549,7 @@ void VirtualLifeView::on__savegame_clicked()
     QString details = (model->saveGame()) ? "Successfully saved the game!" : "Failed to save the game!";
     msg.setText(details);
     msg.exec();
+
 }
 
 void VirtualLifeView::on__loadgame_clicked()
@@ -485,6 +581,8 @@ void VirtualLifeView::on__loadgame_clicked()
             }
         }
     }
+    ui->textBrowser->append("You loaded a new character.");
+
 }
 
 void VirtualLifeView::handleReadError()
@@ -493,6 +591,8 @@ void VirtualLifeView::handleReadError()
     QString details = "The specified name cannot be found in the database.";
     msg.setText(details);
     msg.exec();
+    ui->textBrowser->append("The specified name cannot be found in the database.");
+
 }
 
 void VirtualLifeView::on__newcharacter_clicked()
@@ -527,6 +627,7 @@ void VirtualLifeView::on__newcharacter_clicked()
         } else{
             QString name = initialData->getSelectedName();
             QString gender = initialData->getSelectedGender();
+            ui->textBrowser->append("You created a new character.");
             model->newGame();
             model->getCurrentCharacter()->setName(name);
             model->getCurrentCharacter()->setGender(gender);
@@ -560,13 +661,15 @@ void VirtualLifeView::on__characters_clicked()
 
 void VirtualLifeView::generateRandomEvent()
 {
-    int prob = QRandomGenerator::global()->bounded(101);
-    if(prob < 40){
+    if(allEvents.size() > 0){
+//            int prob = QRandomGenerator::global()->bounded(101);
+//            if(prob < 40){
         int index = QRandomGenerator::global()->bounded(allEvents.size());
         QMessageBox msg;
         msg.setText(allEvents.at(index).description);
-        allEvents.removeAt(index);
         msg.exec();
+        ui->textBrowser->append(allEvents.at(index).description);
+
         if(allEvents.at(index).description.contains("health")){
             int newHealth = (model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence > 0) ?
                                 qMax(model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence,0) : 0;
@@ -588,6 +691,17 @@ void VirtualLifeView::generateRandomEvent()
             model->getCurrentCharacter()->setIntelligence(newIntelligence);
             ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
         }
+        allEvents.removeAt(index);
+        updateCharacter();
+        //    }
     }
+}
+
+
+void VirtualLifeView::on__achievements_clicked()
+{
+    achievements = new Achievements(model->getCurrentCharacter());
+    achievements->setWindowModality(Qt::ApplicationModal);
+    achievements->exec();
 }
 

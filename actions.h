@@ -22,14 +22,14 @@ class Actions : public QDialog
 private slots:
     void handleEnd();
     void handleSpaceInvadersEnd(bool,QString);
-    void handleMemoryEnd();
+    void handleMemoryEnd(QString);
     void handleHuntingGameEnd(bool,QString);
     void handleLotteryEnd(int);
     void handleWhackAMoleEnd(bool,QString);
     void handleCrawlingGameEnd(bool,QString);
 signals:
     void sigSpaceInvadersEnd(bool,QString);
-    void sigMemoryEnd();
+    void sigMemoryEnd(QString);
     void sigHuntingGameEnd(bool,QString);
     void sigLotteryEnd(int);
     void sigWhackAMoleEnd(bool,QString);

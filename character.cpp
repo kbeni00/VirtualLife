@@ -6,15 +6,16 @@
 Character::Character(QObject *parent)
     : QObject{parent}
 {
-    health = 0;
-    needs = 0;
+    health = 50;
+    needs = 50;
     intelligence = 0;
     mood = 0;
     name = "-";
     stage = "-";
     gender = "-";
     age = 0;
-    wealth = 0;
+    wealth = 10000000;
+
 
 }
 
@@ -110,11 +111,6 @@ bool Character::hasEnoughMoney(int value)
     return value<=wealth;
 }
 
-QVector<QString> Character::getRelationships()
-{
-    return relationships;
-}
-
 QVector<QString> Character::getAssets()
 {
     return assets;
@@ -123,6 +119,62 @@ QVector<QString> Character::getAssets()
 void Character::addAsset(QString name)
 {
     assets.push_back(name);
+}
+
+bool Character::getHasHouse(){
+    return hasHouse;
+}
+
+void Character::setHasHouse(bool boughtAHouse){
+    hasHouse = boughtAHouse;
+}
+
+bool Character::getHasCar(){
+    return hasCar;
+}
+
+void Character::setHasCar(bool boughtACar){
+    hasCar = boughtACar;
+}
+
+int Character::getFoodsTried()
+{
+    return foodsTried;
+}
+
+void Character::increaseFoodsTried(int x)
+{
+    foodsTried += x;
+}
+
+QVector<bool> Character::getEasyGamesPlayed()
+{
+    return easyGamesPlayed;
+}
+
+QVector<bool> Character::getMediumGamesPlayed()
+{
+    return mediumGamesPlayed;
+}
+
+QVector<bool> Character::getHardGamesPlayed()
+{
+    return hardGamesPlayed;
+}
+
+void Character::increaseEasyGamesPlayed(int x)
+{
+    easyGamesPlayed[x] = true;
+}
+
+void Character::increaseMediumGamesPlayed(int x)
+{
+    mediumGamesPlayed[x] = true;
+}
+
+void Character::increaseHardGamesPlayed(int x)
+{
+    hardGamesPlayed[x] = true;
 }
 
 void Character::read(const QJsonObject &json)
@@ -137,9 +189,22 @@ void Character::read(const QJsonObject &json)
     age = json["age"].toInt();
     wealth = json["wealth"].toInt();
     gender = json["gender"].toString();
-    QJsonArray relationshipsArray = json["relationships"].toArray();
-    for(int i = 0; i < relationshipsArray.size(); i++){
-        relationships.push_back(relationshipsArray.at(i).toString());
+    hasHouse = json["hasHouse"].toBool();
+    hasCar = json["hasCar"].toBool();
+    foodsTried = json["foodsTried"].toInt();
+    QJsonArray easyGames = json["easyGames"].toArray();
+    for(int i = 0; i < easyGames.size(); i++){
+        easyGamesPlayed.push_back(easyGames.at(i).toBool());
+    }
+
+    QJsonArray mediumGames = json["mediumGames"].toArray();
+    for(int i = 0; i < mediumGames.size(); i++){
+        mediumGamesPlayed.push_back(mediumGames.at(i).toBool());
+    }
+
+    QJsonArray hardGames = json["hardGames"].toArray();
+    for(int i = 0; i < hardGames.size(); i++){
+        hardGamesPlayed.push_back(hardGames.at(i).toBool());
     }
     QJsonArray assetsArray = json["assets"].toArray();
     for(int i = 0; i < assetsArray.size(); i++){
@@ -159,12 +224,34 @@ void Character::write(QJsonObject &json) const
     json["age"] = age;
     json["wealth"] = wealth;
     json["gender"] = gender;
-    QJsonArray relationshipsArray;
-    for(int i = 0; i < relationships.size(); i++){
-        QJsonValue val(relationships.at(i));
-        relationshipsArray.append(val);
+    json["hasHouse"] = hasHouse;
+    json["hasCar"] = hasCar;
+    json["foodsTried"] = foodsTried;
+    QJsonArray easyGames;
+    for(int i = 0; i < easyGamesPlayed.size(); i++){
+        QJsonValue val(easyGamesPlayed.at(i));
+        easyGames.append(val);
     }
-    json["relationships"] = relationshipsArray;
+    json["easyGames"] = easyGames;
+
+    QJsonArray mediumGames;
+    for(int i = 0; i < mediumGamesPlayed.size(); i++){
+        QJsonValue val(mediumGamesPlayed.at(i));
+        mediumGames.append(val);
+    }
+
+    json["mediumGames"] = mediumGames;
+
+
+    QJsonArray hardGames;
+    for(int i = 0; i < hardGamesPlayed.size(); i++){
+        QJsonValue val(hardGamesPlayed.at(i));
+        hardGames.append(val);
+    }
+
+    json["hardGames"] = hardGames;
+
+
     QJsonArray assetsArray;
     for(int i = 0; i < assets.size(); i++){
         QJsonValue val(assets.at(i));

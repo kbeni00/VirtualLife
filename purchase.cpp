@@ -12,45 +12,45 @@ Purchase::Purchase(QWidget *parent) :
     ui(new Ui::Purchase)
 {
     ui->setupUi(this);
-    QDirIterator itc(":/purchase/collectibles", QDirIterator::Subdirectories);
+    QDirIterator itc(":/purchase/collectibles/resources/purchase/", QDirIterator::Subdirectories);
     while (itc.hasNext()) {
         QString fileName =  itc.next();
         Purchase::Thingy newthingy;
         newthingy.name = fileName;
-        if(newthingy.name == ":/purchase/collectibles/expensiveCar.png"){
+        if(newthingy.name == ":/purchase/collectibles/resources/purchase/expensiveCar.png"){
             newthingy.price = 200000;
-        } else if(newthingy.name == ":/purchase/collectibles/normalCar.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/resources/purchase/normalCar.png"){
             newthingy.price = 50000;
-        } else if(newthingy.name == ":/purchase/collectibles/cheapCar.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/resources/purchase/cheapCar.png"){
             newthingy.price = 30000;
-        } else if(newthingy.name == ":/purchase/collectibles/expensiveHouse.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/resources/purchase/expensiveHouse.png"){
             newthingy.price = 500000;
-        } else if(newthingy.name == ":/purchase/collectibles/normalHouse.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/resources/purchase/normalHouse.png"){
             newthingy.price = 300000;
-        } else if(newthingy.name == ":/purchase/collectibles/cheapHouse.png"){
+        } else if(newthingy.name == ":/purchase/collectibles/resources/purchase/cheapHouse.png"){
             newthingy.price = 75000;
         }
         collectibles.push_back(newthingy);
 
     }
 
-    QDirIterator itf(":/purchase/needs", QDirIterator::Subdirectories);
+    QDirIterator itf(":/purchase/needs/resources/purchase/", QDirIterator::Subdirectories);
     while (itf.hasNext()) {
         QString fileName =  itf.next();
         Purchase::Thingy newthingy;
         newthingy.name = fileName;
-        if(newthingy.name == ":/purchase/needs/fastfood.png"){
+        if(newthingy.name == ":/purchase/needs/resources/purchase/fastfood.png"){
             newthingy.price = 4000;
-        } else if(newthingy.name == ":/purchase/needs/fruits.png"){
+        } else if(newthingy.name == ":/purchase/needs/resources/purchase/fruits.png"){
             newthingy.price = 10000;
-        } else if(newthingy.name == ":/purchase/needs/pancakes.png"){
+        } else if(newthingy.name == ":/purchase/needs/resources/purchase/pancakes.png"){
             newthingy.price = 3000;
-        } else if(newthingy.name == ":/purchase/needs/pizza.png"){
+        } else if(newthingy.name == ":/purchase/needs/resources/purchase/pizza.png"){
             newthingy.price = 5000;
-        } else if(newthingy.name == ":/purchase/needs/prime.png"){
+        } else if(newthingy.name == ":/purchase/needs/resources/purchase/prime.png"){
             newthingy.price = 20000;
         }
-        else if(newthingy.name == ":/purchase/needs/sushi.png"){
+        else if(newthingy.name == ":/purchase/needs/resources/purchase/sushi.png"){
             newthingy.price = 6000;
         }
         needs.push_back(newthingy);
@@ -105,6 +105,7 @@ void Purchase::handleClick()
     QPushButton* sender = dynamic_cast<QPushButton*>(QObject::sender());
     for(int i = 0; i < collectibles.size(); i++){
         if(collectibles.at(i).price == sender->text().toInt()){
+            qDebug() << "asd+" + collectibles.at(i).name;
             emit sigBoughtItem(collectibles.at(i).name,collectibles.at(i).price);
         }
     }

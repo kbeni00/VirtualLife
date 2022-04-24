@@ -110,7 +110,7 @@ void Actions::handleEnd()
         QMessageBox msg;
         QString details = "In this game your goal is to collect toys.\n"
                           "You can move around the map with the arrow buttons.\n"
-                          "Picking up the milk bottle boost your temporarily.\n"
+                          "Picking up the milk bottle boost your speed temporarily.\n"
                           "Harder difficulties give you more points, money.";
         msg.setText(details);
         msg.exec();
@@ -147,9 +147,9 @@ void Actions::handleSpaceInvadersEnd(bool wonGame, QString difficulty)
     emit sigSpaceInvadersEnd(wonGame, difficulty);
 }
 
-void Actions::handleMemoryEnd()
+void Actions::handleMemoryEnd(QString difficulty)
 {
-    emit sigMemoryEnd();
+    emit sigMemoryEnd(difficulty);
 }
 
 

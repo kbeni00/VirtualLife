@@ -22,6 +22,7 @@ public slots:
     void onGameOver(bool);
     void handleExitButton();
     void onGameOverTimerUp();
+    void handleSurrender();
 signals:
     void sigGameOver(bool,QString);
 private:

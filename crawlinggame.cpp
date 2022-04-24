@@ -24,16 +24,16 @@ CrawlingGame::CrawlingGame(QSize screenSize, QString difficulty, QWidget *parent
     mediaPlayer->play();
     _difficulty = difficulty;
     if(difficulty == "Easy"){
-        scoreToReach = 2;
+        scoreToReach = 15;
         maxHealth = 5;
         toySpawnSpeed = 2000;
 
     } else if(difficulty == "Medium"){
-        scoreToReach = 30;
+        scoreToReach = 20;
         maxHealth = 4;
         toySpawnSpeed = 1650;
     } else{
-        scoreToReach = 40;
+        scoreToReach = 25;
         maxHealth = 3;
         toySpawnSpeed = 1300;
     }
@@ -84,7 +84,6 @@ void CrawlingGame::checkPoints()
 
 void CrawlingGame::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << babySpeed;
     if(_baby == nullptr) return;
     switch(event->key()){
     case Qt::Key_Left:
@@ -116,6 +115,7 @@ void CrawlingGame::keyPressEvent(QKeyEvent *event)
         }
         break;
     }
+
 }
 
 void CrawlingGame::onCreateEnemy()
@@ -156,7 +156,7 @@ void CrawlingGame::onGameOver(bool wonGame)
 {
     isGameOver = true;
     toySpawnTimer->stop();
-//    milkSpeedTimer->stop();
+    //    milkSpeedTimer->stop();
     //    delete toysSpawnTimer;
     delete _baby;
     delete _points;

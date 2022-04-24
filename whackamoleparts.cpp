@@ -1,5 +1,6 @@
 #include "whackamoleparts.h"
 #include "qapplication.h"
+#include "qpushbutton.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
@@ -34,6 +35,8 @@ MolePointsPart::MolePointsPart(int gameTime, int molesToHit, QGraphicsItem *pare
     setFont(QFont("times", 24));
     timeLeftTimer = new QTimer();
     timeLeftTimer->start(gameTime);
+    QPushButton* surrender = new QPushButton();
+    surrender->setText("Give up");
     QTimer* refreshTimer = new QTimer();
     refreshTimer->start(1000);
     connect(refreshTimer, &QTimer::timeout, this, &MolePointsPart::updateMetrics);

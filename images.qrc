@@ -37,12 +37,12 @@
         <file>resources/sounds/huntinggamemusic.mp3</file>
     </qresource>
     <qresource prefix="/purchase/collectibles">
-        <file>resources/purchase/cheapCar.png</file>
-        <file>resources/purchase/cheapHouse.png</file>
         <file>resources/purchase/expensiveCar.png</file>
         <file>resources/purchase/expensiveHouse.png</file>
-        <file>resources/purchase/normalCar.png</file>
         <file>resources/purchase/normalHouse.png</file>
+        <file>resources/purchase/cheapHouse.png</file>
+        <file>resources/purchase/cheapCar.png</file>
+        <file>resources/purchase/normalCar.png</file>
     </qresource>
     <qresource prefix="/purchase/needs">
         <file>resources/purchase/fastfood.png</file>
@@ -70,5 +70,20 @@
     <qresource prefix="/styles">
         <file>SpyBot.qss</file>
         <file>SyNet.qss</file>
+    </qresource>
+    <qresource prefix="/achievements">
+        <file>resources/achievements/carAchievement.png</file>
+        <file>resources/achievements/collectiblesAchievement.png</file>
+        <file>resources/achievements/easyAchievement.png</file>
+        <file>resources/achievements/foodAchievement.png</file>
+        <file>resources/achievements/gameAchievement.png</file>
+        <file>resources/achievements/hardAchievement.png</file>
+        <file>resources/achievements/healthAchievement.png</file>
+        <file>resources/achievements/houseAchievement.png</file>
+        <file>resources/achievements/intelligenceAchievement.png</file>
+        <file>resources/achievements/mediumAchievement.png</file>
+        <file>resources/achievements/needsAchievement.png</file>
+        <file>resources/achievements/questionMark.png</file>
+        <file>resources/achievements/wealthAchievement.png</file>
     </qresource>
 </RCC>

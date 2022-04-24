@@ -34,14 +34,17 @@ private:
     int secondPos;
     QTimer* cardFlipTimer;
     int matchesFound = 0;
-    int allMatches = 4;
+    int allMatches;
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
+    QString _difficulty;
 private slots:
     void cardClicked();
     void flipBack();
+    void on_giveUpButton_clicked();
+
 signals:
-    void sigGameOver();
+    void sigGameOver(QString);
 };
 
 #endif // MEMORYCARD_H

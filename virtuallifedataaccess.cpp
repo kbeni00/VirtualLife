@@ -1,4 +1,5 @@
 #include "virtuallifedataaccess.h"
+#include <QFileDialog>
 
 VirtualLifeDataAccess::VirtualLifeDataAccess()
 {
@@ -105,6 +106,9 @@ bool VirtualLifeDataAccess::saveGame(QVector<Character*> &characters)
     QJsonObject gameObject;
     write(gameObject,characters);
     saveFile.write(QJsonDocument(gameObject).toJson());
+
+    saveFile.close();
+
 
     return true;
 }

@@ -18,21 +18,69 @@ MemoryCard::MemoryCard(QString difficulty, QWidget *parent) :
     mediaPlayer->setAudioOutput(audioOutput);
     mediaPlayer->setSource(QUrl("qrc:/memorycards/resources/sounds/memorygamemusic.mp3"));
     mediaPlayer->play();
-    QVector<QString> allIcons {"car","car","house", "house", "ship","ship","plane","plane"};
+    _difficulty = difficulty;
 
-    for(int i = 0; i < 2; i++){
-        for(int j = 0; j < 4; j++){
-            QPushButton *button = new QPushButton();
+    if(difficulty == "Easy"){
+        QVector<QString> allIcons {"car","car","house", "house", "ship","ship","plane","plane"};
 
-            button->setCheckable(true);
-            int random = QRandomGenerator::global()->bounded(allIcons.size());
-            icons.push_back(allIcons.at(random));
-            allIcons.removeAt(random);
+        allMatches = 4;
 
-            setImage(button,":/memorycards/resources/memorygame/back.jpg");
-            ui->cardsLayout->addWidget(button,i,j);
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 4; j++){
+                QPushButton *button = new QPushButton();
 
-            connect(button, SIGNAL(clicked()), this, SLOT(cardClicked())) ;
+                button->setCheckable(true);
+                int random = QRandomGenerator::global()->bounded(allIcons.size());
+                icons.push_back(allIcons.at(random));
+                allIcons.removeAt(random);
+
+                setImage(button,":/memorycards/resources/memorygame/back.jpg");
+                ui->cardsLayout->addWidget(button,i,j);
+
+                connect(button, SIGNAL(clicked()), this, SLOT(cardClicked())) ;
+            }
+        }
+    } else if(difficulty == "Medium"){
+        QVector<QString> allIcons {"car","car","house", "house", "ship","ship","plane","plane",
+                                  "bitcoin","bitcoin","cruise","cruise","helicopter","helicopter","jet","jet"};
+
+        allMatches = 8;
+
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                QPushButton *button = new QPushButton();
+
+                button->setCheckable(true);
+                int random = QRandomGenerator::global()->bounded(allIcons.size());
+                icons.push_back(allIcons.at(random));
+                allIcons.removeAt(random);
+
+                setImage(button,":/memorycards/resources/memorygame/back.jpg");
+                ui->cardsLayout->addWidget(button,i,j);
+
+                connect(button, &QPushButton::clicked, this, &MemoryCard::cardClicked) ;
+            }
+        }
+    } else{
+        QVector<QString> allIcons {"car","car","house", "house", "ship","ship","plane","plane",
+                                  "bitcoin","bitcoin","cruise","cruise","helicopter","helicopter","jet","jet",
+                                  "moneybag","moneybag","snitch","snitch","spaceshipblack","spaceshipblack","yacht","yacht"};
+        allMatches = 12;
+
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 6; j++){
+                QPushButton *button = new QPushButton();
+
+                button->setCheckable(true);
+                int random = QRandomGenerator::global()->bounded(allIcons.size());
+                icons.push_back(allIcons.at(random));
+                allIcons.removeAt(random);
+
+                setImage(button,":/memorycards/resources/memorygame/back.jpg");
+                ui->cardsLayout->addWidget(button,i,j);
+
+                connect(button, &QPushButton::clicked, this, &MemoryCard::cardClicked) ;
+            }
         }
     }
 }
@@ -57,7 +105,7 @@ void MemoryCard::cardClicked()
     QPushButton* senderButton = dynamic_cast <QPushButton*> (QObject::sender());
     int index = ui->cardsLayout->indexOf(senderButton);
     if(!firstGuess.isEmpty() && !secondGuess.isEmpty()) return;
-    QString path = ":/memorycards/" + icons.at(index);
+    QString path = ":/memorycards/resources/memorygame/" + icons.at(index);
     cardFlipTimer = new QTimer(this);
     connect(cardFlipTimer, &QTimer::timeout, this, &MemoryCard::flipBack);
     if(firstGuess == ""){
@@ -79,8 +127,9 @@ void MemoryCard::cardClicked()
                 msg.exec();
                 mediaPlayer->stop();
                 this->close();
-                emit sigGameOver();
+                emit sigGameOver(_difficulty);
             }
+            ui->foundPairsVal->setText(QString::number(matchesFound) + "/" + QString::number(allMatches));
             firstButton->setEnabled(false);
             secondButton->setEnabled(false);
             cardFlipTimer->start(5);
@@ -102,3 +151,14 @@ void MemoryCard::flipBack()
     secondGuess = "";
     cardFlipTimer->stop();
 }
+
+void MemoryCard::on_giveUpButton_clicked()
+{
+    QMessageBox msg;
+    QString resultMessage = "You gave up, game over!";
+    msg.setText(resultMessage);
+    msg.exec();
+    mediaPlayer->stop();
+    this->close();
+}
+

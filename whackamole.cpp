@@ -24,16 +24,16 @@ WhackAMole::WhackAMole(QSize screenSize, QString difficulty, QWidget *parent) : 
     _difficulty = difficulty;
     if(difficulty == "Easy"){
         moleSpeed = 1800;
-        molesToHit = 10;
+        molesToHit = 20;
         gameTime = 90000;
 
     } else if(difficulty == "Medium"){
         moleSpeed = 1250;
-        molesToHit = 15;
+        molesToHit = 25;
         gameTime = 90000;
     } else{
         moleSpeed = 900;
-        molesToHit = 20;
+        molesToHit = 30;
         gameTime = 90000;
     }
     QGraphicsScene* scene = new QGraphicsScene();
@@ -73,6 +73,10 @@ void WhackAMole::run()
     scene()->clear();
     _points = new MolePointsPart(gameTime, molesToHit);
     scene()->addItem(_points);
+    QPushButton* surrenderButton = new QPushButton("Give up");
+    connect(surrenderButton, &QPushButton::clicked, this, &WhackAMole::handleSurrender);
+    QGraphicsProxyWidget* widgetItem = scene()->addWidget(surrenderButton);
+    widgetItem->setPos(QPointF(_screenSize.width()/2,0));
     moleSpawnTimer = new QTimer(this);
     moleSpawnTimer->start(moleSpeed);
     connect(moleSpawnTimer, &QTimer::timeout, this, &WhackAMole::onCreateEnemy);
@@ -158,4 +162,13 @@ void WhackAMole::handleExitButton()
 void WhackAMole::onGameOverTimerUp()
 {
     onGameOver(false);
+}
+
+void WhackAMole::handleSurrender()
+{
+    moleSpawnTimer->stop();
+    gameOverTimer->stop();
+    mediaPlayer->stop();
+    this->close();
+
 }

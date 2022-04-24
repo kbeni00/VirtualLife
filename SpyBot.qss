@@ -52,6 +52,12 @@ QPushButton
 
 }
 
+QTextBrowser
+{
+    color: #ffffff
+
+}
+
 
 QPushButton::pressed
 {

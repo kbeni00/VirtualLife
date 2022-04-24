@@ -4,14 +4,36 @@
             "age": 7,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 2,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 60,
             "name": "asd2",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Child",
             "wealth": 0
         },
@@ -19,14 +41,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 26,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 82,
             "name": "asd3",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -34,14 +78,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 18,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 72,
             "name": "asd1",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -49,14 +115,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 50,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 69,
             "name": "asd5",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -64,14 +152,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Female",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 35,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 40,
             "name": "asd4",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -79,14 +189,36 @@
             "age": 24,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 70,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 73,
             "name": "asd7",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Adult",
             "wealth": 0
         },
@@ -94,14 +226,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Female",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 20,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 12,
             "name": "asd8",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -109,14 +263,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "-",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 0,
             "name": "-",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -124,14 +300,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 53,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 76,
             "name": "1",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -139,14 +337,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 57,
             "intelligence": 28,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 89,
             "name": "asd254",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -154,14 +374,36 @@
             "age": 27,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 41,
             "intelligence": 90,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 83,
             "name": "bnfh",
             "needs": 68,
-            "relationships": [
-            ],
             "stage": "Adult",
             "wealth": 0
         },
@@ -169,14 +411,36 @@
             "age": 29,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 94,
             "intelligence": 54,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 80,
             "name": "k",
             "needs": 87,
-            "relationships": [
-            ],
             "stage": "Adult",
             "wealth": 0
         },
@@ -184,14 +448,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 0,
             "name": ",jh",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 0
         },
@@ -202,14 +488,36 @@
                 ":/purchase/collectibles/normalCar.png",
                 ":/purchase/collectibles/expensiveCar.png"
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 0,
             "name": "gergo",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 999675000
         },
@@ -217,14 +525,36 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 0,
             "name": ",m ",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 1000000000
         },
@@ -244,14 +574,36 @@
                 ":/purchase/collectibles/expensiveCar.png",
                 ":/purchase/collectibles/normalCar.png"
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": -50,
             "name": "kh",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 999072500
         },
@@ -262,14 +614,36 @@
                 ":/purchase/collectibles/expensiveCar.png",
                 ":/purchase/collectibles/normalCar.png"
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Female",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 0,
             "name": "andi",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 999675000
         },
@@ -277,31 +651,198 @@
             "age": 0,
             "assets": [
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
             "health": 0,
             "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
             "mood": 0,
             "name": ",m     ",
             "needs": 0,
-            "relationships": [
-            ],
             "stage": "Baby",
             "wealth": 1000000000
         },
         {
             "age": 26,
             "assets": [
+                ":/purchase/needs/resources/purchase/prime.png",
+                ":/purchase/needs/resources/purchase/prime.png",
+                ":/purchase/needs/resources/purchase/prime.png",
+                ":/purchase/needs/resources/purchase/prime.png",
+                ":/purchase/needs/resources/purchase/prime.png",
+                ":/purchase/needs/resources/purchase/prime.png"
             ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
             "gender": "Male",
-            "health": 0,
-            "intelligence": 100,
-            "mood": 120,
-            "name": "jkh ",
-            "needs": 0,
-            "relationships": [
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
             ],
+            "hasCar": false,
+            "hasHouse": false,
+            "health": 90,
+            "intelligence": 161,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "mood": 156,
+            "name": "jkh ",
+            "needs": 42,
             "stage": "Adult",
-            "wealth": 1000000000
+            "wealth": 999980000
+        },
+        {
+            "age": 0,
+            "assets": [
+                ":/purchase/needs/resources/purchase/prime.png",
+                ":/purchase/needs/resources/purchase/fruits.png",
+                ":/purchase/needs/resources/purchase/pizza.png",
+                ":/purchase/needs/resources/purchase/pancakes.png",
+                ":/purchase/needs/resources/purchase/fastfood.png",
+                ":/purchase/needs/resources/purchase/sushi.png"
+            ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
+            "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
+            "health": 29,
+            "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "mood": 0,
+            "name": "hjf",
+            "needs": 27,
+            "stage": "Baby",
+            "wealth": 9952000
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 0,
+            "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
+            "health": 50,
+            "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "mood": 0,
+            "name": "khkjh",
+            "needs": 50,
+            "stage": "Baby",
+            "wealth": 10000000
+        },
+        {
+            "age": 0,
+            "assets": [
+            ],
+            "easyGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "foodsTried": 806419,
+            "gender": "Male",
+            "hardGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "hasCar": false,
+            "hasHouse": false,
+            "health": 50,
+            "intelligence": 0,
+            "mediumGames": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "mood": 0,
+            "name": "Player01",
+            "needs": 50,
+            "stage": "Baby",
+            "wealth": 10000000
         }
     ]
 }

@@ -4,10 +4,10 @@
 #include <QMainWindow>
 #include "virtuallifemodel.h"
 #include "initialdata.h"
-#include "details.h"
 #include "actions.h"
 #include "purchase.h"
 #include "assets.h"
+#include "achievements.h"
 #include <QMap>
 
 QT_BEGIN_NAMESPACE
@@ -39,8 +39,6 @@ private slots:
 
     void on__age_clicked();
 
-    void on__details_clicked();
-
     void on__actions_clicked();
 
     void on__purchase_clicked();
@@ -49,7 +47,7 @@ private slots:
 
     void handleSpaceInvadersEnd(bool,QString);
 
-    void handleMemoryEnd();
+    void handleMemoryEnd(QString);
 
     void on__savegame_clicked();
 
@@ -71,13 +69,15 @@ private slots:
 
     void handleCrawlingGameEnd(bool,QString);
 
+    void on__achievements_clicked();
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;
-    Details* details;
     Actions* actions;
     Purchase* purchase;
     Assets* assets;
+    Achievements* achievements;
     VirtualLifeModel* model;
     QVector<EventDetails> allEvents;
 };
