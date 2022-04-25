@@ -21,9 +21,9 @@ private:
     bool hasHouse = false;
     bool hasCar = false;
     int foodsTried;
-    QVector<bool> easyGamesPlayed = {false,false,false,false,false};
-    QVector<bool> mediumGamesPlayed = {false,false,false,false,false};
-    QVector<bool> hardGamesPlayed = {false,false,false,false,false};
+    QVector<bool> easyGamesPlayed = {false,false,false,false,false,false};
+    QVector<bool> mediumGamesPlayed = {false,false,false,false,false,false};
+    QVector<bool> hardGamesPlayed = {false,false,false,false,false,false};
 
 public:
     explicit Character(QObject *parent = nullptr);

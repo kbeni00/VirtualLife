@@ -1,7 +1,6 @@
 #ifndef CRAWLINGGAME_H
 #define CRAWLINGGAME_H
 
-
 #include <QPointer>
 #include <QGraphicsView>
 #include <QKeyEvent>

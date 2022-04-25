@@ -86,4 +86,9 @@
         <file>resources/achievements/questionMark.png</file>
         <file>resources/achievements/wealthAchievement.png</file>
     </qresource>
+    <qresource prefix="/athletegame">
+        <file>resources/athletegame/hurdle.png</file>
+        <file>resources/athletegame/runner.png</file>
+        <file>resources/athletegame/background.png</file>
+    </qresource>
 </RCC>

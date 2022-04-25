@@ -73,6 +73,8 @@ private slots:
 
     void handleDoctorEnd(QString);
 
+    void handleAthleteGameEnd(bool, QString);
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;

@@ -10,6 +10,7 @@
 #include "whackamole.h"
 #include "crawlinggame.h"
 #include "doctor.h"
+#include "athletegame.h"
 #include <QComboBox>
 
 namespace Ui {
@@ -29,6 +30,7 @@ private slots:
     void handleWhackAMoleEnd(bool,QString);
     void handleCrawlingGameEnd(bool,QString);
     void handleDoctorEnd(QString);
+    void handleAthleteGameEnd(bool, QString);
 signals:
     void sigSpaceInvadersEnd(bool,QString);
     void sigMemoryEnd(QString);
@@ -37,6 +39,7 @@ signals:
     void sigWhackAMoleEnd(bool,QString);
     void sigCrawlingGameEnd(bool,QString);
     void sigDoctorEnd(QString);
+    void sigAthleteGameEnd(bool,QString);
 public:
     explicit Actions(QWidget *parent = nullptr);
     ~Actions();
@@ -56,6 +59,7 @@ private:
     CrawlingGame* crawlingGame;
     Difficulty* difficulty;
     Doctor* doctor;
+    AthleteGame* athleteGame;
     QString selectedDifficulty;
 
 

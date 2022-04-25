@@ -218,6 +218,7 @@ void VirtualLifeView::on__actions_clicked()
         actions->addAction("Space Invaders");
         actions->addAction("Whack-A-Mole");
         actions->addAction("Hunting Game");
+        actions->addAction("Athlete Game");
         actions->addAction("Buy lottery");
         actions->addAction("Go to a doctor");
     }
@@ -723,3 +724,38 @@ void VirtualLifeView::handleDoctorEnd(QString selectedDoc)
     ui->textBrowser->append("You went to a " + selectedDoc + ". Your health points have been updated.");
 }
 
+void VirtualLifeView::handleAthleteGameEnd(bool wonGame, QString difficulty)
+{
+    if(wonGame){
+        if(difficulty == "Easy"){
+            model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 5000);
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);
+            model->getCurrentCharacter()->increaseEasyGamesPlayed(5);
+        } else if(difficulty == "Medium"){
+            model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 10000);
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 10);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 10);
+            model->getCurrentCharacter()->increaseMediumGamesPlayed(5);
+        } else{
+            model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 20000);
+            model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 15);
+            model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 15);
+            model->getCurrentCharacter()->increaseHardGamesPlayed(5);
+        }
+        ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+        ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+        ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+        ui->textBrowser->append("You won a Hunting Game on " + difficulty + " difficulty. Your rewards have been added to your character.");
+
+    } else{
+        ui->textBrowser->append("You lost a Hunting Game on " + difficulty + " difficulty.");
+
+    }
+    if(model->getCurrentCharacter()->getStage() == "Adult"){
+
+        model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
+        ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+    }
+    generateRandomEvent();
+}

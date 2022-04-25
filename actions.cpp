@@ -128,6 +128,20 @@ void Actions::handleEnd()
         connect(doctor, &Doctor::sigDoctorSelected, this, &Actions::handleDoctorEnd);
         doctor->setWindowModality(Qt::ApplicationModal);
         doctor->show();
+    } else if(selectedAction == "Athlete Game"){
+        QMessageBox msg;
+        QString details = "Lorem ipsum";
+        msg.setText(details);
+        msg.exec();
+        difficulty = new Difficulty();
+        int res = difficulty->exec();
+        if(res == QDialog::Accepted){
+            athleteGame = new AthleteGame(qApp->screens()[0]->size(), difficulty->selectedDifficulty);
+            athleteGame->setWindowModality(Qt::ApplicationModal);
+            athleteGame->showFullScreen();
+            athleteGame->run();
+            connect(athleteGame, &AthleteGame::sigGameOver, this, &Actions::handleAthleteGameEnd);
+        }
     }
 }
 
@@ -167,4 +181,10 @@ void Actions::handleMemoryEnd(QString difficulty)
 void Actions::handleHuntingGameEnd(bool wonGame, QString difficulty)
 {
     emit sigHuntingGameEnd(wonGame, difficulty);
+}
+
+
+void Actions::handleAthleteGameEnd(bool wonGame, QString difficulty)
+{
+    emit sigAthleteGameEnd(wonGame, difficulty);
 }

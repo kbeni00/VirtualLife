@@ -13,6 +13,8 @@ SOURCES += \
     achievements.cpp \
     actions.cpp \
     assets.cpp \
+    athletegame.cpp \
+    athletegameparts.cpp \
     character.cpp \
     crawlinggame.cpp \
     crawlinggameparts.cpp \
@@ -37,6 +39,8 @@ HEADERS += \
     achievements.h \
     actions.h \
     assets.h \
+    athletegame.h \
+    athletegameparts.h \
     character.h \
     crawlinggame.h \
     crawlinggameparts.h \
