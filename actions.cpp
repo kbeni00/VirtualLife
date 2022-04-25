@@ -123,6 +123,11 @@ void Actions::handleEnd()
             crawlingGame->run();
             connect(crawlingGame, &CrawlingGame::sigGameOver, this, &Actions::handleCrawlingGameEnd);
         }
+    } else if(selectedAction == "Go to a doctor"){
+        doctor = new Doctor();
+        connect(doctor, &Doctor::sigDoctorSelected, this, &Actions::handleDoctorEnd);
+        doctor->setWindowModality(Qt::ApplicationModal);
+        doctor->show();
     }
 }
 
@@ -140,6 +145,12 @@ void Actions::handleWhackAMoleEnd(bool wonGame, QString difficulty)
 void Actions::handleCrawlingGameEnd(bool wonGame, QString difficulty)
 {
     emit sigCrawlingGameEnd(wonGame, difficulty);
+}
+
+void Actions::handleDoctorEnd(QString selectedDoc)
+{
+    qDebug() << selectedDoc;
+    emit sigDoctorEnd(selectedDoc);
 }
 
 void Actions::handleSpaceInvadersEnd(bool wonGame, QString difficulty)

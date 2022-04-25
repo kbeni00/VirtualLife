@@ -9,7 +9,6 @@
 #include <QThread>
 
 //TODO: egyszer beolvansi a neveket egy tömbbe és utána onnan kiszedni a neveket, nem a fájlból olvasni mindig
-//TODO: Details helyett achivements
 
 VirtualLifeView::VirtualLifeView(QWidget *parent)
     : QMainWindow(parent)
@@ -31,23 +30,23 @@ VirtualLifeView::~VirtualLifeView()
 }
 
 void VirtualLifeView::initEvents(){
-//    allEvents.push_back(*new VirtualLifeView::EventDetails("You broke your arm. You lose 10 health points.", -10));
-//    allEvents.push_back(*new VirtualLifeView::EventDetails("You got electrocuted while messing with the outlet. You lose 15 health points.", -15));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your friends. You lose 10 mood points.", -10));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got kidnapped but managed to escape. You lose 30 mood points.", -30));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You broke your arm. You lose 10 health points.", -10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You got electrocuted while messing with the outlet. You lose 15 health points.", -15));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your friends. You lose 10 mood points.", -10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You got kidnapped but managed to escape. You lose 30 mood points.", -30));
     allEvents.push_back(*new VirtualLifeView::EventDetails("You fell down the stairs today. You lose 10 health points.", -10));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You lost your phone. You lose 10 mood points.", -10));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your family members at dinner. You lose 5 mood points.",-5));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a compliment from a random person on the street. You gain 5 mood points.", 5));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("Your crush gave you an ice cream. You gain 10 mood points.", 10));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a flower from one of your friends. You gain 10 mood points.", 10));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You found a four-leaf clover. You gain 5 mood points.", 5));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a negative covid test. You gain 20 mood points.", 20));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a double rainbow while walking home. You gain 5 mood points.", 5));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a shooting star. You gain 10 mood points.", 10));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You woke up on the right side of the bed today. You gain 2 mood points.", 5));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("Your six pack is starting to show. You gain 5 mood points.", 5));
-    //    allEvents.push_back(*new VirtualLifeView::EventDetails("You got selected for an all expenses paid tour around the world. You gain 50 mood points.", 50));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You lost your phone. You lose 10 mood points.", -10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You had an argument with one of your family members at dinner. You lose 5 mood points.",-5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a compliment from a random person on the street. You gain 5 mood points.", 5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("Your crush gave you an ice cream. You gain 10 mood points.", 10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a flower from one of your friends. You gain 10 mood points.", 10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You found a four-leaf clover. You gain 5 mood points.", 5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You got a negative covid test. You gain 20 mood points.", 20));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a double rainbow while walking home. You gain 5 mood points.", 5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You saw a shooting star. You gain 10 mood points.", 10));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You woke up on the right side of the bed today. You gain 2 mood points.", 5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("Your six pack is starting to show. You gain 5 mood points.", 5));
+    allEvents.push_back(*new VirtualLifeView::EventDetails("You got selected for an all expenses paid tour around the world. You gain 50 mood points.", 50));
 }
 
 void VirtualLifeView::changeStage(){
@@ -215,16 +214,17 @@ void VirtualLifeView::on__actions_clicked()
         actions->addAction("Whack-A-Mole");
 
     } else{
-        actions->addAction("Crawling Game");
         actions->addAction("Memory Card Game");
         actions->addAction("Space Invaders");
         actions->addAction("Whack-A-Mole");
         actions->addAction("Hunting Game");
         actions->addAction("Buy lottery");
+        actions->addAction("Go to a doctor");
     }
     actions->setWindowModality(Qt::ApplicationModal);
     actions->exec();
 
+    connect(actions, &Actions::sigDoctorEnd, this, &VirtualLifeView::handleDoctorEnd);
     connect(actions, &Actions::sigLotteryEnd, this, &VirtualLifeView::handleLotteryEnd);
     connect(actions, &Actions::sigSpaceInvadersEnd, this, &VirtualLifeView::handleSpaceInvadersEnd);
     connect(actions, &Actions::sigMemoryEnd, this, &VirtualLifeView::handleMemoryEnd);
@@ -662,38 +662,38 @@ void VirtualLifeView::on__characters_clicked()
 void VirtualLifeView::generateRandomEvent()
 {
     if(allEvents.size() > 0){
-//            int prob = QRandomGenerator::global()->bounded(101);
-//            if(prob < 40){
-        int index = QRandomGenerator::global()->bounded(allEvents.size());
-        QMessageBox msg;
-        msg.setText(allEvents.at(index).description);
-        msg.exec();
-        ui->textBrowser->append(allEvents.at(index).description);
+        int prob = QRandomGenerator::global()->bounded(101);
+        if(prob < 40){
+            int index = QRandomGenerator::global()->bounded(allEvents.size());
+            QMessageBox msg;
+            msg.setText(allEvents.at(index).description);
+            msg.exec();
+            ui->textBrowser->append(allEvents.at(index).description);
 
-        if(allEvents.at(index).description.contains("health")){
-            int newHealth = (model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence > 0) ?
-                                qMax(model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence,0) : 0;
-            model->getCurrentCharacter()->setHealth(newHealth);
-            ui->healthval->setText(QString::number(model->getCurrentCharacter()->getHealth()));
-        } else if(allEvents.at(index).description.contains("needs")){
-            int newNeeds = (model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence > 0) ?
-                               qMax(model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence,0) : 0;
-            model->getCurrentCharacter()->setNeeds(newNeeds);
-            ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
-        } else if(allEvents.at(index).description.contains("mood")){
-            int newMood = (model->getCurrentCharacter()->getMood() + allEvents.at(index).influence > 0) ?
-                              qMax(model->getCurrentCharacter()->getMood() + allEvents.at(index).influence,0) : 0;
-            model->getCurrentCharacter()->setMood(newMood);
-            ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
-        } else if(allEvents.at(index).description.contains("intelligence")){
-            int newIntelligence = (model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence > 0) ?
-                                      qMax(model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence,0) : 0;
-            model->getCurrentCharacter()->setIntelligence(newIntelligence);
-            ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+            if(allEvents.at(index).description.contains("health")){
+                int newHealth = (model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence > 0) ?
+                                    qMax(model->getCurrentCharacter()->getHealth() + allEvents.at(index).influence,0) : 0;
+                model->getCurrentCharacter()->setHealth(newHealth);
+                ui->healthval->setText(QString::number(model->getCurrentCharacter()->getHealth()));
+            } else if(allEvents.at(index).description.contains("needs")){
+                int newNeeds = (model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence > 0) ?
+                                   qMax(model->getCurrentCharacter()->getNeeds() + allEvents.at(index).influence,0) : 0;
+                model->getCurrentCharacter()->setNeeds(newNeeds);
+                ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
+            } else if(allEvents.at(index).description.contains("mood")){
+                int newMood = (model->getCurrentCharacter()->getMood() + allEvents.at(index).influence > 0) ?
+                                  qMax(model->getCurrentCharacter()->getMood() + allEvents.at(index).influence,0) : 0;
+                model->getCurrentCharacter()->setMood(newMood);
+                ui->moodval->setText(QString::number(model->getCurrentCharacter()->getMood()));
+            } else if(allEvents.at(index).description.contains("intelligence")){
+                int newIntelligence = (model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence > 0) ?
+                                          qMax(model->getCurrentCharacter()->getIntelligence() + allEvents.at(index).influence,0) : 0;
+                model->getCurrentCharacter()->setIntelligence(newIntelligence);
+                ui->intelligenceval->setText(QString::number(model->getCurrentCharacter()->getIntelligence()));
+            }
+            allEvents.removeAt(index);
+            updateCharacter();
         }
-        allEvents.removeAt(index);
-        updateCharacter();
-        //    }
     }
 }
 
@@ -703,5 +703,23 @@ void VirtualLifeView::on__achievements_clicked()
     achievements = new Achievements(model->getCurrentCharacter());
     achievements->setWindowModality(Qt::ApplicationModal);
     achievements->exec();
+}
+
+void VirtualLifeView::handleDoctorEnd(QString selectedDoc)
+{
+    if(selectedDoc == "GP"){
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() - 12000);
+        model->getCurrentCharacter()->setHealth(qMin(model->getCurrentCharacter()->getHealth() + 10,100));
+    } else if(selectedDoc == "Psychologist"){
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() - 20000);
+        model->getCurrentCharacter()->setHealth(qMin(model->getCurrentCharacter()->getHealth() + 20,100));
+
+    } else{
+        model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() - 35000);
+        model->getCurrentCharacter()->setHealth(qMin(model->getCurrentCharacter()->getHealth() + 50,100));
+    }
+    ui->healthval->setText(QString::number(model->getCurrentCharacter()->getHealth()));
+    ui->wealthval->setText(QString::number(model->getCurrentCharacter()->getWealth()));
+    ui->textBrowser->append("You went to a " + selectedDoc + ". Your health points have been updated.");
 }
 

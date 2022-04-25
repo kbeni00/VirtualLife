@@ -11,11 +11,9 @@ Lottery::Lottery(QWidget *parent) :
     ui(new Ui::Lottery)
 {
     ui->setupUi(this);
-    //Fill with 90 pushbuttons, check the help on the left, set size, put it in a new coloumn, 2D
     int num = 0;
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 10; j++){
-            //do it with i,j instead of num
             QPushButton *button = new QPushButton(QString::number(++num), this);
             ui->gridLayout->addWidget(button,i,j);
             connect(button, &QPushButton::clicked, this, &Lottery::numberGuessed);

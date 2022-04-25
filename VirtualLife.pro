@@ -17,6 +17,7 @@ SOURCES += \
     crawlinggame.cpp \
     crawlinggameparts.cpp \
     difficulty.cpp \
+    doctor.cpp \
     huntinggame.cpp \
     huntinggameparts.cpp \
     initialdata.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     crawlinggame.h \
     crawlinggameparts.h \
     difficulty.h \
+    doctor.h \
     huntinggame.h \
     huntinggameparts.h \
     initialdata.h \
@@ -59,6 +61,7 @@ FORMS += \
     actions.ui \
     assets.ui \
     difficulty.ui \
+    doctor.ui \
     initialdata.ui \
     lottery.ui \
     memorycard.ui \

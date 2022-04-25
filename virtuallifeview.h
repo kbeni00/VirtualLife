@@ -71,6 +71,8 @@ private slots:
 
     void on__achievements_clicked();
 
+    void handleDoctorEnd(QString);
+
 private:
     Ui::VirtualLifeView* ui;
     InitialData* initialData;
