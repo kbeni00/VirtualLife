@@ -6,18 +6,36 @@
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
+#include <QPropertyAnimation>
 
 class AthletePart : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+    Q_PROPERTY(qreal y READ y WRITE setY)
 public:
     explicit AthletePart(QGraphicsItem *parent = nullptr);
-    void shoot();
-    QSize const athleteSize = QSize(100,100);
+    void jump();
+    QSize const athleteSize = QSize(200,200);
+    QPropertyAnimation* getJumpUpAnim() const;
+    QPropertyAnimation* getJumpDownAnim() const;
+    qreal y() const;
+    bool isJumping() const;
+    void fall();
 
 signals:
     void sigIncreaseScore();
     void sigDecreaseScore();
+
+public slots:
+    void setY(qreal y);
+
+private:
+    QTimer* _timer;
+    bool _isJumping;
+    QPixmap jumpPixmap;
+    QPropertyAnimation *jumpUpAnim, *jumpDownAnim;
+    qreal _y;
+    qreal jumpHeight;
 
 };
 
@@ -28,7 +46,7 @@ class ObstaclePart : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     ObstaclePart(int,QGraphicsItem *parent = nullptr);
-    QSize const obstacleSize = QSize(100,100);
+    QSize const obstacleSize = QSize(200,200);
 signals:
     void sigGameOver(bool);
     void sigDecreaseHealth();
@@ -41,20 +59,18 @@ private:
 
 //////////////////////////////////////////////////////
 
-//class BulletPart : public QObject, public QGraphicsPixmapItem
-//{
-//    Q_OBJECT
-//public:
-//    BulletPart(QGraphicsItem *parent = nullptr);
-//signals:
-//    void sigIncreaseScore();
-//    void sigDecreaseScore();
-//public slots:
-//    void onMove();
-//private:
-//    int _bulletSpeed = 5;
+class CoinPart : public QObject, public QGraphicsPixmapItem
+{
+    Q_OBJECT
+public:
+    CoinPart(int,QGraphicsItem *parent = nullptr);
+    QSize const coinSize = QSize(100,100);
+signals:
+    void sigIncreaseScore();
+public slots:
+    void onMove();
 
-//};
+};
 
 ////////////////////////////////////////////////////
 

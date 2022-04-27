@@ -90,5 +90,7 @@
         <file>resources/athletegame/hurdle.png</file>
         <file>resources/athletegame/runner.png</file>
         <file>resources/athletegame/background.png</file>
+        <file>resources/athletegame/coin.png</file>
+        <file>resources/sounds/athletegamemusic.mp3</file>
     </qresource>
 </RCC>

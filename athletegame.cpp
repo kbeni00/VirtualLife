@@ -16,30 +16,30 @@
 
 AthleteGame::AthleteGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
-//    mediaPlayer = new QMediaPlayer;
-//    audioOutput = new QAudioOutput;
-//    audioOutput->setVolume(50);
-//    mediaPlayer->setAudioOutput(audioOutput);
-//    mediaPlayer->setSource(QUrl("qrc:/AthleteGame/resources/sounds/athletegamemusic.mp3"));
-//    mediaPlayer->play();
+    mediaPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    audioOutput->setVolume(5);
+    mediaPlayer->setAudioOutput(audioOutput);
+    mediaPlayer->setSource(QUrl("qrc:/athletegame/resources/sounds/athletegamemusic.mp3"));
+    mediaPlayer->play();
 
     _difficulty = difficulty;
     if(difficulty == "Easy"){
-        scoreToReach = 20;
+        scoreToReach = 10;
         maxHealth = 5;
-        obstacleSpeed = 75;
-        obstacleSpawnSpeed = 2000;
+        obstacleSpeed = 15;
+        obstacleSpawnSpeed = 7000;
 
     } else if(difficulty == "Medium"){
-        scoreToReach = 30;
+        scoreToReach = 10;
         maxHealth = 4;
-        obstacleSpeed = 55;
-        obstacleSpawnSpeed = 1650;
+        obstacleSpeed = 10;
+        obstacleSpawnSpeed = 5000;
     } else{
-        scoreToReach = 40;
+        scoreToReach = 10;
         maxHealth = 3;
-        obstacleSpeed = 35;
-        obstacleSpawnSpeed = 1300;
+        obstacleSpeed = 5;
+        obstacleSpawnSpeed = 3000;
     }
     QGraphicsScene* scene = new QGraphicsScene();
     setScene(scene);
@@ -90,14 +90,14 @@ void AthleteGame::keyPressEvent(QKeyEvent *event)
     if(_athlete == nullptr) return;
     switch(event->key()){
     case Qt::Key_Left:
-        if(!isGameOver && _athlete->pos().x() > 0) _athlete->setPos(_athlete->x() - 20, _athlete->y());
+        if(!isGameOver && !_athlete->isJumping() && _athlete->pos().x() > 0) _athlete->setPos(_athlete->x() - 20, _screenSize.height() - (_athlete->athleteSize.height() + 20));
         break;
     case Qt::Key_Right:
-        if(!isGameOver && (_athlete->pos().x() + _athlete->athleteSize.width()) < _screenSize.width()) _athlete->setPos(_athlete->x() + 20, _athlete->y());
+        if(!isGameOver && !_athlete->isJumping() && (_athlete->pos().x() + _athlete->athleteSize.width()) < _screenSize.width()) _athlete->setPos(_athlete->x() + 20, _screenSize.height() - (_athlete->athleteSize.height() + 20));
         break;
     case Qt::Key_Space:
-        if(!isGameOver){
-            _athlete->shoot();
+        if(!isGameOver && !_athlete->isJumping()){
+            _athlete->jump();
         }
         break;
     }
@@ -105,15 +105,16 @@ void AthleteGame::keyPressEvent(QKeyEvent *event)
 
 void AthleteGame::onCreateEnemy()
 {
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
-    int posX = QRandomGenerator::global()->bounded(screenGeometry.width()-_athlete->athleteSize.width());
     ObstaclePart* obstacle = new ObstaclePart(obstacleSpeed);
     obstacle->setPos(_screenSize.width(),_screenSize.height() - 120);
 
+    CoinPart* coin = new CoinPart(obstacleSpeed);
+    coin->setPos(_screenSize.width(),_screenSize.height() - 500);
+
     scene()->addItem(obstacle);
-    connect(obstacle, &ObstaclePart::sigGameOver, this, &AthleteGame::onGameOver);
+    scene()->addItem(coin);
     connect(obstacle, &ObstaclePart::sigDecreaseHealth, this, &AthleteGame::onDecreaseHealth);
+    connect(coin, &CoinPart::sigIncreaseScore, this, &AthleteGame::onIncreaseScore);
 }
 
 void AthleteGame::onIncreaseScore()
@@ -168,7 +169,7 @@ void AthleteGame::onGameOver(bool wonGame)
 
 void AthleteGame::handleExitButton()
 {
-//    mediaPlayer->stop();
+    mediaPlayer->stop();
     this->close();
     emit sigGameOver(isWonGame,_difficulty);
 
