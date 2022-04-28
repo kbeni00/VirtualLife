@@ -103,6 +103,13 @@ void AthleteGame::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void AthleteGame::closeEvent(QCloseEvent *event)
+{
+    if(!finishedNormally){
+        event->ignore();
+    }
+}
+
 void AthleteGame::onCreateEnemy()
 {
     ObstaclePart* obstacle = new ObstaclePart(obstacleSpeed);
@@ -165,6 +172,7 @@ void AthleteGame::onGameOver(bool wonGame)
     //    layout->addRow(exitButton);
     //    groupBox->setLayout(layout);
     isWonGame = wonGame;
+    finishedNormally = true;
 }
 
 void AthleteGame::handleExitButton()

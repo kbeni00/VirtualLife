@@ -16,6 +16,8 @@ public:
     HuntingGame(QSize screenSize, QString difficulty, QWidget* parent = nullptr);
     void run();
     void checkPoints();
+protected:
+    void closeEvent(QCloseEvent* event) override;
 public slots:
     void onCreateEnemy();
     void onUpdateScore(bool);
@@ -37,6 +39,8 @@ private:
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
     QString _difficulty;
+    bool finishedNormally = false;
+
 };
 
 #endif // HUNTINGGAME_H

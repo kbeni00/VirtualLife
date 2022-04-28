@@ -16,6 +16,8 @@ public:
     WhackAMole(QSize screenSize, QString difficulty, QWidget* parent = nullptr);
     void run();
     void checkPoints();
+protected:
+    void closeEvent(QCloseEvent* event) override;
 public slots:
     void onCreateEnemy();
     void onUpdateScore(bool);
@@ -38,6 +40,8 @@ private:
     QAudioOutput* audioOutput;
     QVector<QPointF> holeCoordinates;
     QString _difficulty;
+    bool finishedNormally = false;
+
 };
 
 

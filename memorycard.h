@@ -21,6 +21,8 @@ public:
     ~MemoryCard();
     void setImage(QPushButton*,QString);
 
+protected:
+//    void closeEvent(QCloseEvent* event) override;
 
 private:
     Ui::MemoryCard *ui;
@@ -38,6 +40,8 @@ private:
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
     QString _difficulty;
+    bool finishedNormally = false;
+
 private slots:
     void cardClicked();
     void flipBack();

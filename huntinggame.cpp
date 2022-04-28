@@ -139,6 +139,7 @@ void HuntingGame::onGameOver(bool wonGame)
     //    layout->addRow(exitButton);
     //    groupBox->setLayout(layout);
     isGameWon = wonGame;
+    finishedNormally = true;
 }
 
 void HuntingGame::handleExitButton()
@@ -148,6 +149,13 @@ void HuntingGame::handleExitButton()
     emit sigGameOver(isGameWon,_difficulty);
 }
 
+void HuntingGame::closeEvent(QCloseEvent *event)
+{
+    if(!finishedNormally){
+        event->ignore();
+    }
+}
+
 void HuntingGame::onGameOverTimerUp()
 {
     onGameOver(false);
@@ -155,6 +163,7 @@ void HuntingGame::onGameOverTimerUp()
 
 void HuntingGame::handleSurrender()
 {
+    finishedNormally = true;
     turkeySpawnTimer->stop();
     gameOverTimer->stop();
     mediaPlayer->stop();

@@ -166,6 +166,14 @@ void SpaceInvaders::onGameOver(bool wonGame)
 //    layout->addRow(exitButton);
 //    groupBox->setLayout(layout);
     isWonGame = wonGame;
+    finishedNormally = true;
+}
+
+void SpaceInvaders::closeEvent(QCloseEvent *event)
+{
+    if(!finishedNormally){
+        event->ignore();
+    }
 }
 
 void SpaceInvaders::handleExitButton()

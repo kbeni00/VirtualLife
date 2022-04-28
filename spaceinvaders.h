@@ -18,6 +18,8 @@ public:
     void checkPoints();
 protected:
     void keyPressEvent(QKeyEvent* event) override;
+    void closeEvent(QCloseEvent* event) override;
+
 public slots:
     void onCreateEnemy();
     void onIncreaseScore();
@@ -41,6 +43,8 @@ private:
     QMediaPlayer* mediaPlayer;
     QAudioOutput* audioOutput;
     QString _difficulty;
+    bool finishedNormally = false;
+
 };
 
 #endif // SPACEINVADERS_H

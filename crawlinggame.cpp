@@ -183,6 +183,7 @@ void CrawlingGame::onGameOver(bool wonGame)
     //    layout->addRow(exitButton);
     //    groupBox->setLayout(layout);
     isWonGame = wonGame;
+    finishedNormally = true;
 }
 
 void CrawlingGame::handleExitButton()
@@ -191,6 +192,13 @@ void CrawlingGame::handleExitButton()
     this->close();
     emit sigGameOver(isWonGame,_difficulty);
 
+}
+
+void CrawlingGame::closeEvent(QCloseEvent *event)
+{
+    if(!finishedNormally){
+        event->ignore();
+    }
 }
 
 void CrawlingGame::handleCollision()

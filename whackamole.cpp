@@ -150,6 +150,7 @@ void WhackAMole::onGameOver(bool wonGame)
     //    layout->addRow(exitButton);
     //    groupBox->setLayout(layout);
     isGameWon = wonGame;
+    finishedNormally = true;
 }
 
 void WhackAMole::handleExitButton()
@@ -164,8 +165,16 @@ void WhackAMole::onGameOverTimerUp()
     onGameOver(false);
 }
 
+void WhackAMole::closeEvent(QCloseEvent *event)
+{
+    if(!finishedNormally){
+        event->ignore();
+    }
+}
+
 void WhackAMole::handleSurrender()
 {
+    finishedNormally = true;
     moleSpawnTimer->stop();
     gameOverTimer->stop();
     mediaPlayer->stop();
