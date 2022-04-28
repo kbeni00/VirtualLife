@@ -24,6 +24,10 @@ Achievements::Achievements(Character* character, QWidget *parent) :
         ui->highWealth->setPixmap(QPixmap(":/achievements/resources/achievements/wealthAchievement.png"));
     }
 
+    for(bool res : character->getEasyGamesPlayed()){
+        qDebug() << res;
+    }
+
 //    bool hasAllCollectibles = false;
 
 

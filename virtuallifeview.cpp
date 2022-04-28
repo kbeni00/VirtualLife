@@ -214,6 +214,7 @@ void VirtualLifeView::on__actions_clicked()
         actions->addAction("Whack-A-Mole");
 
     } else{
+        actions->addAction("Crawling Game");
         actions->addAction("Memory Card Game");
         actions->addAction("Space Invaders");
         actions->addAction("Whack-A-Mole");
@@ -232,6 +233,7 @@ void VirtualLifeView::on__actions_clicked()
     connect(actions, &Actions::sigHuntingGameEnd, this, &VirtualLifeView::handleHuntingGameEnd);
     connect(actions, &Actions::sigWhackAMoleEnd, this, &VirtualLifeView::handleWhackAMoleEnd);
     connect(actions, &Actions::sigCrawlingGameEnd, this, &VirtualLifeView::handleCrawlingGameEnd);
+    connect(actions, &Actions::sigAthleteGameEnd, this, &VirtualLifeView::handleAthleteGameEnd);
 }
 
 
@@ -728,6 +730,7 @@ void VirtualLifeView::handleAthleteGameEnd(bool wonGame, QString difficulty)
 {
     if(wonGame){
         if(difficulty == "Easy"){
+            qDebug() << "view debug: " << difficulty;
             model->getCurrentCharacter()->setWealth(model->getCurrentCharacter()->getWealth() + 5000);
             model->getCurrentCharacter()->setIntelligence(model->getCurrentCharacter()->getIntelligence() + 5);
             model->getCurrentCharacter()->setMood(model->getCurrentCharacter()->getMood() + 5);

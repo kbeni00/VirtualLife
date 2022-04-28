@@ -164,6 +164,7 @@ QVector<bool> Character::getHardGamesPlayed()
 
 void Character::increaseEasyGamesPlayed(int x)
 {
+    qDebug() << "character debug: " << x;
     easyGamesPlayed[x] = true;
 }
 
@@ -193,6 +194,9 @@ void Character::read(const QJsonObject &json)
     hasCar = json["hasCar"].toBool();
     foodsTried = json["foodsTried"].toInt();
     QJsonArray easyGames = json["easyGames"].toArray();
+    easyGamesPlayed.clear();
+    mediumGamesPlayed.clear();
+    hardGamesPlayed.clear();
     for(int i = 0; i < easyGames.size(); i++){
         easyGamesPlayed.push_back(easyGames.at(i).toBool());
     }
