@@ -1,11 +1,4 @@
 #include "virtuallifemodel.h"
-#include <QRandomGenerator>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QVector>
-#include <QFile>
-#include <QJsonDocument>
-#include <QCborMap>
 
 VirtualLifeModel::VirtualLifeModel(QObject *parent)
     : QObject{parent}

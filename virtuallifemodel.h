@@ -4,7 +4,7 @@
 #include <QObject>
 #include "character.h"
 #include "virtuallifedataaccess.h"
-#include <QString>
+#include <QRandomGenerator>
 
 class VirtualLifeModel : public QObject
 {

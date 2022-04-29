@@ -1,10 +1,4 @@
 #include "huntinggameparts.h"
-#include "qapplication.h"
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QRandomGenerator>
-#include <QGraphicsSceneMouseEvent>
 
 TurkeyPart::TurkeyPart(int turkeySpeed, QGraphicsItem *parent)
 {

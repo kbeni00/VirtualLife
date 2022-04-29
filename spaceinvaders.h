@@ -1,13 +1,18 @@
 #ifndef SPACEINVADERS_H
 #define SPACEINVADERS_H
 
-#include <QPointer>
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <spaceinvadersparts.h>
 #include <QSize>
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
+#include <QGraphicsProxyWidget>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QFormLayout>
+#include <QRandomGenerator>
 
 class SpaceInvaders : public QGraphicsView
 {

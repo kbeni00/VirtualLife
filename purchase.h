@@ -2,6 +2,8 @@
 #define PURCHASE_H
 
 #include <QDialog>
+#include <QMessageBox>
+#include <QDirIterator>
 
 namespace Ui {
 class Purchase;

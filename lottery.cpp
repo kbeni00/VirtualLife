@@ -1,10 +1,5 @@
 #include "lottery.h"
 #include "ui_lottery.h"
-#include "QPushButton"
-#include "QSignalMapper"
-#include "QMessageBox"
-#include "QRandomGenerator"
-#include <QtAlgorithms>
 
 Lottery::Lottery(QWidget *parent) :
     QDialog(parent),

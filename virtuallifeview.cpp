@@ -1,14 +1,8 @@
 #include "virtuallifeview.h"
 #include "ui_virtuallifeview.h"
-#include "QMessageBox"
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QInputDialog>
-#include <QDir>
-#include <QRandomGenerator>
-#include <QThread>
 
 //TODO: egyszer beolvansi a neveket egy tömbbe és utána onnan kiszedni a neveket, nem a fájlból olvasni mindig
+//TODO: alert player if an achievement has been unlocked
 
 VirtualLifeView::VirtualLifeView(QWidget *parent)
     : QMainWindow(parent)
@@ -301,8 +295,7 @@ void VirtualLifeView::handleSpaceInvadersEnd(bool wonGame, QString difficulty)
         ui->textBrowser->append("You lost a Space Invaders game on " + difficulty + " difficulty.");
 
     }
-
-
+    model->getCurrentCharacter()->increaseGamesPlayed();
     generateRandomEvent();
 
 }
@@ -363,8 +356,7 @@ void VirtualLifeView::handleMemoryEnd(QString difficulty)
 
     ui->textBrowser->append("You won a Memory Card game on " + difficulty + " difficulty. Your rewards have been added to your character.");
 
-
-
+    model->getCurrentCharacter()->increaseGamesPlayed();
     generateRandomEvent();
 }
 
@@ -401,8 +393,8 @@ void VirtualLifeView::handleHuntingGameEnd(bool wonGame, QString difficulty)
         model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
         ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     }
+    model->getCurrentCharacter()->increaseGamesPlayed();
     generateRandomEvent();
-
 }
 
 
@@ -452,8 +444,8 @@ void VirtualLifeView::handleWhackAMoleEnd(bool wonGame, QString difficulty)
         ui->textBrowser->append("You lost a Whack-A-Mole game on " + difficulty + " difficulty.");
 
     }
+    model->getCurrentCharacter()->increaseGamesPlayed();
     generateRandomEvent();
-
 }
 
 void VirtualLifeView::handleCrawlingGameEnd(bool wonGame, QString difficulty)
@@ -479,6 +471,7 @@ void VirtualLifeView::handleCrawlingGameEnd(bool wonGame, QString difficulty)
         ui->textBrowser->append("You lost a Crawling Game on " + difficulty + " difficulty.");
 
     }
+    model->getCurrentCharacter()->increaseGamesPlayed();
     generateRandomEvent();
 }
 void VirtualLifeView::handleLotteryEnd(int wonAmount)
@@ -495,27 +488,27 @@ void VirtualLifeView::handleBoughtItem(QString itemName, int itemPrice)
     if(itemName.contains("sushi")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 5);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 5);
-        model->getCurrentCharacter()->increaseFoodsTried(1);
+        model->getCurrentCharacter()->increaseFoodsTried();
     } else if(itemName.contains("pizza")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 2);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 6);
-        model->getCurrentCharacter()->increaseFoodsTried(1);
+        model->getCurrentCharacter()->increaseFoodsTried();
     } else if(itemName.contains("fruits")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 5);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 3);
-        model->getCurrentCharacter()->increaseFoodsTried(1);
+        model->getCurrentCharacter()->increaseFoodsTried();
     } else if(itemName.contains("fastfood")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 1);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 4);
-        model->getCurrentCharacter()->increaseFoodsTried(1);
+        model->getCurrentCharacter()->increaseFoodsTried();
     } else if(itemName.contains("pancakes")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 1);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 2);
-        model->getCurrentCharacter()->increaseFoodsTried(1);
+        model->getCurrentCharacter()->increaseFoodsTried();
     } else if(itemName.contains("prime")){
         model->getCurrentCharacter()->setHealth(model->getCurrentCharacter()->getHealth() + 15);
         model->getCurrentCharacter()->setNeeds(model->getCurrentCharacter()->getNeeds() + 7);
-        model->getCurrentCharacter()->increaseFoodsTried(1);
+        model->getCurrentCharacter()->increaseFoodsTried();
     }
 
     int posSlash = itemName.lastIndexOf(QChar('/')) + 1;
@@ -760,5 +753,6 @@ void VirtualLifeView::handleAthleteGameEnd(bool wonGame, QString difficulty)
         model->getCurrentCharacter()->setNeeds(qMax(model->getCurrentCharacter()->getNeeds() - 5,0));
         ui->needsval->setText(QString::number(model->getCurrentCharacter()->getNeeds()));
     }
+    model->getCurrentCharacter()->increaseGamesPlayed();
     generateRandomEvent();
 }

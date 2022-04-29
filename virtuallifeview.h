@@ -8,7 +8,10 @@
 #include "purchase.h"
 #include "assets.h"
 #include "achievements.h"
-#include <QMap>
+#include "QMessageBox"
+#include <QDir>
+#include <QInputDialog>
+#include <QRandomGenerator>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class VirtualLifeView; }

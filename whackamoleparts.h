@@ -3,9 +3,12 @@
 
 #include <QObject>
 #include <QKeyEvent>
-#include <QGraphicsSimpleTextItem>
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
+#include <QPushButton>
+#include <QTimer>
+#include <QRandomGenerator>
+#include <QGraphicsSceneMouseEvent>
 
 
 class MolePart : public QObject, public QGraphicsPixmapItem

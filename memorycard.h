@@ -6,6 +6,9 @@
 #include "character.h"
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
+#include <QRandomGenerator>
+#include <QTimer>
+#include <QMessageBox>
 
 
 namespace Ui {

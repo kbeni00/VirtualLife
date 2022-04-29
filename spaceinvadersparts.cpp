@@ -1,7 +1,4 @@
 #include "spaceinvadersparts.h"
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
 
 CannonPart::CannonPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {

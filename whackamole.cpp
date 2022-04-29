@@ -1,15 +1,4 @@
 #include "whackamole.h"
-#include <QTimer>
-#include <QDebug>
-#include <QMessageBox>
-#include <QTime>
-#include <QPushButton>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsSceneMouseEvent>
-#include <QRandomGenerator>
-#include <QApplication>
-#include <QGraphicsItem>
-
 
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
 WhackAMole::WhackAMole(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
@@ -39,9 +28,7 @@ WhackAMole::WhackAMole(QSize screenSize, QString difficulty, QWidget *parent) : 
     QGraphicsScene* scene = new QGraphicsScene();
     scene->installEventFilter(this);
     setScene(scene);
-    QScreen *pscreen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = pscreen->geometry();
-    scene->setSceneRect(0,0,screenGeometry.width(),screenGeometry.height());
+    scene->setSceneRect(0,0,_screenSize.width(),_screenSize.height());
     setBackgroundBrush(QBrush(QImage(":/whackamole/resources/whackamole/whackamolebg.png").scaled(QSize(_screenSize.width(),_screenSize.height()))));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

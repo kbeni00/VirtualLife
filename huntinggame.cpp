@@ -1,15 +1,4 @@
 #include "huntinggame.h"
-#include <QTimer>
-#include <QDebug>
-#include <QMessageBox>
-#include <QTime>
-#include <QPushButton>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsSceneMouseEvent>
-#include <QRandomGenerator>
-#include <QApplication>
-#include <QGraphicsItem>
-
 
 //TODO: Difficulty levels alter the speed of the aliens -> new window which has a settings, start, exit button
 HuntingGame::HuntingGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
@@ -84,10 +73,8 @@ void HuntingGame::checkPoints()
 void HuntingGame::onCreateEnemy()
 {
     TurkeyPart* turkey = new TurkeyPart(turkeySpeed);
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
-    int posX = QRandomGenerator::global()->bounded(screenGeometry.width()-turkey->turkeySize.width());
-    int posY = QRandomGenerator::global()->bounded(screenGeometry.height()-turkey->turkeySize.height());
+    int posX = QRandomGenerator::global()->bounded(_screenSize.width()-turkey->turkeySize.width());
+    int posY = QRandomGenerator::global()->bounded(_screenSize.height()-turkey->turkeySize.height());
 
     turkey->setPos(posX,posY);
     turkey->setFlag((QGraphicsItem::ItemIsFocusable));

@@ -6,6 +6,8 @@
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
+#include <QTimer>
+#include <QGraphicsScene>
 
 class CannonPart : public QObject, public QGraphicsPixmapItem
 {

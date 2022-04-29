@@ -6,7 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include "character.h"
-#include <QString>
+#include <QFileDialog>
 
 class VirtualLifeDataAccess
 {

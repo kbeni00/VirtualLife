@@ -2,6 +2,8 @@
 #define ASSETS_H
 
 #include <QDialog>
+#include <QLayoutItem>
+
 
 namespace Ui {
 class Assets;

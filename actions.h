@@ -12,6 +12,7 @@
 #include "doctor.h"
 #include "athletegame.h"
 #include <QComboBox>
+#include <QMessageBox>
 
 namespace Ui {
 class Actions;

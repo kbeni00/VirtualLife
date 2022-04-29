@@ -1,18 +1,4 @@
 #include "athletegame.h"
-#include "qapplication.h"
-#include "qlabel.h"
-#include "qtextdocument.h"
-#include <QTimer>
-#include <QDebug>
-#include <QMessageBox>
-#include <QTime>
-#include <QEventLoop>
-#include <QColor>
-#include <QPushButton>
-#include <QGraphicsProxyWidget>
-#include <QGroupBox>
-#include <QFormLayout>
-#include <QRandomGenerator>
 
 AthleteGame::AthleteGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {

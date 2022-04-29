@@ -1,18 +1,4 @@
 #include "crawlinggame.h"
-#include "qapplication.h"
-#include "qlabel.h"
-#include "qtextdocument.h"
-#include <QTimer>
-#include <QDebug>
-#include <QMessageBox>
-#include <QTime>
-#include <QEventLoop>
-#include <QColor>
-#include <QPushButton>
-#include <QGraphicsProxyWidget>
-#include <QGroupBox>
-#include <QFormLayout>
-#include <QRandomGenerator>
 
 CrawlingGame::CrawlingGame(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
 {
@@ -120,10 +106,8 @@ void CrawlingGame::keyPressEvent(QKeyEvent *event)
 
 void CrawlingGame::onCreateEnemy()
 {
-    QScreen *screen = QApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
-    int posX = QRandomGenerator::global()->bounded(screenGeometry.width()-_baby->babySize.width());
-    int posY = QRandomGenerator::global()->bounded(screenGeometry.height()-_baby->babySize.height());
+    int posX = QRandomGenerator::global()->bounded(_screenSize.width()-_baby->babySize.width());
+    int posY = QRandomGenerator::global()->bounded(_screenSize.height()-_baby->babySize.height());
     ToyPart* toy = new ToyPart(toySpeed);
     toy->setPos(posX,posY);
 

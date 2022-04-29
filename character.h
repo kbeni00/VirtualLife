@@ -2,7 +2,9 @@
 #define CHARACTER_H
 
 #include <QObject>
-#include <string>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QVector>
 
 class Character : public QObject
 {
@@ -21,6 +23,7 @@ private:
     bool hasHouse = false;
     bool hasCar = false;
     int foodsTried;
+    int gamesPlayed;
     QVector<bool> easyGamesPlayed = {false,false,false,false,false,false};
     QVector<bool> mediumGamesPlayed = {false,false,false,false,false,false};
     QVector<bool> hardGamesPlayed = {false,false,false,false,false,false};
@@ -55,7 +58,9 @@ public:
     bool getHasCar();
     void setHasCar(bool);
     int getFoodsTried();
-    void increaseFoodsTried(int);
+    void increaseFoodsTried();
+    int getGamesPlayed();
+    void increaseGamesPlayed();
     QVector<bool> getEasyGamesPlayed();
     void increaseEasyGamesPlayed(int);
     QVector<bool> getMediumGamesPlayed();

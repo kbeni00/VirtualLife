@@ -1,10 +1,6 @@
 #include "purchase.h"
 #include "ui_purchase.h"
-#include <QString>
-#include <QDirIterator>
-#include <QPushButton>
-#include <QLayoutItem>
-#include <QMessageBox>
+
 
 //TODO: linked list qvector helyett, hogy mikor rányomsz a gombra akk a prev v a next kelljen
 Purchase::Purchase(QWidget *parent) :

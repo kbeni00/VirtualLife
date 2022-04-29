@@ -6,6 +6,10 @@
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
+#include <QTimer>
+#include <QGraphicsScene>
+#include <QRandomGenerator>
+#include <QGraphicsSceneMouseEvent>
 
 
 class TurkeyPart : public QObject, public QGraphicsPixmapItem

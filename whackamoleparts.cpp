@@ -1,11 +1,4 @@
 #include "whackamoleparts.h"
-#include "qapplication.h"
-#include "qpushbutton.h"
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QRandomGenerator>
-#include <QGraphicsSceneMouseEvent>
 
 MolePart::MolePart(int moleSpeed, QGraphicsItem *parent)
 {

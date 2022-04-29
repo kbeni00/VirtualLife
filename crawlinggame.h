@@ -8,6 +8,9 @@
 #include <QSize>
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QGraphicsProxyWidget>
 
 class CrawlingGame : public QGraphicsView
 {

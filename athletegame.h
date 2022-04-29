@@ -1,14 +1,15 @@
 #ifndef ATHLETEGAME_H
 #define ATHLETEGAME_H
 
-
-#include <QPointer>
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <athletegameparts.h>
 #include <QSize>
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
+#include <QPushButton>
+#include <QGraphicsProxyWidget>
+#include <QRandomGenerator>
 
 class AthleteGame : public QGraphicsView
 {

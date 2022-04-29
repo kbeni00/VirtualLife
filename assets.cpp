@@ -1,7 +1,5 @@
 #include "assets.h"
 #include "ui_assets.h"
-#include <QLayoutItem>
-#include <QLabel>
 
 Assets::Assets(QVector<QString> items, QWidget *parent) :
     QDialog(parent),

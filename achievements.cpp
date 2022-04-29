@@ -1,6 +1,5 @@
 #include "achievements.h"
 #include "ui_achievements.h"
-#include <QtAlgorithms>
 
 Achievements::Achievements(Character* character, QWidget *parent) :
     QDialog(parent),
@@ -23,19 +22,18 @@ Achievements::Achievements(Character* character, QWidget *parent) :
     if(character->getWealth() >= 100000){
         ui->highWealth->setPixmap(QPixmap(":/achievements/resources/achievements/wealthAchievement.png"));
     }
-
-    for(bool res : character->getEasyGamesPlayed()){
-        qDebug() << res;
+    QVector<QString> assets = character->getAssets();
+    std::sort(assets.begin(),assets.end());
+    assets.erase(std::unique(assets.begin(), assets.end()),assets.end());
+    for(QString asset : assets) qDebug() << asset;
+    if(assets.size() == 6){
+        ui->allCollectibles->setPixmap(QPixmap(":/achievements/resources/achievements/collectiblesAchievement.png"));
     }
-
-//    bool hasAllCollectibles = false;
-
-
-//    if(hasAllCars && hasAllHouses){
-//        ui->allCollectibles->setPixmap(QPixmap(":/achievements/resources/achievements/collectiblesAchievement.png"));
-//    }
-    if(character->getFoodsTried() == 6){
+    if(character->getFoodsTried() >= 30){
         ui->allFoods->setPixmap(QPixmap(":/achievements/resources/achievements/foodAchievement.png"));
+    }
+    if(character->getGamesPlayed() >= 30){
+        ui->allFoods->setPixmap(QPixmap(":/achievements/resources/achievements/gameAchievement"));
     }
     if(!character->getEasyGamesPlayed().contains(false)){
         ui->allEasy->setPixmap(QPixmap(":/achievements/resources/achievements/easyAchievement.png"));

@@ -1,12 +1,14 @@
 #ifndef HUNTINGGAME_H
 #define HUNTINGGAME_H
 
-#include <QPointer>
-#include <QGraphicsView>
 #include <QKeyEvent>
+#include <QGraphicsView>
 #include <huntinggameparts.h>
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QGraphicsProxyWidget>
 
 
 class HuntingGame : public QGraphicsView

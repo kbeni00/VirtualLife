@@ -1,6 +1,5 @@
 #include "actions.h"
 #include "ui_actions.h"
-#include <QMessageBox>
 
 Actions::Actions(QWidget *parent) :
     QDialog(parent),

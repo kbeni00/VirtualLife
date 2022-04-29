@@ -1,10 +1,5 @@
 #include "memorycard.h"
 #include "ui_memorycard.h"
-#include <QRandomGenerator>
-#include <QVector>
-#include <QThread>
-#include <QTimer>
-#include <QMessageBox>
 
 //shuffle the vector
 MemoryCard::MemoryCard(QString difficulty, QWidget *parent) :

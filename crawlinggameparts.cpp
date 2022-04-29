@@ -1,9 +1,4 @@
 #include "crawlinggameparts.h"
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QRandomGenerator>
-#include <QApplication>
 
 BabyPart::BabyPart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {

@@ -7,6 +7,8 @@
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 #include <QPropertyAnimation>
+#include <QTimer>
+#include <QGraphicsScene>
 
 class AthletePart : public QObject, public QGraphicsPixmapItem
 {

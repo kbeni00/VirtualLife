@@ -1,5 +1,4 @@
 #include "virtuallifedataaccess.h"
-#include <QFileDialog>
 
 VirtualLifeDataAccess::VirtualLifeDataAccess()
 {

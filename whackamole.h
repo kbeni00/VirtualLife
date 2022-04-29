@@ -1,13 +1,13 @@
 #ifndef WHACKAMOLE_H
 #define WHACKAMOLE_H
 
-
-#include <QPointer>
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <whackamoleparts.h>
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsSceneMouseEvent>
 
 class WhackAMole : public QGraphicsView
 {

@@ -1,7 +1,4 @@
 #include "character.h"
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QVector>
 
 Character::Character(QObject *parent)
     : QObject{parent}
@@ -142,9 +139,19 @@ int Character::getFoodsTried()
     return foodsTried;
 }
 
-void Character::increaseFoodsTried(int x)
+void Character::increaseFoodsTried()
 {
-    foodsTried += x;
+    foodsTried++;
+}
+
+int Character::getGamesPlayed()
+{
+    return gamesPlayed;
+}
+
+void Character::increaseGamesPlayed()
+{
+    gamesPlayed++;
 }
 
 QVector<bool> Character::getEasyGamesPlayed()
@@ -193,6 +200,7 @@ void Character::read(const QJsonObject &json)
     hasHouse = json["hasHouse"].toBool();
     hasCar = json["hasCar"].toBool();
     foodsTried = json["foodsTried"].toInt();
+    gamesPlayed = json["gamesPlayed"].toInt();
     QJsonArray easyGames = json["easyGames"].toArray();
     easyGamesPlayed.clear();
     mediumGamesPlayed.clear();
@@ -231,6 +239,7 @@ void Character::write(QJsonObject &json) const
     json["hasHouse"] = hasHouse;
     json["hasCar"] = hasCar;
     json["foodsTried"] = foodsTried;
+    json["gamesPlayed"] = gamesPlayed;
     QJsonArray easyGames;
     for(int i = 0; i < easyGamesPlayed.size(); i++){
         QJsonValue val(easyGamesPlayed.at(i));

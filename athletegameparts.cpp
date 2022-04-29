@@ -1,7 +1,4 @@
 #include "athletegameparts.h"
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
 
 AthletePart::AthletePart(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {

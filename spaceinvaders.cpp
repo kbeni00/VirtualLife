@@ -1,19 +1,4 @@
 #include "spaceinvaders.h"
-#include "qapplication.h"
-#include "qlabel.h"
-#include "qtextdocument.h"
-#include <QTimer>
-#include <QDebug>
-#include <QMessageBox>
-#include <QTime>
-#include <QEventLoop>
-#include <QColor>
-#include <QPushButton>
-#include <QGraphicsProxyWidget>
-#include <QGroupBox>
-#include <QFormLayout>
-#include <QRandomGenerator>
-
 
 //TODO: improve game over method
 SpaceInvaders::SpaceInvaders(QSize screenSize, QString difficulty, QWidget *parent) : QGraphicsView(parent),_screenSize(screenSize)
@@ -107,9 +92,7 @@ void SpaceInvaders::keyPressEvent(QKeyEvent *event)
 
 void SpaceInvaders::onCreateEnemy()
 {
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
-    int posX = QRandomGenerator::global()->bounded(screenGeometry.width()-_cannon->cannonSize.width());
+    int posX = QRandomGenerator::global()->bounded(_screenSize.width()-_cannon->cannonSize.width());
     AlienPart* alien = new AlienPart(alienSpeed);
     alien->setPos(posX,0);
 

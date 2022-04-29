@@ -2,6 +2,9 @@
 #define LOTTERY_H
 
 #include <QDialog>
+#include "QPushButton"
+#include "QMessageBox"
+#include "QRandomGenerator"
 
 namespace Ui {
 class Lottery;
