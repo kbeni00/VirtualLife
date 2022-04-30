@@ -1,4 +1,6 @@
 #include "virtuallifedataaccess.h"
+#include <QDir>
+#include <QMessageBox>
 
 VirtualLifeDataAccess::VirtualLifeDataAccess()
 {
@@ -73,7 +75,10 @@ void VirtualLifeDataAccess::write(QJsonObject &json, QVector<Character*> &charac
 
 bool VirtualLifeDataAccess::loadGame(QString name, QVector<Character*> &characters, Character* &currentCharacter)
 {
-    QFile loadFile(QStringLiteral("save.json"));
+    QDir dir;
+    QString path = dir.absolutePath(); //location of the file, assuming in application dir
+    path.append("/save.json");
+    QFile loadFile(path);
 
 
     if (!loadFile.open(QIODevice::ReadOnly)) {
@@ -88,26 +93,27 @@ bool VirtualLifeDataAccess::loadGame(QString name, QVector<Character*> &characte
     read(loadDoc.object(), name, characters,currentCharacter);
 
     if(readError){
-        qWarning("No such character.");
+        qWarning("No such character in the database.");
     }
     return true;
 }
 
 bool VirtualLifeDataAccess::saveGame(QVector<Character*> &characters)
 {
-    QFile saveFile(QStringLiteral("save.json"));
+    QDir dir;
+    QString path = dir.absolutePath(); //location of the file, assuming in application dir
+    path.append("/save.json");
+    QFile saveFile(path);
 
-    if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file.");
+
+    if (!saveFile.open(QIODevice::ReadWrite)) {
         return false;
     }
-
     QJsonObject gameObject;
     write(gameObject,characters);
     saveFile.write(QJsonDocument(gameObject).toJson());
 
     saveFile.close();
-
 
     return true;
 }
